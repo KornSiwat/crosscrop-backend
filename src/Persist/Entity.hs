@@ -1,12 +1,10 @@
 {-# LANGUAGE DataKinds                  #-}
 {-# LANGUAGE DerivingStrategies         #-}
-{-# LANGUAGE EmptyDataDecls             #-}
 {-# LANGUAGE FlexibleInstances          #-}
 {-# LANGUAGE GADTs                      #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MultiParamTypeClasses      #-}
-{-# LANGUAGE NoImplicitPrelude          #-}
-{-# LANGUAGE OverloadedStrings          #-}
+{-# LANGUAGE QuasiQuotes                #-}
 {-# LANGUAGE StandaloneDeriving         #-}
 {-# LANGUAGE TemplateHaskell            #-}
 {-# LANGUAGE TypeFamilies               #-}
@@ -14,10 +12,38 @@
 
 module Persist.Entity where
 
-import           ClassyPrelude.Yesod    (Text, Typeable, mkMigrate, mkPersist,
-                                         persistFileWith, share, sqlSettings)
-import           Database.Persist.Quasi (lowerCaseSettings)
+import           ClassyPrelude.Yesod
+import           Data.Time
+
+import           Persist.Field.JsonB
+
 
 share
   [mkPersist sqlSettings, mkMigrate "migrateAll"]
-  $(persistFileWith lowerCaseSettings "config/Entities")
+  [persistLowerCase|
+
+  UserEntity sql=user
+    ident Text
+    password Text Maybe
+    UniqueUser ident
+    deriving Typeable
+
+  GermplasmEntity sql=germplasm
+    name Text
+    attributes JsonB
+    workflowId WorkflowComponentEntityId
+    createdOn UTCTime default=now()
+    updatedOn UTCTime Maybe
+    deletedOn UTCTime Maybe
+
+  WorkflowComponentEntity sql=workflow_component
+    name Text
+    seasonId  SeasonEntityId
+    createdOn UTCTime default=now()
+    updatedOn UTCTime Maybe
+    deletedOn UTCTime Maybe
+
+  SeasonEntity sql=season
+    seasonNo Int
+    year Int
+  |]

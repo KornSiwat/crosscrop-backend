@@ -110,7 +110,7 @@ instance YesodPersistRunner App where
     getDBRunner = defaultGetDBRunner appConnPool
 
 instance YesodAuth App where
-    type AuthId App = UserId
+    type AuthId App = UserEntityId
 
     -- Where to send a user after successful login
     loginDest :: App -> Route App
@@ -128,9 +128,9 @@ instance YesodAuth App where
         x <- getBy $ UniqueUser $ credsIdent creds
         case x of
             Just (Entity uid _) -> return $ Authenticated uid
-            Nothing -> Authenticated <$> insert User
-                { userIdent = credsIdent creds
-                , userPassword = Nothing
+            Nothing -> Authenticated <$> insert UserEntity
+                { userEntityIdent = credsIdent creds
+                , userEntityPassword = Nothing
                 }
 
     -- You can add other plugins like Google Email, email or OAuth here

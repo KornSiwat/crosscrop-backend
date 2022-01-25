@@ -41,6 +41,7 @@ dependencies:
   - wai
   - foreign-store
   - attoparsec
+  - lens
 
 # The library contains all of our application code. The executable
 # defined below is just a thin wrapper.
