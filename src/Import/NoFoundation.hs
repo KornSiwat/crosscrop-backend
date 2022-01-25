@@ -6,7 +6,7 @@ module Import.NoFoundation
     ) where
 
 import           ClassyPrelude.Yesod   as Import
-import           Entity                as Import
+import           Persist.Entity    as Import
 import           Settings              as Import
 import           Settings.StaticFiles  as Import
 import           Yesod.Auth            as Import

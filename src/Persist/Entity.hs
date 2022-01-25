@@ -1,3 +1,4 @@
+{-# LANGUAGE DataKinds                  #-}
 {-# LANGUAGE DerivingStrategies         #-}
 {-# LANGUAGE EmptyDataDecls             #-}
 {-# LANGUAGE FlexibleInstances          #-}
@@ -11,7 +12,7 @@
 {-# LANGUAGE TypeFamilies               #-}
 {-# LANGUAGE UndecidableInstances       #-}
 
-module Entity where
+module Persist.Entity where
 
 import           ClassyPrelude.Yesod    (Text, Typeable, mkMigrate, mkPersist,
                                          persistFileWith, share, sqlSettings)
