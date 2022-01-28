@@ -8,3 +8,5 @@
 /robots.txt RobotsR GET
 
 / HomeR GET
+
+/germplasm GermplasmR GET
