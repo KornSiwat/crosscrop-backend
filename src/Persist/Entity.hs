@@ -30,7 +30,7 @@ share
   GermplasmEntity sql=germplasm
     name Text
     attributes JsonB
-    workflowId WorkflowComponentEntityId
+    workflowId WorkflowComponentEntityId Maybe
     createdOn UTCTime default=now()
     updatedOn UTCTime Maybe
     deletedOn UTCTime Maybe

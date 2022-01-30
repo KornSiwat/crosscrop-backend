@@ -32,3 +32,6 @@ instance PersistField JsonB where
 
 instance PersistFieldSql JsonB where
   sqlType _ = SqlOther "jsonb"
+
+empty :: JsonB
+empty = JsonB A.Null

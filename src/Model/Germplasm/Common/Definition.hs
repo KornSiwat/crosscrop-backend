@@ -16,9 +16,9 @@ import           Model.Germplasm.Common.Attribute
 -- Germplasm
 data Germplasm =
   Germplasm
-    { _id         :: GermplasmId
-    , _name       :: GermplasmName
-    , _attributes :: Attributes
+    { _germplasmId :: GermplasmId
+    , _name        :: GermplasmName
+    , _attributes  :: Attributes
     }
   deriving (Show, Eq)
 
@@ -26,7 +26,7 @@ makeFieldsNoPrefix ''Germplasm
 
 makeGermplasm ::
      GermplasmId -> GermplasmName -> Attributes -> Either Error Germplasm
-makeGermplasm x y zs = Right Germplasm {_id = x, _name = y, _attributes = zs}
+makeGermplasm x y zs = Right Germplasm {_germplasmId = x, _name = y, _attributes = zs}
 
 -- Female Germplasm
 newtype FemaleGermplasm =
