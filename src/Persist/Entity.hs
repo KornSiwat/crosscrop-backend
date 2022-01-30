@@ -13,7 +13,6 @@
 module Persist.Entity where
 
 import           ClassyPrelude.Yesod
-import           Data.Time
 
 import           Persist.Field.JsonB
 

@@ -10,19 +10,9 @@
 -- declared in the Foundation.hs file.
 module Settings where
 
-import           ClassyPrelude.Yesod         (Bool (False), ByteString,
-                                              CombineSettings, Default (def),
-                                              FromJSON (parseJSON), Int,
-                                              IsString (fromString), Maybe,
-                                              Monad (return), Monoid (mempty),
-                                              RenderRoute (Route), Static,
-                                              String, Text, Value,
-                                              combineScripts',
-                                              combineStylesheets', either,
-                                              error, id, ($), (.:), (<$>))
+import           ClassyPrelude.Yesod
 import qualified Control.Exception           as Exception
-import           Data.Aeson                  (Result (..), fromJSON, withObject,
-                                              (.!=), (.:?))
+import           Data.Aeson
 import           Data.FileEmbed              (embedFile)
 import           Data.Yaml                   (decodeEither')
 import           Database.Persist.Postgresql (PostgresConf)
