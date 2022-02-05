@@ -3,15 +3,14 @@
 module Model.Germplasm.Common.Attribute where
 
 import           Data.Aeson           as A
-import           Data.Map             (Map)
-import           Data.Scientific
+import           Data.HashMap.Lazy
+import           Data.Hashable
 import           Data.Text
 import           Data.Time            (UTCTime)
-import           Database.Persist.Sql
 
 import           Class.ToKey
-import           Helper.Converter
-
+import           Database.Persist.Sql
+import           Helper.TypeConverter
 
 -- Basic Attributes
 newtype GermplasmId =
@@ -29,33 +28,24 @@ newtype AttributeName
   = AttributeName Text
   deriving (Show, Eq, Read, Ord, A.ToJSONKey)
 
+instance Hashable AttributeName where
+  hashWithSalt salt (AttributeName x) = hashWithSalt salt x
+  hash (AttributeName x) = hash x
+
 data AttributeValue
-  = AttributeString Text
-  | AttributeInt Int
-  | AttributeDouble Double
+  = AttributeText Text
+  | AttributeNumber Double
   | AttributeBool Bool
   | AttributeDateTime UTCTime
   deriving (Show, Read, Eq)
 
 instance A.ToJSON AttributeValue where
-  toJSON (AttributeString x)   = A.toJSON x
-  toJSON (AttributeInt x)      = A.toJSON x
-  toJSON (AttributeDouble x)   = A.toJSON x
+  toJSON (AttributeText x)     = A.toJSON x
+  toJSON (AttributeNumber x)   = A.toJSON x
   toJSON (AttributeBool x)     = A.toJSON x
   toJSON (AttributeDateTime x) = A.toJSON x
 
-type Attributes = Map AttributeName AttributeValue
-
-fromValue :: A.Value -> Maybe AttributeValue
-fromValue (A.Object _) = Nothing
-fromValue (A.Array _) = Nothing
-fromValue (A.String x) = Just $ AttributeString x
-fromValue (A.Number x)
-  | isInteger x = AttributeInt <$> toBoundedInteger x
-  | isFloating x = Just $ AttributeDouble (toRealFloat x :: Double)
-  | otherwise = Nothing
-fromValue (A.Bool x) = Just $ AttributeBool x
-fromValue A.Null = Nothing
+type Attributes = HashMap AttributeName AttributeValue
 
 -- Specific Attributes
 newtype GermplasmCount =

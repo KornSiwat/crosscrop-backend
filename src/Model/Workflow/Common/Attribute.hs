@@ -1,12 +1,14 @@
-{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE FunctionalDependencies #-}
+{-# LANGUAGE MultiParamTypeClasses  #-}
+{-# LANGUAGE TemplateHaskell        #-}
 
 module Model.Workflow.Common.Attribute where
 
-import           Control.Lens         (makeFieldsNoPrefix)
+import           Control.Lens         (makeFields)
 import           Database.Persist.Sql
 
 import           Class.ToKey
-import           Helper.Converter
+import           Helper.TypeConverter
 
 -- Workflow Attributes
 newtype WorkflowId =
@@ -27,12 +29,12 @@ newtype Year =
 
 data Season =
     Season
-        { seasonNo :: SeasonNo
-        , year     :: Year
+        { seasonSeasonNo :: SeasonNo
+        , seasonYear     :: Year
         }
     deriving (Show, Eq)
 
 makeSeason :: SeasonNo -> Year -> Season
 makeSeason = Season
 
-makeFieldsNoPrefix ''Season
+makeFields ''Season

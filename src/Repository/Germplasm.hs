@@ -1,4 +1,10 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE FlexibleInstances      #-}
+{-# LANGUAGE FunctionalDependencies #-}
+{-# LANGUAGE MultiParamTypeClasses  #-}
+{-# LANGUAGE NamedFieldPuns         #-}
+{-# LANGUAGE NoImplicitPrelude      #-}
+{-# LANGUAGE OverloadedStrings      #-}
+{-# LANGUAGE TemplateHaskell        #-}
 
 module Repository.Germplasm where
 
@@ -7,9 +13,11 @@ import           Import
 import           Control.Lens
 
 import           Class.ToKey
-import           Model.Germplasm.Common.Attribute
-import           Model.Germplasm.Common.Definition
-import           Model.Workflow.Common.Attribute
+import           Model.Germplasm.Common.Attribute  (Attributes,
+                                                    GermplasmName (..))
+import           Model.Germplasm.Common.Definition (Germplasm)
+import           Model.Germplasm.Common.Factory
+import           Model.Workflow.Common.Attribute   (WorkflowId (..))
 import           Persist.Entity
 import           Persist.Field.JsonB
 
@@ -19,13 +27,24 @@ getGermplasms = do
 
     return []
 
-createGermplasm :: Germplasm -> Maybe WorkflowId -> Handler (Key GermplasmEntity)
-createGermplasm germplasm workflowId = do
+data CreateGermplasmArgs =
+  CreateGermplasmArgs
+  { _createGermplasmArgsName       :: GermplasmName
+  , _createGermplasmArgsWorkflowId :: Maybe WorkflowId
+  , _createGermplasmArgsAttributes :: Attributes
+  }
+
+makeFields ''CreateGermplasmArgs
+
+createGermplasmArgs = CreateGermplasmArgs (GermplasmName "") Nothing emptyAttributes
+
+createGermplasm :: CreateGermplasmArgs -> Handler (Key GermplasmEntity)
+createGermplasm args = do
     currentTime <- liftIO getCurrentTime
 
-    let (GermplasmName name') = germplasm^.name
-    let workflowId' =  toKey <$> workflowId
-    let attributes' = JsonB $ toJSON $ germplasm^.attributes
+    let (GermplasmName name') = args^.name
+    let workflowId' =  toKey <$> args^.workflowId
+    let attributes' = JsonB $ toJSON $ args^.attributes
     let createdOn = currentTime
     let updatedOn = Nothing
     let deletedOn = Nothing
