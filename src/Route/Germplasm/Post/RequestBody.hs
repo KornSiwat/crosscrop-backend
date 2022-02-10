@@ -4,7 +4,7 @@
 {-# LANGUAGE OverloadedStrings      #-}
 {-# LANGUAGE TemplateHaskell        #-}
 
-module Request.Germplasm.PostGermplasmRequestBody where
+module Route.Germplasm.Post.RequestBody where
 
 import           Control.Lens
 import           Data.Aeson

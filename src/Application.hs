@@ -49,9 +49,9 @@ import           Persist.Entity
 -- Import all relevant handler modules here.
 -- Don't forget to add new modules to your cabal file!
 
-import           Handler.Common
-import           Handler.Germplasm
-import           Handler.Home
+import           Route.Common
+import           Route.Germplasm.Handler
+import           Route.Home
 
 -- This line actually creates our YesodDispatch instance. It is the second half
 mkYesodDispatch "App" resourcesApp

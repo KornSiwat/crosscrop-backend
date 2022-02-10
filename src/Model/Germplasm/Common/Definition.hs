@@ -15,9 +15,9 @@ import           Model.Germplasm.Common.Attribute
 -- Germplasm
 data Germplasm =
   Germplasm
-    { _germplasmId         :: GermplasmId
-    , _germplasmName       :: GermplasmName
-    , _germplasmAttributes :: Attributes
+    { germplasmId         :: GermplasmId
+    , germplasmName       :: GermplasmName
+    , germplasmAttributes :: Attributes
     }
   deriving (Show, Eq)
 

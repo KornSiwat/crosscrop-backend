@@ -6,7 +6,7 @@
 {-# LANGUAGE OverloadedStrings      #-}
 {-# LANGUAGE TemplateHaskell        #-}
 
-module Repository.Germplasm where
+module Repository.Germplasm.Create where
 
 import           Import
 
@@ -15,17 +15,10 @@ import           Control.Lens
 import           Class.ToKey
 import           Model.Germplasm.Common.Attribute  (Attributes,
                                                     GermplasmName (..))
-import           Model.Germplasm.Common.Definition (Germplasm)
 import           Model.Germplasm.Common.Factory
 import           Model.Workflow.Common.Attribute   (WorkflowId (..))
 import           Persist.Entity
 import           Persist.Field.JsonB
-
-getGermplasms :: Handler [Germplasm]
-getGermplasms = do
-    germplasmEntity <- runDB $ selectList ([]:: [Filter GermplasmEntity]) []
-
-    return []
 
 data CreateGermplasmArgs =
   CreateGermplasmArgs
@@ -36,6 +29,7 @@ data CreateGermplasmArgs =
 
 makeFields ''CreateGermplasmArgs
 
+createGermplasmArgs :: CreateGermplasmArgs
 createGermplasmArgs = CreateGermplasmArgs (GermplasmName "") Nothing emptyAttributes
 
 createGermplasm :: CreateGermplasmArgs -> Handler (Key GermplasmEntity)

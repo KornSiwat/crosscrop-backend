@@ -43,8 +43,8 @@ dependencies:
   - attoparsec
   - lens
   - scientific
-  - int-cast
   - hashable
+  - either
 
 # The library contains all of our application code. The executable
 # defined below is just a thin wrapper.

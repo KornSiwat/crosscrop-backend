@@ -9,4 +9,4 @@
 
 / HomeR GET
 
-/germplasm GermplasmR GET POST PUT DELETE
+/germplasm GermplasmR GET POST

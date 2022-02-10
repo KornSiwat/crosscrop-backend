@@ -25,7 +25,7 @@ share
     ident Text
     password Text Maybe
     UniqueUser ident
-    deriving Typeable
+    deriving Typeable Show
 
   GermplasmEntity sql=germplasm
     name Text
@@ -34,6 +34,7 @@ share
     createdOn UTCTime default=now()
     updatedOn UTCTime Maybe
     deletedOn UTCTime Maybe
+    deriving Show
 
   WorkflowComponentEntity sql=workflow_component
     name Text
@@ -41,8 +42,10 @@ share
     createdOn UTCTime default=now()
     updatedOn UTCTime Maybe
     deletedOn UTCTime Maybe
+    deriving Show
 
   SeasonEntity sql=season
     seasonNo Int
     year Int
+    deriving Show
   |]

@@ -4,7 +4,7 @@
 {-# LANGUAGE TemplateHaskell       #-}
 {-# LANGUAGE TypeFamilies          #-}
 
-module Handler.Common where
+module Route.Common where
 
 import           Data.FileEmbed (embedFile)
 import           Import
