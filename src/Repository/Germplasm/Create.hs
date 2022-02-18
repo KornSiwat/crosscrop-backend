@@ -12,11 +12,11 @@ import           Import
 
 import           Control.Lens
 
-import           Class.ToKey
-import           Model.Germplasm.Common.Attribute  (Attributes,
-                                                    GermplasmName (..))
+import           Class.ToPersistKey
+import           Model.Germplasm.Common.Attribute (Attributes,
+                                                   GermplasmName (..))
 import           Model.Germplasm.Common.Factory
-import           Model.Workflow.Common.Attribute   (WorkflowId (..))
+import           Model.Workflow.Common.Attribute  (WorkflowId (..))
 import           Persist.Entity
 import           Persist.Field.JsonB
 

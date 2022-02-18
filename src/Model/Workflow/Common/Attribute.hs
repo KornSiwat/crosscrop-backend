@@ -7,7 +7,7 @@ module Model.Workflow.Common.Attribute where
 import           Control.Lens         (makeFields)
 import           Database.Persist.Sql
 
-import           Class.ToKey
+import           Class.ToPersistKey
 import           Helper.TypeConverter
 
 -- Workflow Attributes
@@ -15,7 +15,7 @@ newtype WorkflowId =
     WorkflowId Int
     deriving (Show, Eq)
 
-instance ToKey WorkflowId where
+instance ToPersistKey WorkflowId where
   toKey (WorkflowId x) =  toSqlKey . intToInt64 $ x
 
 -- Season Attributes

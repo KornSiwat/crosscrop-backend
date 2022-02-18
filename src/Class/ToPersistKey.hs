@@ -1,8 +1,8 @@
 {-# LANGUAGE FlexibleContexts #-}
 
-module Class.ToKey where
+module Class.ToPersistKey where
 
 import           Database.Persist.Sql
 
-class ToKey a where
+class ToPersistKey a where
     toKey :: ToBackendKey SqlBackend record => a -> Key record

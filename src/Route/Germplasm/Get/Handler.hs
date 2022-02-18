@@ -6,14 +6,16 @@
 
 module Route.Germplasm.Get.Handler where
 
-import           Import                    hiding (id)
+import           Control.Monad
+import           Import                                hiding (id)
 
 import           Repository.Germplasm.Read
+import           Route.Germplasm.Get.Presenter.Factory
 
 getGermplasmR :: Handler Value
 getGermplasmR = do
-    getParameters <- reqGetParams <$> getRequest
-
     germplasms <- getGermplasms
 
-    sendResponseStatus status200 (pack . show $ germplasms::Text)
+    case makeGetGermplasmPresenter <$!> germplasms of
+        Right presenter -> sendResponseStatus status200 (toJSON presenter)
+        Left error'     -> sendResponseStatus status500 (tshow $ error'::Text)

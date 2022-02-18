@@ -1,14 +1,17 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE NoImplicitPrelude          #-}
 
 module Model.Germplasm.Common.Attribute where
 
 import           Data.Aeson           as A
-import           Data.HashMap.Lazy
+import           Data.HashMap.Lazy    as HM
 import           Data.Hashable
-import           Data.Text
-import           Data.Time            (UTCTime)
+import           Data.Scientific
+import           Import
 
-import           Class.ToKey
+import           Class.ToJSONKeyText
+import           Class.ToPersistKey
+import           Class.ToValue
 import           Database.Persist.Sql
 import           Helper.TypeConverter
 
@@ -17,7 +20,7 @@ newtype GermplasmId =
     GermplasmId Int
     deriving (Show, Eq)
 
-instance ToKey GermplasmId where
+instance ToPersistKey GermplasmId where
   toKey (GermplasmId x) =  toSqlKey . intToInt64 $ x
 
 newtype GermplasmName =
@@ -27,6 +30,9 @@ newtype GermplasmName =
 newtype AttributeName
   = AttributeName Text
   deriving (Show, Eq, Read, Ord, A.ToJSONKey)
+
+instance ToJSONKeyText AttributeName where
+  toJSONKeyText (AttributeName x) = x
 
 instance Hashable AttributeName where
   hashWithSalt salt (AttributeName x) = hashWithSalt salt x
@@ -44,6 +50,12 @@ instance A.ToJSON AttributeValue where
   toJSON (AttributeNumber x)   = A.toJSON x
   toJSON (AttributeBool x)     = A.toJSON x
   toJSON (AttributeDateTime x) = A.toJSON x
+
+instance ToValue AttributeValue where
+  toValue (AttributeText x)     = A.String x
+  toValue (AttributeNumber x)   = A.Number . fromFloatDigits $ x
+  toValue (AttributeBool x)     = A.Bool x
+  toValue (AttributeDateTime x) = A.String . tshow $ x
 
 type Attributes = HashMap AttributeName AttributeValue
 

@@ -8,17 +8,17 @@ module Model.Germplasm.Common.Definition where
 
 import           Prelude                          hiding (id)
 
-import           Control.Lens                     (makeFields)
+import           Control.Lens                     (makeFieldsNoPrefix)
 
 import           Model.Germplasm.Common.Attribute
 
 -- Germplasm
 data Germplasm =
   Germplasm
-    { germplasmId         :: GermplasmId
-    , germplasmName       :: GermplasmName
-    , germplasmAttributes :: Attributes
+    { _id         :: GermplasmId
+    , _name       :: GermplasmName
+    , _attributes :: Attributes
     }
   deriving (Show, Eq)
 
-makeFields ''Germplasm
+makeFieldsNoPrefix ''Germplasm

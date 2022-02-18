@@ -2,24 +2,25 @@
 
 module Model.Germplasm.Common.Factory where
 
-import Control.Applicative                  ((<|>))
-import Control.Monad
-import Data.Aeson                           as A
-import Data.Either.Combinators
-import Data.HashMap.Lazy
-import Data.Scientific                      (toRealFloat)
-import Data.Text                            (Text)
-import Database.Persist.Class.PersistEntity
-import Database.Persist.Sql
-import Error.Definition
+import           Control.Applicative                  ((<|>))
+import           Control.Monad
+import           Data.Aeson                           as A
+import           Data.Either.Combinators
+import           Data.HashMap.Lazy
+import           Data.Scientific                      (toRealFloat)
+import           Data.Text                            (Text)
+import           Database.Persist.Class.PersistEntity
+import           Database.Persist.Sql
+import           Error.Definition
 
-import Helper.TypeConverter
-import Model.Germplasm.Common.Attribute
-import Model.Germplasm.Common.Definition
-import Persist.Entity                       as E
-import Persist.Field.JsonB                  (JsonB (..))
-import Prelude                              hiding (id, map)
+import           Helper.TypeConverter
+import           Model.Germplasm.Common.Attribute
+import           Model.Germplasm.Common.Definition
+import           Persist.Entity                       as E
+import           Persist.Field.JsonB                  (JsonB (..))
+import           Prelude                              hiding (id, map)
 
+-- Germplasm
 makeGermplasm ::
      GermplasmId -> GermplasmName -> Attributes -> Either Error Germplasm
 makeGermplasm x y z = Right $ Germplasm x y z
@@ -35,6 +36,7 @@ fromEntity entity = do
 
      makeGermplasm id' name' =<< attributes'
 
+-- Attributes
 emptyAttributes :: Attributes
 emptyAttributes = empty
 

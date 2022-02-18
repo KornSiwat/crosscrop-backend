@@ -42,5 +42,5 @@ postGermplasmR = do
                     _ <- createGermplasm args
 
                     sendResponseStatus status200 (pack . show $ body::Text)
-                Left ToBeDefinedError -> sendResponseStatus status200 ("error"::Text)
+                Left error' -> sendResponseStatus status200 ("error"::Text)
         Error errorMessage -> sendResponseStatus status200 (pack errorMessage::Text)
