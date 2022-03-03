@@ -32,6 +32,13 @@ packages:
       sha256: 0d35115d9b7521e8c8de0cfee2ab748331b65f062c02b7bfe9aa921ccfbc8b8f
   original:
     hackage: aeson-extra-0.5.1@sha256:62ac31078a2ef0ca16d07b554bdd5deeb4cd92d6c79e8d1de577b51d21a33656,2882
+- completed:
+    hackage: MissingH-1.4.3.0@sha256:efbbe7065e17bc01ed925593a0c5b5793ab857585a8e9d5015d0025e526ab55c,4702
+    pantry-tree:
+      size: 5271
+      sha256: d3c9916fafe0b11b72c56862a5c578f35c3fdbe6ee203e4adeca9b0706ee1fe3
+  original:
+    hackage: MissingH-1.4.3.0@sha256:efbbe7065e17bc01ed925593a0c5b5793ab857585a8e9d5015d0025e526ab55c,4702
 snapshots:
 - completed:
     size: 586110

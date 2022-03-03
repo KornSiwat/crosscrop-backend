@@ -10,37 +10,36 @@
 
 module Route.Germplasm.Post.Handler where
 
-import           Import                           hiding (id)
+import           Import                                 hiding (id)
 
 import           Control.Lens
-import           Data.Aeson
 
 import           Error.Definition
 
-import           Route.Germplasm.Post.RequestBody as RQ
+import           Helper.Request
 
-import           Model.Germplasm.Common.Attribute (GermplasmName (..))
-import           Model.Germplasm.Common.Factory   (attributesFromMapTextValue)
-import           Model.Workflow.Common.Attribute  (WorkflowId (..))
+import           Model.Germplasm
+import           Model.Workflow.Common.Attribute        (WorkflowId (..))
 
-import           Repository.Germplasm.Create      as RP
+import qualified Repository.Germplasm.Create            as RP
 
+import           Route.Germplasm.Post.Presenter.Factory
+import qualified Route.Germplasm.Post.RequestBody       as RQ
 
 postGermplasmR :: Handler Value
 postGermplasmR = do
-    parseRequestBodyResult <- parseCheckJsonBody :: Handler (Result PostGermplasmRequestBody)
+    jsonBody <- parseJSONBody :: Handler (Either Error RQ.PostGermplasmRequestBody)
 
-    case parseRequestBodyResult of
-        Success body -> do
-            case attributesFromMapTextValue (body^.RQ.attributes) of
-                Right attributes' -> do
-                    let args = createGermplasmArgs
-                            & RP.name .~ GermplasmName (body^.RQ.name)
-                            & RP.workflowId .~ (WorkflowId <$> (body^.RQ.workflowId))
-                            & RP.attributes .~ attributes'
+    germplasmId <- join <$> (sequence $ liftM createGermplasm jsonBody)
 
-                    _ <- createGermplasm args
+    case makePostGermplasmPresenter <$> germplasmId of
+        Right presenter -> sendResponseStatus status200 (toJSON presenter)
+        Left error'     -> sendResponseStatus status500 (tshow $ error'::Text)
 
-                    sendResponseStatus status200 (pack . show $ body::Text)
-                Left error' -> sendResponseStatus status200 ("error"::Text)
-        Error errorMessage -> sendResponseStatus status200 (pack errorMessage::Text)
+createGermplasm :: RQ.PostGermplasmRequestBody -> Handler (Either Error GermplasmId)
+createGermplasm body =  do
+    let name' = GermplasmName (body^.RQ.name)
+    let workflowId' = WorkflowId <$> (body^.RQ.workflowId)
+    let attributes' = attributesFromMapTextValue (body^.RQ.attributes)
+
+    join <$> (sequence $ liftM (RP.createGermplasm name' workflowId') attributes')

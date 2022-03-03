@@ -30,11 +30,15 @@ fromEntity entity = do
      let key = entityKey entity
      let val = entityVal entity
 
-     let id' = GermplasmId . int64ToInt . fromSqlKey $ key
+     let id' = germplasmIdFromKey key
      let name' = GermplasmName . germplasmEntityName $ val
      let attributes' = attributesFromJsonB . germplasmEntityAttributes $ val
 
      makeGermplasm id' name' =<< attributes'
+
+-- GermplasmId
+germplasmIdFromKey :: Key GermplasmEntity -> GermplasmId
+germplasmIdFromKey = GermplasmId . int64ToInt . fromSqlKey
 
 -- Attributes
 emptyAttributes :: Attributes

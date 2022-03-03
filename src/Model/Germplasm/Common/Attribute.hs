@@ -23,9 +23,15 @@ newtype GermplasmId =
 instance ToPersistKey GermplasmId where
   toKey (GermplasmId x) =  toSqlKey . intToInt64 $ x
 
+instance ToJSON GermplasmId where
+  toJSON (GermplasmId x) = toJSON x
+
 newtype GermplasmName =
     GermplasmName Text
     deriving (Show, Eq)
+
+instance ToJSON GermplasmName where
+  toJSON (GermplasmName x) = toJSON x
 
 newtype AttributeName
   = AttributeName Text

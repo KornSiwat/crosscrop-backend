@@ -40,6 +40,7 @@ extra-deps:
   - wai-extra-3.0.32@sha256:7a9e65c4555e1b937dc788b8ba249dbacd4f36840c60581bc27115a5c4a48079,7044
   - yesod-form-1.6.7@sha256:b216bb4eb0575d4fcc497b1d7f47edf25fc9035ab3ae8b77bf7fcbedc15dd2ea,3350
   - aeson-extra-0.5.1@sha256:62ac31078a2ef0ca16d07b554bdd5deeb4cd92d6c79e8d1de577b51d21a33656,2882
+  - MissingH-1.4.3.0@sha256:efbbe7065e17bc01ed925593a0c5b5793ab857585a8e9d5015d0025e526ab55c,4702
 # - acme-missiles-0.3
 # - git: https://github.com/commercialhaskell/stack.git
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
