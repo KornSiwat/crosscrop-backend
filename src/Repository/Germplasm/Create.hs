@@ -35,6 +35,6 @@ createGermplasm name workflowId attributes = do
     let deletedOn = Nothing
     let entity = GermplasmEntity name' attributes' workflowId' createdOn updatedOn deletedOn
 
-    key <- (Right <$> (runDB $ insert entity)) `catch` (\(SomeException e) -> return $ Left ToBeDefinedError)
+    key <- (Right <$> (runDB $ insert entity)) `catch` (\(SomeException _) -> return $ Left ToBeDefinedError)
 
     return $ M.germplasmIdFromKey <$> key
