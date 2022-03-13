@@ -3,16 +3,17 @@
 
 module Model.Germplasm.Common.Attribute where
 
-import           Data.Aeson           as A
-import           Data.HashMap.Lazy    as HM
-import           Data.Hashable
-import           Data.Scientific
 import           Import
 
 import           Class.ToJSONKeyText
 import           Class.ToPersistKey
 import           Class.ToValue
+
+import           Data.Aeson           as A
+import           Data.Scientific
+
 import           Database.Persist.Sql
+
 import           Helper.TypeConverter
 
 -- Basic Attributes
@@ -33,6 +34,28 @@ newtype GermplasmName =
 instance ToJSON GermplasmName where
   toJSON (GermplasmName x) = toJSON x
 
+newtype CreatedOn =
+    CreatedOn UTCTime
+    deriving (Show, Eq)
+
+instance ToJSON CreatedOn where
+  toJSON (CreatedOn x) = toJSON x
+
+newtype UpdatedOn =
+    UpdatedOn UTCTime
+    deriving (Show, Eq)
+
+instance ToJSON UpdatedOn where
+  toJSON (UpdatedOn x) = toJSON x
+
+newtype DeletedOn =
+    DeletedOn UTCTime
+    deriving (Show, Eq)
+
+instance ToJSON DeletedOn where
+  toJSON (DeletedOn x) = toJSON x
+
+-- Optional Attributes
 newtype AttributeName
   = AttributeName Text
   deriving (Show, Eq, Read, Ord, A.ToJSONKey)

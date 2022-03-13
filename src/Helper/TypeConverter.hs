@@ -2,8 +2,11 @@ module Helper.TypeConverter where
 
 import           Data.Text
 import           Data.Time
+
 import           Error.Definition
+
 import           GHC.Int
+
 import           Text.Read
 
 intToInt64 :: Int -> Int64

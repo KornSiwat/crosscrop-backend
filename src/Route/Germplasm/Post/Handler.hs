@@ -1,25 +1,24 @@
-{-# LANGUAGE AllowAmbiguousTypes    #-}
-{-# LANGUAGE DuplicateRecordFields  #-}
-{-# LANGUAGE FlexibleInstances      #-}
-{-# LANGUAGE FunctionalDependencies #-}
-{-# LANGUAGE MultiParamTypeClasses  #-}
-{-# LANGUAGE NoImplicitPrelude      #-}
-{-# LANGUAGE OverloadedStrings      #-}
-{-# LANGUAGE TemplateHaskell        #-}
-{-# LANGUAGE TypeFamilies           #-}
+{-# LANGUAGE AllowAmbiguousTypes   #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE FlexibleInstances     #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE NoImplicitPrelude     #-}
+{-# LANGUAGE OverloadedStrings     #-}
+{-# LANGUAGE TypeFamilies          #-}
 
 module Route.Germplasm.Post.Handler where
 
-import           Import                                 hiding (id)
+import           Import
 
 import           Control.Lens
 
 import           Error.Definition
 
 import           Helper.Request
+import           Helper.Response
 
 import           Model.Germplasm
-import           Model.Workflow.Common.Attribute        (WorkflowId (..))
+import           Model.Workflow.Common.Attribute
 
 import qualified Repository.Germplasm.Create            as RP
 
@@ -30,16 +29,16 @@ postGermplasmR :: Handler Value
 postGermplasmR = do
     jsonBody <- parseJSONBody :: Handler (Either Error RQ.PostGermplasmRequestBody)
 
-    germplasmId <- join <$> (sequence $ liftM createGermplasm jsonBody)
+    germplasmId <- join <$> sequence (createGermplasm <$> jsonBody)
 
-    case makePostGermplasmPresenter <$> germplasmId of
-        Right presenter -> sendResponseStatus status200 (toJSON presenter)
-        Left error'     -> sendResponseStatus status500 (tshow $ error'::Text)
+    let presenter = makePostGermplasmPresenter <$> germplasmId
+
+    sendResponse status201 presenter
 
 createGermplasm :: RQ.PostGermplasmRequestBody -> Handler (Either Error GermplasmId)
 createGermplasm body =  do
-    let name' = GermplasmName (body^.RQ.name)
-    let workflowId' = WorkflowId <$> (body^.RQ.workflowId)
-    let attributes' = attributesFromMapTextValue (body^.RQ.attributes)
+    let name' = GermplasmName $ body^.RQ.name
+    let workflowId' = WorkflowId <$> body^.RQ.workflowId
+    let attributes' = attributesFromMapTextValue $ body^.RQ.attributes
 
-    join <$> (sequence $ liftM (RP.createGermplasm name' workflowId') attributes')
+    join <$> sequence (RP.createGermplasm name' workflowId' <$> attributes')

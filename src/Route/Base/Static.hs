@@ -4,7 +4,7 @@
 {-# LANGUAGE TemplateHaskell       #-}
 {-# LANGUAGE TypeFamilies          #-}
 
-module Route.Common where
+module Route.Base.Static where
 
 import           Data.FileEmbed (embedFile)
 import           Import

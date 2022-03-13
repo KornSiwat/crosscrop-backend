@@ -4,10 +4,12 @@
 
 module Model.Workflow.Common.Attribute where
 
+import           Class.ToPersistKey
+
 import           Control.Lens         (makeFields)
+
 import           Database.Persist.Sql
 
-import           Class.ToPersistKey
 import           Helper.TypeConverter
 
 -- Workflow Attributes

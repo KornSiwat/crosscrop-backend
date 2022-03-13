@@ -6,7 +6,9 @@
 
 module Route.Germplasm.Get.Handler where
 
-import           Import                                hiding (id)
+import           Import
+
+import           Helper.Response
 
 import           Repository.Germplasm.Read
 
@@ -16,6 +18,6 @@ getGermplasmR :: Handler Value
 getGermplasmR = do
     germplasms <- getGermplasms
 
-    case makeGetGermplasmPresenter <$> germplasms of
-        Right presenter -> sendResponseStatus status200 (toJSON presenter)
-        Left error'     -> sendResponseStatus status500 (tshow $ error'::Text)
+    let presenter = makeGetGermplasmPresenter <$> germplasms
+
+    sendResponse status200 presenter

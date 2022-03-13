@@ -16,7 +16,6 @@ import           ClassyPrelude.Yesod
 
 import           Persist.Field.JsonB
 
-
 share
   [mkPersist sqlSettings, mkMigrate "migrateAll"]
   [persistLowerCase|

@@ -4,9 +4,9 @@
 
 module Route.Germplasm.Post.Presenter.Definition where
 
-import           Data.Aeson
+import           Import
 
-import           Import               hiding (id)
+import           Data.Aeson
 
 import           Helper.ToJSONOptions
 

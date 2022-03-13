@@ -6,7 +6,7 @@
 
 module Model.Germplasm.Common.Definition where
 
-import           Prelude                          hiding (id)
+import           Import
 
 import           Control.Lens                     (makeFieldsNoPrefix)
 
@@ -18,6 +18,9 @@ data Germplasm =
     { _id         :: GermplasmId
     , _name       :: GermplasmName
     , _attributes :: Attributes
+    , _createdOn  :: CreatedOn
+    , _updatedOn  :: Maybe UpdatedOn
+    , _deletedOn  :: Maybe DeletedOn
     }
   deriving (Show, Eq)
 

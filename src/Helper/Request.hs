@@ -1,8 +1,10 @@
 module Helper.Request where
 
+import           Import
+
 import           Data.Aeson
+
 import           Error.Definition
-import           Import           hiding (id)
 
 parseJSONBody :: FromJSON a => Handler (Either Error a)
 parseJSONBody = do
