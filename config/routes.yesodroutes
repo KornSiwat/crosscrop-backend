@@ -10,3 +10,4 @@
 / HomeR GET
 
 /germplasm GermplasmR GET POST
+/germplasm/#GermplasmEntityId OneGermplasmR GET

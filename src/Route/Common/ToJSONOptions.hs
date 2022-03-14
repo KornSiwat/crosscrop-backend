@@ -1,4 +1,4 @@
-module Helper.ToJSONOptions where
+module Route.Common.ToJSONOptions where
 
 import           Data.Aeson
 

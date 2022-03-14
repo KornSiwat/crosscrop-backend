@@ -8,12 +8,11 @@ import           Import
 
 import           Data.Aeson
 
-import           Helper.ToJSONOptions
-
-import           Model.Germplasm
+import           Route.Common.ToJSONOptions
+import           Route.Germplasm.Common.Presenter
 
 newtype PostGermplasmPresenter = PostGermplasmPresenter {
-    _germplasmId :: GermplasmId
+    _germplasm :: GermplasmPresenter
 } deriving (Show, Generic)
 
 instance ToJSON PostGermplasmPresenter where

@@ -4,10 +4,13 @@
 
 module Route.Germplasm.Get.Presenter.Definition where
 
-import           Data.Aeson
-import           Import               hiding (id)
+import           Import
 
-import           Helper.ToJSONOptions
+import           Data.Aeson
+
+import           Route.Common.ToJSONOptions
+
+import           Route.Germplasm.Common.Presenter
 
 newtype GetGermplasmPresenter = GetGermplasmPresenter {
     _germplasms :: [GermplasmPresenter]
@@ -16,11 +19,9 @@ newtype GetGermplasmPresenter = GetGermplasmPresenter {
 instance ToJSON GetGermplasmPresenter where
     toJSON = genericToJSON crosscropToJSONOptions
 
-data GermplasmPresenter = GermplasmPresenter
-    { _id         :: Int
-    , _name       :: Text
-    , _attributes :: HashMap Text Value
-    } deriving (Show, Generic)
+newtype GetOneGermplasmPresenter = GetOneGermplasmPresenter {
+    _germplasm :: GermplasmPresenter
+} deriving (Show, Generic)
 
-instance ToJSON GermplasmPresenter where
+instance ToJSON GetOneGermplasmPresenter where
     toJSON = genericToJSON crosscropToJSONOptions

@@ -1,11 +1,13 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 
-module Helper.Response where
+module Route.Common.Response where
 
-import           Import           hiding (error)
+import           Import                 hiding (error)
 
 import           Error.Definition
+
+import           Route.Common.Presenter
 
 sendResponse :: ToJSON a => Status -> Either Error a -> Handler Value
 sendResponse status eitherPresenter = case eitherPresenter of
@@ -17,6 +19,7 @@ sendSuccessResponse status presenter = sendResponseStatus status (toJSON present
 
 sendErrorResponse :: Error -> Handler Value
 sendErrorResponse error = case  error of
-    _ -> sendResponseStatus status500 errorText
+    _ -> sendResponseStatus status500 response
     where
-        errorText = (tshow $ error::Text)
+        response = toJSON presenter
+        presenter = makeErrorPresenter error

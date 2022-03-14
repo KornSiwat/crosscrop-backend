@@ -10,35 +10,38 @@ module Route.Germplasm.Post.Handler where
 
 import           Import
 
+import           Class.ToPersistKey
 import           Control.Lens
 
 import           Error.Definition
 
-import           Helper.Request
-import           Helper.Response
 
 import           Model.Germplasm
 import           Model.Workflow.Common.Attribute
 
-import qualified Repository.Germplasm.Create            as RP
+import qualified Repository.Germplasm                   as Repository
 
+import           Route.Common.Request
+import           Route.Common.Response
 import           Route.Germplasm.Post.Presenter.Factory
-import qualified Route.Germplasm.Post.RequestBody       as RQ
+import qualified Route.Germplasm.Post.RequestBody       as Request
 
 postGermplasmR :: Handler Value
 postGermplasmR = do
-    jsonBody <- parseJSONBody :: Handler (Either Error RQ.PostGermplasmRequestBody)
+    jsonBody <- parseJSONBody :: Handler (Either Error Request.PostGermplasmRequestBody)
 
     germplasmId <- join <$> sequence (createGermplasm <$> jsonBody)
 
-    let presenter = makePostGermplasmPresenter <$> germplasmId
+    germplasm <- join <$> sequence (Repository.getOne <$> toKey <$> germplasmId)
+
+    let presenter = makePostGermplasmPresenter <$> germplasm
 
     sendResponse status201 presenter
 
-createGermplasm :: RQ.PostGermplasmRequestBody -> Handler (Either Error GermplasmId)
+createGermplasm :: Request.PostGermplasmRequestBody -> Handler (Either Error GermplasmId)
 createGermplasm body =  do
-    let name' = GermplasmName $ body^.RQ.name
-    let workflowId' = WorkflowId <$> body^.RQ.workflowId
-    let attributes' = attributesFromMapTextValue $ body^.RQ.attributes
+    let name' = GermplasmName $ body^.Request.name
+    let workflowId' = WorkflowId <$> body^.Request.workflowId
+    let attributes' = attributesFromMapTextValue $ body^.Request.attributes
 
-    join <$> sequence (RP.createGermplasm name' workflowId' <$> attributes')
+    join <$> sequence (Repository.createGermplasm name' workflowId' <$> attributes')
