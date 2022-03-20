@@ -96,3 +96,4 @@ newtype GermplasmCount =
 newtype Plot =
     Plot String
     deriving (Show, Eq)
+

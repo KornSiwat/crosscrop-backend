@@ -35,3 +35,4 @@ instance PersistFieldSql JsonB where
 
 empty :: JsonB
 empty = JsonB A.Null
+

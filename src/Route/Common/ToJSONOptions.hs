@@ -7,3 +7,4 @@ crosscropToJSONOptions = defaultOptions {
         fieldLabelModifier = drop 1
     ,   omitNothingFields = True
     }
+

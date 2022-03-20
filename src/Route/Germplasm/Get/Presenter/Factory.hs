@@ -16,3 +16,4 @@ makeGetGermplasmPresenter xs = GetGermplasmPresenter germplasmPresenters
 
 makeGetOneGermplasmPresenter :: Germplasm -> GetOneGermplasmPresenter
 makeGetOneGermplasmPresenter = GetOneGermplasmPresenter . fromGermplasm
+

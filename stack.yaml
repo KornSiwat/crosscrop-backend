@@ -7,3 +7,4 @@ extra-deps:
   - classy-prelude-yesod-1.5.0@sha256:8f7e183bdfd6d2ea9674284c4f285294ab086aff60d9be4e5d7d2f3c1a2b05b7,1330
   - wai-extra-3.0.32@sha256:7a9e65c4555e1b937dc788b8ba249dbacd4f36840c60581bc27115a5c4a48079,7044
   - yesod-form-1.6.7@sha256:b216bb4eb0575d4fcc497b1d7f47edf25fc9035ab3ae8b77bf7fcbedc15dd2ea,3350
+

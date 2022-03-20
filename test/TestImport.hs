@@ -1,6 +1,7 @@
 {-# LANGUAGE QuasiQuotes #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
+
 module TestImport
     ( module TestImport
     , module X
@@ -95,3 +96,4 @@ createUser ident = runDB $ do
         , emailVerkey = Nothing
         }
     return user
+

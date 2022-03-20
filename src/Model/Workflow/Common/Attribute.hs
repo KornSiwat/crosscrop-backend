@@ -39,3 +39,4 @@ makeSeason :: SeasonNo -> Year -> Season
 makeSeason = Season
 
 makeFields ''Season
+

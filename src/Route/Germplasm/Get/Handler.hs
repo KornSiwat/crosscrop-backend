@@ -30,3 +30,4 @@ getOneGermplasmR id = do
     let presenter = makeGetOneGermplasmPresenter <$> germplasm
 
     sendResponse status200 presenter
+

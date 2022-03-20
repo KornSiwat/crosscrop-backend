@@ -22,3 +22,4 @@ sendErrorResponse error = case error of
     where
         response = toJSON presenter
         presenter = makeErrorPresenter error
+

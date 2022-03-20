@@ -38,3 +38,4 @@ createGermplasm name workflowId attributes = do
     key <- (Right <$> runDB (insert entity)) `catch` (\(SomeException _) -> return $ Left ToBeDefinedError)
 
     return $ M.germplasmIdFromKey <$> key
+

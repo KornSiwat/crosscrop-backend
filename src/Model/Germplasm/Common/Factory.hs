@@ -78,3 +78,4 @@ attributeValueFromValue _            = Left ToBeDefinedError
 attributesFromJsonB :: JsonB -> Either Error Attributes
 attributesFromJsonB (JsonB (Object x)) = attributesFromMapTextValue x
 attributesFromJsonB _                  = Left ToBeDefinedError
+

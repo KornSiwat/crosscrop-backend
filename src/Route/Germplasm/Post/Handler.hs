@@ -15,7 +15,6 @@ import           Control.Lens
 
 import           Error.Definition
 
-
 import           Model.Germplasm
 import           Model.Workflow.Common.Attribute
 
@@ -45,3 +44,4 @@ createGermplasm body =  do
     let attributes' = attributesFromMapTextValue $ body^.Request.attributes
 
     join <$> sequence (Repository.createGermplasm name' workflowId' <$> attributes')
+

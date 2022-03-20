@@ -25,3 +25,4 @@ data Germplasm =
   deriving (Show, Eq)
 
 makeFieldsNoPrefix ''Germplasm
+

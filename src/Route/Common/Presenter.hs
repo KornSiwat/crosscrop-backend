@@ -22,3 +22,4 @@ makeErrorPresenter :: Error -> ErrorPresenter
 makeErrorPresenter error = ErrorPresenter errorMessage
     where
         errorMessage = tshow error::Text
+

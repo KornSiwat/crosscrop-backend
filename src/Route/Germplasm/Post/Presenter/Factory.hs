@@ -11,3 +11,4 @@ import           Route.Germplasm.Post.Presenter.Definition
 
 makePostGermplasmPresenter :: Germplasm -> PostGermplasmPresenter
 makePostGermplasmPresenter = PostGermplasmPresenter . fromGermplasm
+

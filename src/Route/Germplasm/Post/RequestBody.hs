@@ -6,6 +6,7 @@
 module Route.Germplasm.Post.RequestBody where
 
 import           Control.Lens
+
 import           Data.Aeson
 import           Data.HashMap.Lazy (HashMap, delete)
 import           Data.Text         (Text)
@@ -28,3 +29,4 @@ instance FromJSON PostGermplasmRequestBody where
             return $ PostGermplasmRequestBody name workflowId attributes
 
 makeFieldsNoPrefix ''PostGermplasmRequestBody
+

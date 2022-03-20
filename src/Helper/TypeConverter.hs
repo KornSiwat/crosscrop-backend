@@ -21,3 +21,4 @@ parseUTCTime x = readMaybe . unpack $ x :: Maybe UTCTime
 maybeToEither :: Error -> Maybe a -> Either Error a
 maybeToEither e Nothing  = Left e
 maybeToEither _ (Just x) = Right x
+

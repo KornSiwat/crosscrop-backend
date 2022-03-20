@@ -16,3 +16,4 @@ newtype PostGermplasmPresenter = PostGermplasmPresenter {
 
 instance ToJSON PostGermplasmPresenter where
     toJSON = genericToJSON crosscropToJSONOptions
+

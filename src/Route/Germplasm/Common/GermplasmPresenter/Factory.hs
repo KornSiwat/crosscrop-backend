@@ -30,3 +30,4 @@ fromAttributes = valueToValue . keyToText
     where
         keyToText = HM.mapKeys toJSONKeyText
         valueToValue = HM.map toValue
+

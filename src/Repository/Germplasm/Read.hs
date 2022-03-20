@@ -31,3 +31,4 @@ getOne id = do
     let germplasmModel = fromEntity =<< maybeToEither ToBeDefinedError germplasmEntity
 
     return germplasmModel
+

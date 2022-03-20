@@ -24,3 +24,4 @@ newtype GetOneGermplasmPresenter = GetOneGermplasmPresenter {
 
 instance ToJSON GetOneGermplasmPresenter where
     toJSON = genericToJSON crosscropToJSONOptions
+

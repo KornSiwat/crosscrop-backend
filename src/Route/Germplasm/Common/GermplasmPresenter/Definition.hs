@@ -17,3 +17,4 @@ data GermplasmPresenter = GermplasmPresenter
 
 instance ToJSON GermplasmPresenter where
     toJSON = genericToJSON crosscropToJSONOptions
+
