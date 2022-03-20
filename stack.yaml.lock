@@ -25,24 +25,10 @@ packages:
       sha256: 3bc8a1f140180b54b6cb77d72d8cb60c566777af8af3131f71ac29d4e3554ab4
   original:
     hackage: yesod-form-1.6.7@sha256:b216bb4eb0575d4fcc497b1d7f47edf25fc9035ab3ae8b77bf7fcbedc15dd2ea,3350
-- completed:
-    hackage: aeson-extra-0.5.1@sha256:62ac31078a2ef0ca16d07b554bdd5deeb4cd92d6c79e8d1de577b51d21a33656,2882
-    pantry-tree:
-      size: 1007
-      sha256: 0d35115d9b7521e8c8de0cfee2ab748331b65f062c02b7bfe9aa921ccfbc8b8f
-  original:
-    hackage: aeson-extra-0.5.1@sha256:62ac31078a2ef0ca16d07b554bdd5deeb4cd92d6c79e8d1de577b51d21a33656,2882
-- completed:
-    hackage: MissingH-1.4.3.0@sha256:efbbe7065e17bc01ed925593a0c5b5793ab857585a8e9d5015d0025e526ab55c,4702
-    pantry-tree:
-      size: 5271
-      sha256: d3c9916fafe0b11b72c56862a5c578f35c3fdbe6ee203e4adeca9b0706ee1fe3
-  original:
-    hackage: MissingH-1.4.3.0@sha256:efbbe7065e17bc01ed925593a0c5b5793ab857585a8e9d5015d0025e526ab55c,4702
 snapshots:
 - completed:
-    size: 586110
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/21.yaml
-    sha256: ce4fb8d44f3c6c6032060a02e0ebb1bd29937c9a70101c1517b92a87d9515160
+    size: 590100
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/28.yaml
+    sha256: 428ec8d5ce932190d3cbe266b9eb3c175cd81e984babf876b64019e2cbe4ea68
   original:
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/21.yaml
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/28.yaml

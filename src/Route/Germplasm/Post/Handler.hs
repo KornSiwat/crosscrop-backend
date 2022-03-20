@@ -32,7 +32,7 @@ postGermplasmR = do
 
     germplasmId <- join <$> sequence (createGermplasm <$> jsonBody)
 
-    germplasm <- join <$> sequence (Repository.getOne <$> toKey <$> germplasmId)
+    germplasm <- join <$> sequence (Repository.getOne . toKey <$> germplasmId)
 
     let presenter = makePostGermplasmPresenter <$> germplasm
 

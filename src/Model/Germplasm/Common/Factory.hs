@@ -39,8 +39,8 @@ fromEntity entity = do
     let name' = GermplasmName . germplasmEntityName $ val
     let attributes' = attributesFromJsonB . germplasmEntityAttributes $ val
     let createdOn' = CreatedOn . germplasmEntityCreatedOn $ val
-    let updatedOn' = UpdatedOn <$> (germplasmEntityUpdatedOn val)
-    let deletedOn' = DeletedOn <$> (germplasmEntityDeletedOn val)
+    let updatedOn' = UpdatedOn <$> germplasmEntityUpdatedOn val
+    let deletedOn' = DeletedOn <$> germplasmEntityDeletedOn val
 
     join $ makeGermplasm
                     id'
@@ -59,7 +59,7 @@ emptyAttributes :: Attributes
 emptyAttributes = HM.empty
 
 attributesFromMapTextValue :: HashMap Text Value -> Either Error Attributes
-attributesFromMapTextValue = sequence . (HM.map attributeValueFromValue) . (HM.mapKeys attributeNameFromText)
+attributesFromMapTextValue = sequence . HM.map attributeValueFromValue . HM.mapKeys attributeNameFromText
 
 attributeNameFromText :: Text -> AttributeName
 attributeNameFromText = AttributeName

@@ -1,6 +1,4 @@
-{-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE OverloadedStrings #-}
 
 module Route.Germplasm.Post.Presenter.Factory where
 

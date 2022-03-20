@@ -1,6 +1,5 @@
 {-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE OverloadedStrings #-}
 
 module Route.Common.Presenter where
 
@@ -22,4 +21,4 @@ instance ToJSON ErrorPresenter where
 makeErrorPresenter :: Error -> ErrorPresenter
 makeErrorPresenter error = ErrorPresenter errorMessage
     where
-        errorMessage = (tshow $ error::Text)
+        errorMessage = tshow error::Text

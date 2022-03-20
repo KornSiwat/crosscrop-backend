@@ -1,5 +1,4 @@
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE OverloadedStrings #-}
 
 module Route.Common.Response where
 
@@ -18,7 +17,7 @@ sendSuccessResponse :: ToJSON a => Status -> a -> Handler Value
 sendSuccessResponse status presenter = sendResponseStatus status (toJSON presenter)
 
 sendErrorResponse :: Error -> Handler Value
-sendErrorResponse error = case  error of
+sendErrorResponse error = case error of
     _ -> sendResponseStatus status500 response
     where
         response = toJSON presenter

@@ -1,6 +1,5 @@
 {-# LANGUAGE FlexibleInstances      #-}
 {-# LANGUAGE FunctionalDependencies #-}
-{-# LANGUAGE MultiParamTypeClasses  #-}
 {-# LANGUAGE OverloadedStrings      #-}
 {-# LANGUAGE TemplateHaskell        #-}
 
@@ -18,7 +17,7 @@ data PostGermplasmRequestBody = PostGermplasmRequestBody {
 } deriving (Show)
 
 instance FromJSON PostGermplasmRequestBody where
-    parseJSON = withObject "PostGermplasmRequestBody" $ parsePostGermplasmRequestBody
+    parseJSON = withObject "PostGermplasmRequestBody" parsePostGermplasmRequestBody
         where
         parsePostGermplasmRequestBody x = do
             name <- x .: "name"

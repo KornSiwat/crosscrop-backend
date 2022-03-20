@@ -1,10 +1,7 @@
 {-# LANGUAGE FlexibleInstances      #-}
-{-# LANGUAGE FunctionalDependencies #-}
 {-# LANGUAGE MultiParamTypeClasses  #-}
-{-# LANGUAGE NamedFieldPuns         #-}
 {-# LANGUAGE NoImplicitPrelude      #-}
 {-# LANGUAGE OverloadedStrings      #-}
-{-# LANGUAGE TemplateHaskell        #-}
 
 module Repository.Germplasm.Read where
 
@@ -23,14 +20,14 @@ getAll :: Handler (Either Error [Germplasm])
 getAll = do
     germplasmEntities <- runDB $ selectList ([]:: [Filter GermplasmEntity]) []
 
-    let germplasmModels = sequence $ map fromEntity germplasmEntities
+    let germplasmModels = mapM fromEntity germplasmEntities
 
     return germplasmModels
 
 getOne :: GermplasmEntityId -> Handler (Either Error Germplasm)
 getOne id = do
-    germplasmEntity <- runDB $ selectFirst ([GermplasmEntityId ==. id]) []
+    germplasmEntity <- runDB $ selectFirst [GermplasmEntityId ==. id] []
 
-    let germplasmModel = fromEntity =<< (maybeToEither ToBeDefinedError germplasmEntity)
+    let germplasmModel = fromEntity =<< maybeToEither ToBeDefinedError germplasmEntity
 
     return germplasmModel
