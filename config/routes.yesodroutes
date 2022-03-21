@@ -10,5 +10,5 @@
 / HomeR GET
 
 /germplasm GermplasmR GET POST
-/germplasm/#GermplasmId OneGermplasmR GET PUT
+/germplasm/#GermplasmId OneGermplasmR GET PUT DELETE
 

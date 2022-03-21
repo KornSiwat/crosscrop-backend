@@ -19,7 +19,7 @@ import           Persist.Entity
 
 getAll :: Handler (Either Error [M.Germplasm])
 getAll = do
-    germplasmEntities <- runDB $ selectList ([]:: [Filter GermplasmEntity]) []
+    germplasmEntities <- runDB $ selectList [GermplasmEntityDeletedOn ==. Nothing] []
 
     let germplasmModels = mapM M.fromEntity germplasmEntities
 
@@ -27,7 +27,9 @@ getAll = do
 
 getOne :: M.GermplasmId -> Handler (Either Error M.Germplasm)
 getOne id = do
-    germplasmEntity <- runDB $ selectFirst [GermplasmEntityId ==. toKey id] []
+    germplasmEntity <- runDB $ selectFirst [GermplasmEntityId ==. toKey id
+                                           ,GermplasmEntityDeletedOn ==. Nothing] 
+                                           []
 
     let germplasmModel = M.fromEntity =<< maybeToEither ToBeDefinedError germplasmEntity
 
