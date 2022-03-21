@@ -33,7 +33,7 @@ putOneGermplasmR id = do
 
     let presenter = makePutGermplasmPresenter <$> germplasm
 
-    sendResponse status201 presenter
+    sendResponse status200 presenter
 
 updateGermplasm :: M.GermplasmId -> Request.PutGermplasmRequestBody -> Handler (Either Error M.Germplasm)
 updateGermplasm id body =  do
@@ -42,11 +42,13 @@ updateGermplasm id body =  do
 
     existingGermplasm <- Repository.getOne id
 
-    let updateGermplasmArg = join ((existingGermplasm <&> M.name .~ name') <&> M.attributes .~? attributes')
+    let updateGermplasmArg = join $ existingGermplasm 
+                                        <&> M.name .~ name' 
+                                        <&> M.attributes .~? attributes'
 
-    _ <- join <$> sequence (Repository.updateOne <$> updateGermplasmArg)
+    updateResult <- join <$> sequence (Repository.updateOne <$> updateGermplasmArg)
 
-    let updatedGermplasm = Repository.getOne id
+    updatedGermplasm <- Repository.getOne id
 
-    updatedGermplasm
+    return $ join (updateResult $> updatedGermplasm)
 
