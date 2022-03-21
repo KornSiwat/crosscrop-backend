@@ -8,12 +8,12 @@ module Route.Germplasm.Get.Handler where
 
 import           Import
 
+import qualified Model.Germplasm as M
+
 import qualified Repository.Germplasm                  as Repository
 
 import           Route.Common.Response
 import           Route.Germplasm.Get.Presenter.Factory
-
-import           Persist.Entity
 
 getGermplasmR :: Handler Value
 getGermplasmR = do
@@ -23,7 +23,7 @@ getGermplasmR = do
 
     sendResponse status200 presenter
 
-getOneGermplasmR :: GermplasmEntityId -> Handler Value
+getOneGermplasmR :: M.GermplasmId -> Handler Value
 getOneGermplasmR id = do
     germplasm <- Repository.getOne id
 

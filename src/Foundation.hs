@@ -5,21 +5,24 @@
 {-# LANGUAGE RankNTypes            #-}
 {-# LANGUAGE TemplateHaskell       #-}
 {-# LANGUAGE TypeFamilies          #-}
-{-# LANGUAGE ViewPatterns          #-}
+{-# LANGUAGE ViewPatterns #-}
 
 module Foundation where
 
-import           Control.Monad.Logger (LogSource)
-import           Database.Persist.Sql (ConnectionPool, runSqlPool)
+import           Control.Monad.Logger             (LogSource)
+import           Database.Persist.Sql             (ConnectionPool, runSqlPool)
 import           Import.NoFoundation
 
 -- Used only when in "auth-dummy-login" setting is enabled.
 import           Yesod.Auth.Dummy
-import           Yesod.Auth.OpenId    (IdentifierType (Claimed), authOpenId)
-import           Yesod.Core.Types     (Logger)
-import qualified Yesod.Core.Unsafe    as Unsafe
+import           Yesod.Auth.OpenId                (IdentifierType (Claimed),
+                                                   authOpenId)
+import           Yesod.Core.Types                 (Logger)
+import qualified Yesod.Core.Unsafe                as Unsafe
 
 import           Persist.Entity
+
+import           Model.Germplasm.Common.Attribute (GermplasmId (..))
 
 -- | The foundation datatype for your application. This can be a good place to
 -- keep settings and values requiring initialization before your application

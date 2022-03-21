@@ -3,7 +3,7 @@
 
 module Model.Germplasm.Common.Attribute where
 
-import           Import
+import           ClassyPrelude.Yesod
 
 import           Class.ToJSONKeyText
 import           Class.ToPersistKey
@@ -19,7 +19,7 @@ import           Helper.TypeConverter
 -- Basic Attributes
 newtype GermplasmId =
     GermplasmId Int
-    deriving (Show, Eq)
+    deriving (Show, Read, Eq, PathPiece)
 
 instance ToPersistKey GermplasmId where
   toKey (GermplasmId x) =  toSqlKey . intToInt64 $ x

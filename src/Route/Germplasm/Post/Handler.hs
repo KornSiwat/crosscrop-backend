@@ -10,7 +10,6 @@ module Route.Germplasm.Post.Handler where
 
 import           Import
 
-import           Class.ToPersistKey
 import           Control.Lens
 
 import           Error.Definition
@@ -31,7 +30,7 @@ postGermplasmR = do
 
     germplasmId <- join <$> sequence (createGermplasm <$> jsonBody)
 
-    germplasm <- join <$> sequence (Repository.getOne . toKey <$> germplasmId)
+    germplasm <- join <$> sequence (Repository.getOne <$> germplasmId)
 
     let presenter = makePostGermplasmPresenter <$> germplasm
 
