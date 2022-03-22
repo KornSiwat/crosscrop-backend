@@ -4,7 +4,7 @@ import           Data.Aeson
 
 crosscropToJSONOptions :: Options
 crosscropToJSONOptions = defaultOptions {
-        fieldLabelModifier = drop 1
+        fieldLabelModifier = camelTo2 '_' . drop 1
     ,   omitNothingFields = True
     }
 

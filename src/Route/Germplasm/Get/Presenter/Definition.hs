@@ -8,7 +8,6 @@ import           Import
 import           Data.Aeson
 
 import           Route.Common.ToJSONOptions
-
 import           Route.Germplasm.Common.Presenter
 
 newtype GetGermplasmPresenter = GetGermplasmPresenter {

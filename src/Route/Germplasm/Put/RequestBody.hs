@@ -6,16 +6,18 @@
 
 module Route.Germplasm.Put.RequestBody where
 
-import           Control.Lens
 import           Import
 
+import           Control.Lens
+
 import           Data.Aeson
-import qualified Data.HashMap.Lazy as HM
+import qualified Data.HashMap.Lazy              as HM
+
+import           Route.Germplasm.Common.Request
 
 data PutGermplasmRequestBody = PutGermplasmRequestBody {
     _id         :: Int,
     _name       :: Text,
-    _workflowId :: Maybe Int,
     _attributes ::  HashMap Text Value
 } deriving (Show)
 
@@ -25,11 +27,10 @@ instance FromJSON PutGermplasmRequestBody where
         parsePutGermplasmRequestBody x = do
             id <- x .: "id"
             name <- x .: "name"
-            workflowId <- x .:? "workflow_id"
 
-            let attributes = foldr HM.delete x ["id", "name", "workflow_id"]
+            let attributes = foldr HM.delete x germplasmMainAttributeNames
 
-            return $ PutGermplasmRequestBody id name workflowId attributes
+            return $ PutGermplasmRequestBody id name attributes
 
 makeFieldsNoPrefix ''PutGermplasmRequestBody
 
