@@ -19,7 +19,7 @@ import           Helper.TypeConverter
 -- Basic Attributes
 newtype GermplasmId =
     GermplasmId Int
-    deriving (Show, Read, Eq, PathPiece)
+    deriving (Show, Read, Eq, PathPiece, FromJSON)
 
 instance ToPersistKey GermplasmId where
   toKey (GermplasmId x) =  toSqlKey . intToInt64 $ x
@@ -29,31 +29,10 @@ instance ToJSON GermplasmId where
 
 newtype GermplasmName =
     GermplasmName Text
-    deriving (Show, Eq)
+    deriving (Show, Eq, FromJSON)
 
 instance ToJSON GermplasmName where
   toJSON (GermplasmName x) = toJSON x
-
-newtype CreatedOn =
-    CreatedOn UTCTime
-    deriving (Show, Eq)
-
-instance ToJSON CreatedOn where
-  toJSON (CreatedOn x) = toJSON x
-
-newtype UpdatedOn =
-    UpdatedOn UTCTime
-    deriving (Show, Eq)
-
-instance ToJSON UpdatedOn where
-  toJSON (UpdatedOn x) = toJSON x
-
-newtype DeletedOn =
-    DeletedOn UTCTime
-    deriving (Show, Eq)
-
-instance ToJSON DeletedOn where
-  toJSON (DeletedOn x) = toJSON x
 
 -- Optional Attributes
 newtype AttributeName
@@ -88,12 +67,4 @@ instance ToValue AttributeValue where
 
 type Attributes = HashMap AttributeName AttributeValue
 
--- Specific Attributes
-newtype GermplasmCount =
-    GermplasmCount Int
-    deriving (Show, Eq)
-
-newtype Plot =
-    Plot String
-    deriving (Show, Eq)
 

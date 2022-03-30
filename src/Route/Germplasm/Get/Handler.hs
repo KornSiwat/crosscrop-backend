@@ -8,16 +8,16 @@ module Route.Germplasm.Get.Handler where
 
 import           Import
 
-import qualified Model.Germplasm as M
+import qualified Model.Germplasm                       as M
 
-import qualified Repository.Germplasm                  as Repository
+import qualified Repository.Germplasm                  as RP
 
 import           Route.Common.Response
 import           Route.Germplasm.Get.Presenter.Factory
 
 getGermplasmR :: Handler Value
 getGermplasmR = do
-    germplasms <- Repository.getAll
+    germplasms <- RP.getAll
 
     let presenter = makeGetGermplasmPresenter <$> germplasms
 
@@ -25,7 +25,7 @@ getGermplasmR = do
 
 getOneGermplasmR :: M.GermplasmId -> Handler Value
 getOneGermplasmR id = do
-    germplasm <- Repository.getOne id
+    germplasm <- RP.getById id
 
     let presenter = makeGetOneGermplasmPresenter <$> germplasm
 

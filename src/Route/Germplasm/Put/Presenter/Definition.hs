@@ -7,7 +7,7 @@ import           Import
 
 import           Data.Aeson
 
-import           Route.Common.ToJSONOptions
+import           Route.Common.JSONOptions
 import           Route.Germplasm.Common.Presenter
 
 newtype PutGermplasmPresenter = PutGermplasmPresenter {
@@ -15,5 +15,5 @@ newtype PutGermplasmPresenter = PutGermplasmPresenter {
 } deriving (Show, Generic)
 
 instance ToJSON PutGermplasmPresenter where
-    toJSON = genericToJSON crosscropToJSONOptions
+    toJSON = genericToJSON toJSONOptions
 

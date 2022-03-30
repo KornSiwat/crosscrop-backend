@@ -14,33 +14,32 @@ import           Control.Lens
 
 import           Error.Definition
 
-import           Model.Germplasm
-import           Model.Workflow.Common.Attribute
+import qualified Model.Germplasm                        as M
 
-import qualified Repository.Germplasm                   as Repository
+import qualified Repository.Germplasm                   as RP
 
 import           Route.Common.Request
 import           Route.Common.Response
 import           Route.Germplasm.Post.Presenter.Factory
-import qualified Route.Germplasm.Post.RequestBody       as Request
+import qualified Route.Germplasm.Post.RequestBody       as RQ
 
 postGermplasmR :: Handler Value
 postGermplasmR = do
-    jsonBody <- parseJSONBody :: Handler (Either Error Request.PostGermplasmRequestBody)
+    jsonBody <- parseJSONBody :: Handler (Either Error RQ.PostGermplasmRequestBody)
 
     germplasmId <- join <$> sequence (createGermplasm <$> jsonBody)
 
-    germplasm <- join <$> sequence (Repository.getOne <$> germplasmId)
+    germplasm <- join <$> sequence (RP.getById <$> germplasmId)
 
     let presenter = makePostGermplasmPresenter <$> germplasm
 
     sendResponse status201 presenter
 
-createGermplasm :: Request.PostGermplasmRequestBody -> Handler (Either Error GermplasmId)
+createGermplasm :: RQ.PostGermplasmRequestBody -> Handler (Either Error M.GermplasmId)
 createGermplasm body =  do
-    let name' = GermplasmName $ body^.Request.name
-    let workflowId' = WorkflowId <$> body^.Request.workflowId
-    let attributes' = attributesFromMapTextValue $ body^.Request.attributes
+    let name = body^.RQ.name
+    let workflowId = body^.RQ.workflowId
+    let attributes = body^.RQ.attributes
 
-    join <$> sequence (Repository.createGermplasm name' workflowId' <$> attributes')
+    RP.createGermplasm name workflowId attributes
 

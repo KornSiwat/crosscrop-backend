@@ -29,23 +29,26 @@ share
   GermplasmEntity sql=germplasm
     name Text
     attributes JsonB
-    workflowId WorkflowComponentEntityId Maybe
+    workflowId WorkflowEntityId Maybe
     createdOn UTCTime default=now()
     updatedOn UTCTime Maybe
     deletedOn UTCTime Maybe
     deriving Show
 
-  WorkflowComponentEntity sql=workflow_component
+  WorkflowEntity sql=workflow
     name Text
-    seasonId  SeasonEntityId
+    seasonId  SeasonEntityId Maybe
     createdOn UTCTime default=now()
     updatedOn UTCTime Maybe
     deletedOn UTCTime Maybe
     deriving Show
 
   SeasonEntity sql=season
-    seasonNo Int
     year Int
+    seasonNo Int
+    createdOn UTCTime default=now()
+    updatedOn UTCTime Maybe
+    deletedOn UTCTime Maybe
     deriving Show
   |]
 

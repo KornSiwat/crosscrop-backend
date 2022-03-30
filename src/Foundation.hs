@@ -9,6 +9,7 @@
 
 module Foundation where
 
+import           ClassyPrelude.Yesod              (runDB)
 import           Control.Monad.Logger             (LogSource)
 import           Database.Persist.Sql             (ConnectionPool, runSqlPool)
 import           Import.NoFoundation
@@ -23,6 +24,7 @@ import qualified Yesod.Core.Unsafe                as Unsafe
 import           Persist.Entity
 
 import           Model.Germplasm.Common.Attribute (GermplasmId (..))
+import           Model.Workflow.Common.Attribute  (WorkflowId (..))
 
 -- | The foundation datatype for your application. This can be a good place to
 -- keep settings and values requiring initialization before your application
@@ -85,6 +87,8 @@ instance Yesod App where
     isAuthorized (StaticR _) _       = return Authorized
     isAuthorized GermplasmR _        = return Authorized
     isAuthorized (OneGermplasmR _) _ = return Authorized
+    isAuthorized WorkflowR _         = return Authorized
+    isAuthorized (OneWorkflowR _) _  = return Authorized
 
     -- the profile route requires that the user is authenticated, so we
     -- delegate to that function

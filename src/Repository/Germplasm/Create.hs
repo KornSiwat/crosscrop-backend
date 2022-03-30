@@ -1,8 +1,4 @@
-{-# LANGUAGE FlexibleContexts       #-}
-{-# LANGUAGE FlexibleInstances      #-}
-{-# LANGUAGE MultiParamTypeClasses  #-}
-{-# LANGUAGE NoImplicitPrelude      #-}
-{-# LANGUAGE OverloadedStrings      #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 
 module Repository.Germplasm.Create where
 
@@ -18,12 +14,12 @@ import qualified Model.Workflow.Common.Attribute as M
 import           Persist.Entity
 import           Persist.Field.JsonB
 
-import           UnliftIO.Exception              (catch)
+import           Repository.Common
 
 createGermplasm :: M.GermplasmName
-                    -> Maybe M.WorkflowId
-                    -> M.Attributes
-                    -> Handler (Either Error M.GermplasmId)
+                -> Maybe M.WorkflowId
+                -> M.Attributes
+                -> Handler (Either Error M.GermplasmId)
 createGermplasm name workflowId attributes = do
     currentTime <- liftIO getCurrentTime
 
@@ -35,7 +31,9 @@ createGermplasm name workflowId attributes = do
     let deletedOn = Nothing
     let entity = GermplasmEntity name' attributes' workflowId' createdOn updatedOn deletedOn
 
-    key <- (Right <$> runDB (insert entity)) `catch` (\(SomeException _) -> return $ Left ToBeDefinedError)
+    key <- runDB $ insert entity
 
-    return $ M.germplasmIdFromKey <$> key
+    let germplasmId = M.germplasmIdFromKey <$> key
+
+    return germplasmId
 

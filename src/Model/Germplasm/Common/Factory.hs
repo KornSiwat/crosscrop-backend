@@ -14,6 +14,7 @@ import           Error.Definition
 
 import           Helper.TypeConverter
 
+import           Model.Common.Attribute
 import           Model.Germplasm.Common.Attribute
 import           Model.Germplasm.Common.Definition
 
@@ -37,7 +38,7 @@ fromEntity entity = do
 
     let id' = germplasmIdFromKey key
     let name' = GermplasmName . germplasmEntityName $ val
-    let attributes' = attributesFromJsonB . germplasmEntityAttributes $ val
+    let attributes' = fromJsonB . germplasmEntityAttributes $ val
     let createdOn' = CreatedOn . germplasmEntityCreatedOn $ val
     let updatedOn' = UpdatedOn <$> germplasmEntityUpdatedOn val
     let deletedOn' = DeletedOn <$> germplasmEntityDeletedOn val
@@ -55,27 +56,27 @@ germplasmIdFromKey :: Key GermplasmEntity -> GermplasmId
 germplasmIdFromKey = GermplasmId . int64ToInt . fromSqlKey
 
 -- Attributes
-emptyAttributes :: Attributes
-emptyAttributes = HM.empty
+empty :: Attributes
+empty = HM.empty
 
-attributesFromMapTextValue :: HashMap Text Value -> Either Error Attributes
-attributesFromMapTextValue = sequence . HM.map attributeValueFromValue . HM.mapKeys attributeNameFromText
+fromMapTextValue :: HashMap Text Value -> Either Error Attributes
+fromMapTextValue = sequence . HM.map valueFromValue . HM.mapKeys nameFromText
 
-attributeNameFromText :: Text -> AttributeName
-attributeNameFromText = AttributeName
+nameFromText :: Text -> AttributeName
+nameFromText = AttributeName
 
-attributeValueFromValue :: Value -> Either Error AttributeValue
-attributeValueFromValue (String x) = maybeToRight ToBeDefinedError $ parseDateTime <|> parseString
+valueFromValue :: Value -> Either Error AttributeValue
+valueFromValue (String x) = maybeToRight ToBeDefinedError $ parseDateTime <|> parseString
                         where parseDateTime = AttributeDateTime <$> parseUTCTime x
                               parseString = Just $ AttributeText x
 
-attributeValueFromValue (Number x) = Right $ AttributeNumber (toRealFloat x::Double)
+valueFromValue (Number x) = Right $ AttributeNumber (toRealFloat x::Double)
 
-attributeValueFromValue (Bool x)   = Right $ AttributeBool x
+valueFromValue (Bool x)   = Right $ AttributeBool x
 
-attributeValueFromValue _            = Left ToBeDefinedError
+valueFromValue _            = Left ToBeDefinedError
 
-attributesFromJsonB :: JsonB -> Either Error Attributes
-attributesFromJsonB (JsonB (Object x)) = attributesFromMapTextValue x
-attributesFromJsonB _                  = Left ToBeDefinedError
+fromJsonB :: JsonB -> Either Error Attributes
+fromJsonB (JsonB (Object x)) = fromMapTextValue x
+fromJsonB _                  = Left ToBeDefinedError
 

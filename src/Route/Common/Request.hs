@@ -12,5 +12,5 @@ parseJSONBody = do
 
     case parsingResult of
         Success x -> return $ Right x
-        Error _   -> return $ Left ToBeDefinedError
+        Error x   -> return $ Left (RequestBodyJSONParsingError (tshow x))
 

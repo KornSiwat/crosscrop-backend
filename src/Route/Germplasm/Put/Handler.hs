@@ -14,8 +14,6 @@ import           Control.Lens
 
 import           Error.Definition
 
-import           Helper.Lens
-
 import qualified Model.Germplasm                       as M
 
 import qualified Repository.Germplasm                  as Repository
@@ -23,11 +21,11 @@ import qualified Repository.Germplasm                  as Repository
 import           Route.Common.Request
 import           Route.Common.Response
 import           Route.Germplasm.Put.Presenter.Factory
-import qualified Route.Germplasm.Put.RequestBody       as Request
+import qualified Route.Germplasm.Put.RequestBody       as RQ
 
 putOneGermplasmR :: M.GermplasmId -> Handler Value
 putOneGermplasmR id = do
-    jsonBody <- parseJSONBody :: Handler (Either Error Request.PutGermplasmRequestBody)
+    jsonBody <- parseJSONBody :: Handler (Either Error RQ.PutGermplasmRequestBody)
 
     germplasm <- join <$> sequence (updateGermplasm id <$> jsonBody)
 
@@ -35,20 +33,22 @@ putOneGermplasmR id = do
 
     sendResponse status200 presenter
 
-updateGermplasm :: M.GermplasmId -> Request.PutGermplasmRequestBody -> Handler (Either Error M.Germplasm)
+updateGermplasm :: M.GermplasmId
+                -> RQ.PutGermplasmRequestBody
+                -> Handler (Either Error M.Germplasm)
 updateGermplasm id body =  do
-    let name' = M.GermplasmName $ body^.Request.name
-    let attributes' = M.attributesFromMapTextValue $ body^.Request.attributes
+    let name = body^.RQ.name
+    let attributes = body^.RQ.attributes
 
-    existingGermplasm <- Repository.getOne id
+    existingGermplasm <- Repository.getById id
 
-    let updateGermplasmArg = join $ existingGermplasm 
-                                        <&> M.name .~ name' 
-                                        <&> M.attributes .~? attributes'
+    let updateGermplasmArg = existingGermplasm
+                                 <&> M.name .~ name
+                                 <&> M.attributes .~ attributes
 
     updateResult <- join <$> sequence (Repository.updateOne <$> updateGermplasmArg)
 
-    updatedGermplasm <- Repository.getOne id
+    updatedGermplasm <- Repository.getById id
 
     return $ join (updateResult $> updatedGermplasm)
 

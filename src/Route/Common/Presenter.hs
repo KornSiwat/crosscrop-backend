@@ -9,14 +9,14 @@ import           Data.Aeson
 
 import           Error.Definition
 
-import           Route.Common.ToJSONOptions
+import           Route.Common.JSONOptions
 
 newtype ErrorPresenter = ErrorPresenter {
     _message :: Text
 } deriving (Show, Generic)
 
 instance ToJSON ErrorPresenter where
-    toJSON = genericToJSON crosscropToJSONOptions
+    toJSON = genericToJSON toJSONOptions
 
 makeErrorPresenter :: Error -> ErrorPresenter
 makeErrorPresenter error = ErrorPresenter errorMessage

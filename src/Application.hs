@@ -5,7 +5,7 @@
 {-# LANGUAGE TemplateHaskell       #-}
 {-# LANGUAGE TypeFamilies          #-}
 {-# LANGUAGE ViewPatterns          #-}
-{-# OPTIONS_GHC -fno-warn-orphans #-}
+{-# OPTIONS_GHC -fno-warn-orphans  #-}
 
 module Application
     ( getApplicationDev
@@ -21,6 +21,7 @@ module Application
     , db
     ) where
 
+import           ClassyPrelude.Yesod                  (runDB)
 import           Control.Monad.Logger                 (liftLoc, runLoggingT)
 import           Database.Persist.Postgresql          (createPostgresqlPool,
                                                        pgConnStr, pgPoolSize,

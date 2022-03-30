@@ -1,42 +1,31 @@
-{-# LANGUAGE FunctionalDependencies #-}
-{-# LANGUAGE TemplateHaskell        #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE NoImplicitPrelude          #-}
 
 module Model.Workflow.Common.Attribute where
 
-import           Class.ToPersistKey
+import           ClassyPrelude.Yesod
 
-import           Control.Lens         (makeFields)
+import           Class.ToPersistKey
 
 import           Database.Persist.Sql
 
 import           Helper.TypeConverter
 
--- Workflow Attributes
+-- Basic Attributes
 newtype WorkflowId =
     WorkflowId Int
-    deriving (Show, Eq)
+    deriving (Show, Read, Eq, PathPiece, FromJSON)
 
 instance ToPersistKey WorkflowId where
   toKey (WorkflowId x) =  toSqlKey . intToInt64 $ x
 
--- Season Attributes
-newtype SeasonNo =
-    SeasonNo Int
-    deriving (Show, Eq)
+instance ToJSON WorkflowId where
+  toJSON (WorkflowId x) = toJSON x
 
-newtype Year =
-    Year Int
-    deriving (Show, Eq)
+newtype WorkflowName =
+    WorkflowName Text
+    deriving (Show, Eq, FromJSON)
 
-data Season =
-    Season
-        { seasonSeasonNo :: SeasonNo
-        , seasonYear     :: Year
-        }
-    deriving (Show, Eq)
-
-makeSeason :: SeasonNo -> Year -> Season
-makeSeason = Season
-
-makeFields ''Season
+instance ToJSON WorkflowName where
+  toJSON (WorkflowName x) = toJSON x
 

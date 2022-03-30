@@ -1,7 +1,4 @@
-{-# LANGUAGE FlexibleInstances     #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude     #-}
-{-# LANGUAGE OverloadedStrings     #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 
 module Repository.Germplasm.Delete where
 
@@ -11,11 +8,11 @@ import           Class.ToPersistKey
 
 import           Error.Definition
 
-import qualified Model.Germplasm     as M
+import qualified Model.Germplasm    as M
 
 import           Persist.Entity
 
-import           UnliftIO.Exception  (catch)
+import           Repository.Common
 
 deleteOne :: M.GermplasmId -> Handler (Either Error ())
 deleteOne id = do
@@ -24,10 +21,7 @@ deleteOne id = do
     let id' = toKey id
     let deletedOn = Just currentTime
 
-    Right <$>
-        runDB
-            (update
-             id'
-             [GermplasmEntityDeletedOn =. deletedOn])
-    `catch` (\(SomeException _) -> return $ Left ToBeDefinedError)
+    runDB $ update
+                id'
+                [GermplasmEntityDeletedOn =. deletedOn]
 

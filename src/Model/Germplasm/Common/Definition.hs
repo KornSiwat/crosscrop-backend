@@ -10,6 +10,7 @@ import           Import
 
 import           Control.Lens                     (makeFieldsNoPrefix)
 
+import           Model.Common.Attribute
 import           Model.Germplasm.Common.Attribute
 
 -- Germplasm

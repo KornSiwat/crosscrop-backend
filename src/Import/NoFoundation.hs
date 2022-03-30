@@ -5,7 +5,8 @@ module Import.NoFoundation
     ( module Import
     ) where
 
-import           ClassyPrelude.Yesod   as Import hiding (id, sendResponse, catch)
+import           ClassyPrelude.Yesod   as Import hiding (catch, id, runDB,
+                                                  sendResponse)
 import           Settings              as Import
 import           Settings.StaticFiles  as Import
 import           Yesod.Auth            as Import

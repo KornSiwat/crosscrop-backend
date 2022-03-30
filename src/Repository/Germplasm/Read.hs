@@ -1,7 +1,4 @@
-{-# LANGUAGE FlexibleInstances     #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude     #-}
-{-# LANGUAGE OverloadedStrings     #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 
 module Repository.Germplasm.Read where
 
@@ -17,21 +14,42 @@ import qualified Model.Germplasm      as M
 
 import           Persist.Entity
 
-getAll :: Handler (Either Error [M.Germplasm])
-getAll = do
-    germplasmEntities <- runDB $ selectList [GermplasmEntityDeletedOn ==. Nothing] []
+import           Repository.Common
 
-    let germplasmModels = mapM M.fromEntity germplasmEntities
+getAll :: Handler (Either Error [M.Germplasm])
+getAll = getManyBy [] []
+
+getById :: M.GermplasmId -> Handler (Either Error M.Germplasm)
+getById id = getFirstBy [GermplasmEntityId ==. toKey id] []
+
+getByIds :: [M.GermplasmId] -> Handler (Either Error [M.Germplasm])
+getByIds ids = getManyBy [GermplasmEntityId <-. ids'] []
+    where ids' = map toKey ids
+
+getManyBy :: [Filter GermplasmEntity]
+          -> [SelectOpt GermplasmEntity]
+          -> Handler (Either Error [M.Germplasm])
+getManyBy filters selectOpts = do
+    germplasmEntities <- runDB $ selectList
+                                     (baseFilter ++ filters)
+                                     selectOpts
+
+    let germplasmModels = mapM M.fromEntity =<< germplasmEntities
 
     return germplasmModels
 
-getOne :: M.GermplasmId -> Handler (Either Error M.Germplasm)
-getOne id = do
-    germplasmEntity <- runDB $ selectFirst [GermplasmEntityId ==. toKey id
-                                           ,GermplasmEntityDeletedOn ==. Nothing] 
-                                           []
+getFirstBy :: [Filter GermplasmEntity]
+           -> [SelectOpt GermplasmEntity]
+           -> Handler (Either Error M.Germplasm)
+getFirstBy filters selectOpts = do
+    germplasmEntity <- runDB $ selectFirst
+                                   (baseFilter ++ filters)
+                                   selectOpts
 
-    let germplasmModel = M.fromEntity =<< maybeToEither ToBeDefinedError germplasmEntity
+    let germplasmModel = M.fromEntity =<< maybeToEither ToBeDefinedError =<< germplasmEntity
 
     return germplasmModel
+
+baseFilter :: [Filter GermplasmEntity]
+baseFilter = [GermplasmEntityDeletedOn ==. Nothing]
 
