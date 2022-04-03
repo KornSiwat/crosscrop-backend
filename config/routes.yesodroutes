@@ -15,3 +15,6 @@
 /workflow WorkflowR POST 
 /workflow/#WorkflowId OneWorkflowR GET PUT DELETE
 
+/season SeasonR POST 
+/season/#SeasonId OneSeasonR GET PUT DELETE
+

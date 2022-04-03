@@ -25,6 +25,7 @@ import           Persist.Entity
 
 import           Model.Germplasm.Common.Attribute (GermplasmId (..))
 import           Model.Workflow.Common.Attribute  (WorkflowId (..))
+import           Model.Season.Attribute           (SeasonId (..))
 
 -- | The foundation datatype for your application. This can be a good place to
 -- keep settings and values requiring initialization before your application
@@ -89,6 +90,8 @@ instance Yesod App where
     isAuthorized (OneGermplasmR _) _ = return Authorized
     isAuthorized WorkflowR _         = return Authorized
     isAuthorized (OneWorkflowR _) _  = return Authorized
+    isAuthorized SeasonR _           = return Authorized
+    isAuthorized (OneSeasonR _) _    = return Authorized
 
     -- the profile route requires that the user is authenticated, so we
     -- delegate to that function

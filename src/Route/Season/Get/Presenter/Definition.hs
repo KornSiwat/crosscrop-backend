@@ -1,19 +1,19 @@
 {-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 
-module Route.Workflow.Put.Presenter.Definition where
+module Route.Season.Get.Presenter.Definition where
 
 import           Import
 
 import           Data.Aeson
 
 import           Route.Common.JSONOptions
-import           Route.Workflow.Common.Presenter
+import           Route.Season.Common.Presenter
 
-newtype PutWorkflowPresenter = PutWorkflowPresenter {
-    _workflow :: WorkflowPresenter
+newtype GetOneSeasonPresenter = GetOneSeasonPresenter {
+    _season :: SeasonPresenter
 } deriving (Show, Generic)
 
-instance ToJSON PutWorkflowPresenter where
+instance ToJSON GetOneSeasonPresenter where
     toJSON = genericToJSON toJSONOptions
 
