@@ -1,54 +1,33 @@
-{-# LANGUAGE AllowAmbiguousTypes   #-}
-{-# LANGUAGE DuplicateRecordFields #-}
-{-# LANGUAGE FlexibleInstances     #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude     #-}
-{-# LANGUAGE OverloadedStrings     #-}
-{-# LANGUAGE TypeFamilies          #-}
 
 module Route.Germplasm.Put.Handler where
 
 import           Import
 
-import           Control.Lens
-
 import           Error.Definition
 
-import qualified Model.Germplasm                       as M
+import           Helper.Lens
 
-import qualified Repository.Germplasm                  as Repository
+import qualified Model.Germplasm                       as M
 
 import           Route.Common.Request
 import           Route.Common.Response
 import           Route.Germplasm.Put.Presenter.Factory
-import qualified Route.Germplasm.Put.RequestBody       as RQ
+import           Route.Germplasm.Put.RequestBody
+
+import qualified Usecase.Germplasm.CRUD.Update         as UC
 
 putOneGermplasmR :: M.GermplasmId -> Handler Value
 putOneGermplasmR id = do
-    jsonBody <- parseJSONBody :: Handler (Either Error RQ.PutGermplasmRequestBody)
+    body <- parseJSONBody :: Handler (Either Error PutGermplasmRequestBody)
 
-    germplasm <- join <$> sequence (updateGermplasm id <$> jsonBody)
+    germplasm <- join <$> sequence
+                     (UC.updateGermplasm
+                             id
+                         <$> body&^.name
+                         <*> body&^.attributes)
 
     let presenter = makePutGermplasmPresenter <$> germplasm
 
     sendResponse status200 presenter
-
-updateGermplasm :: M.GermplasmId
-                -> RQ.PutGermplasmRequestBody
-                -> Handler (Either Error M.Germplasm)
-updateGermplasm id body =  do
-    let name = body^.RQ.name
-    let attributes = body^.RQ.attributes
-
-    existingGermplasm <- Repository.getById id
-
-    let updateGermplasmArg = existingGermplasm
-                                 <&> M.name .~ name
-                                 <&> M.attributes .~ attributes
-
-    updateResult <- join <$> sequence (Repository.updateOne <$> updateGermplasmArg)
-
-    updatedGermplasm <- Repository.getById id
-
-    return $ join (updateResult $> updatedGermplasm)
 

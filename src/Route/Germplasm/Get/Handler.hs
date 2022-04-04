@@ -1,8 +1,4 @@
-{-# LANGUAGE AllowAmbiguousTypes   #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude     #-}
-{-# LANGUAGE OverloadedStrings     #-}
-{-# LANGUAGE TypeFamilies          #-}
 
 module Route.Germplasm.Get.Handler where
 
@@ -10,14 +6,14 @@ import           Import
 
 import qualified Model.Germplasm                       as M
 
-import qualified Repository.Germplasm                  as RP
-
 import           Route.Common.Response
 import           Route.Germplasm.Get.Presenter.Factory
 
+import qualified Usecase.Germplasm.CRUD.Read           as UC
+
 getGermplasmR :: Handler Value
 getGermplasmR = do
-    germplasms <- RP.getAll
+    germplasms <- UC.getAllGermplasm
 
     let presenter = makeGetGermplasmPresenter <$> germplasms
 
@@ -25,7 +21,7 @@ getGermplasmR = do
 
 getOneGermplasmR :: M.GermplasmId -> Handler Value
 getOneGermplasmR id = do
-    germplasm <- RP.getById id
+    germplasm <- UC.getGermplasmById id
 
     let presenter = makeGetOneGermplasmPresenter <$> germplasm
 
