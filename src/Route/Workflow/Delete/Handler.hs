@@ -1,10 +1,5 @@
-{-# LANGUAGE AllowAmbiguousTypes   #-}
-{-# LANGUAGE DuplicateRecordFields #-}
-{-# LANGUAGE FlexibleInstances     #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude     #-}
-{-# LANGUAGE OverloadedStrings     #-}
-{-# LANGUAGE TypeFamilies          #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module Route.Workflow.Delete.Handler where
 
@@ -12,13 +7,13 @@ import           Import
 
 import qualified Model.Workflow        as M
 
-import qualified Repository.Workflow   as RP
-
 import           Route.Common.Response
+
+import qualified Usecase.Workflow      as UC
 
 deleteOneWorkflowR :: M.WorkflowId -> Handler Value
 deleteOneWorkflowR id = do
-    deleteResult <- RP.deleteOne id
+    deleteResult <- UC.deleteWorkflowById id
 
     let deleteSuccessMessage = tshow id ++ " deleted"
 

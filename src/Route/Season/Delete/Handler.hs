@@ -1,24 +1,19 @@
-{-# LANGUAGE AllowAmbiguousTypes   #-}
-{-# LANGUAGE DuplicateRecordFields #-}
-{-# LANGUAGE FlexibleInstances     #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude     #-}
 {-# LANGUAGE OverloadedStrings     #-}
-{-# LANGUAGE TypeFamilies          #-}
 
 module Route.Season.Delete.Handler where
 
 import           Import
 
-import qualified Model.Season        as M
-
-import qualified Repository.Season   as RP
+import qualified Model.Season          as M
 
 import           Route.Common.Response
 
+import qualified Usecase.Season        as UC
+
 deleteOneSeasonR :: M.SeasonId -> Handler Value
 deleteOneSeasonR id = do
-    deleteResult <- RP.deleteOne id
+    deleteResult <- UC.deleteSeasonById id
 
     let deleteSuccessMessage = tshow id ++ " deleted"
 

@@ -1,4 +1,4 @@
-{-# LANGUAGE NoImplicitPrelude     #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 
 module Route.Germplasm.Post.Handler where
 
@@ -13,7 +13,7 @@ import           Route.Common.Response
 import           Route.Germplasm.Post.Presenter.Factory
 import           Route.Germplasm.Post.RequestBody
 
-import qualified Usecase.Germplasm.CRUD.Create          as UC
+import qualified Usecase.Germplasm                      as UC
 
 postGermplasmR :: Handler Value
 postGermplasmR = do

@@ -1,42 +1,30 @@
-{-# LANGUAGE FlexibleInstances     #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude     #-}
-{-# LANGUAGE OverloadedStrings     #-}
-{-# LANGUAGE TypeFamilies          #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 
 module Route.Workflow.Post.Handler where
 
-import           Control.Lens
-import           Data.Aeson                            as A
 import           Import
 
 import           Error.Definition
 
-import qualified Model.Workflow                        as M
-
-import qualified Repository.Workflow                   as RP
+import           Helper.Lens
 
 import           Route.Common.Request
 import           Route.Common.Response
 import           Route.Workflow.Post.Presenter.Factory
-import qualified Route.Workflow.Post.RequestBody       as RQ
+import           Route.Workflow.Post.RequestBody
+
+import qualified Usecase.Workflow                      as UC
 
 postWorkflowR :: Handler Value
 postWorkflowR = do
-    jsonBody <- parseJSONBody :: Handler (Either Error RQ.PostWorkflowRequestBody)
+    body <- parseJSONBody :: Handler (Either Error PostWorkflowRequestBody)
 
-    workflowId <- join <$> sequence (createWorkflow <$> jsonBody)
+    workflow <- join <$> sequence
+                      (UC.createWorkflow
+                          <$> body&^.name
+                          <*> body&^.seasonId)
 
-    let presenter = makePostWorkflowPresenter <$> workflowId
+    let presenter = makePostWorkflowPresenter <$> workflow
 
     sendResponse status201 presenter
-
-createWorkflow :: RQ.PostWorkflowRequestBody -> Handler (Either Error M.WorkflowId)
-createWorkflow body =  do
-    let name = body^.RQ.name
-    let seasonId = body^.RQ.seasonId
-
-    let workflowId = RP.createWorkflow name seasonId
-
-    workflowId
 

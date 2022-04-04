@@ -46,7 +46,7 @@ getFirstBy filters selectOpts = do
                                    (baseFilter ++ filters)
                                    selectOpts
 
-    let germplasmModel = M.fromEntity =<< maybeToEither ToBeDefinedError =<< germplasmEntity
+    let germplasmModel = M.fromEntity =<< maybeToEither RecordNotFound =<< germplasmEntity
 
     return germplasmModel
 

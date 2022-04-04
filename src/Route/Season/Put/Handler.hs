@@ -1,52 +1,33 @@
-{-# LANGUAGE AllowAmbiguousTypes   #-}
-{-# LANGUAGE DuplicateRecordFields #-}
-{-# LANGUAGE FlexibleInstances     #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude     #-}
-{-# LANGUAGE OverloadedStrings     #-}
-{-# LANGUAGE TypeFamilies          #-}
 
 module Route.Season.Put.Handler where
 
 import           Import
 
-import           Control.Lens
-
 import           Error.Definition
 
-import qualified Model.Season                       as M
+import           Helper.Lens
 
-import qualified Repository.Season                  as RP.Season
+import qualified Model.Season                       as M
 
 import           Route.Common.Request
 import           Route.Common.Response
 import           Route.Season.Put.Presenter.Factory
-import qualified Route.Season.Put.RequestBody       as RQ
+import           Route.Season.Put.RequestBody
+
+import qualified Usecase.Season                     as UC
 
 putOneSeasonR :: M.SeasonId -> Handler Value
 putOneSeasonR id = do
-    jsonBody <- parseJSONBody :: Handler (Either Error RQ.PutSeasonRequestBody)
+    body <- parseJSONBody :: Handler (Either Error PutSeasonRequestBody)
 
-    germplasm <- join <$> sequence (updateSeason id <$> jsonBody)
+    season <- join <$> sequence
+                     (UC.updateSeason
+                             id
+                         <$> body&^.year
+                         <*> body&^.seasonNo)
 
-    let presenter = makePutSeasonPresenter <$> germplasm
+    let presenter = makePutSeasonPresenter <$> season
 
     sendResponse status200 presenter
-
-updateSeason :: M.SeasonId -> RQ.PutSeasonRequestBody -> Handler (Either Error M.Season)
-updateSeason id body =  do
-    let year = body^.RQ.year
-    let seasonNo = body^.RQ.seasonNo
-
-    existingSeason <- RP.Season.getById id
-
-    let updateSeasonArg = existingSeason
-                              <&> M.year .~ year
-                              <&> M.seasonNo .~ seasonNo
-
-    updateResult <- sequence (RP.Season.updateOne <$> updateSeasonArg)
-
-    updatedSeason <- RP.Season.getById id
-
-    return $ join (updateResult $> updatedSeason)
 

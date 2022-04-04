@@ -1,16 +1,8 @@
-{-# LANGUAGE AllowAmbiguousTypes   #-}
-{-# LANGUAGE DuplicateRecordFields #-}
-{-# LANGUAGE FlexibleInstances     #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude     #-}
-{-# LANGUAGE OverloadedStrings     #-}
-{-# LANGUAGE TypeFamilies          #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 
 module Route.Workflow.Put.Handler where
 
 import           Import
-
-import           Control.Lens
 
 import           Error.Definition
 
@@ -18,38 +10,24 @@ import           Helper.Lens
 
 import qualified Model.Workflow                       as M
 
-import qualified Repository.Season                    as RP.Season
-import qualified Repository.Workflow                  as RP.Workflow
-
 import           Route.Common.Request
 import           Route.Common.Response
 import           Route.Workflow.Put.Presenter.Factory
-import qualified Route.Workflow.Put.RequestBody       as RQ
+import           Route.Workflow.Put.RequestBody
+
+import qualified Usecase.Workflow                     as UC
 
 putOneWorkflowR :: M.WorkflowId -> Handler Value
 putOneWorkflowR id = do
-    jsonBody <- parseJSONBody :: Handler (Either Error RQ.PutWorkflowRequestBody)
+    body <- parseJSONBody :: Handler (Either Error PutWorkflowRequestBody)
 
-    germplasm <- join <$> sequence (updateWorkflow id <$> jsonBody)
+    workflow <- join <$> sequence
+                     (UC.updateWorkflow
+                             id
+                         <$> body&^.name
+                         <*> body&^.seasonId)
 
-    let presenter = makePutWorkflowPresenter <$> germplasm
+    let presenter = makePutWorkflowPresenter <$> workflow
 
     sendResponse status200 presenter
-
-updateWorkflow :: M.WorkflowId -> RQ.PutWorkflowRequestBody -> Handler (Either Error M.Workflow)
-updateWorkflow id body =  do
-    let name = body^.RQ.name
-    season <- sequence <$> sequence (RP.Season.getById <$> (body^.RQ.seasonId))
-
-    existingWorkflow <- RP.Workflow.getById id
-
-    let updateWorkflowArg = join $ existingWorkflow
-                                       <&> M.name .~ name
-                                       <&> M.season .~? season
-
-    updateResult <- sequence (RP.Workflow.updateOne <$> updateWorkflowArg)
-
-    updatedWorkflow <- RP.Workflow.getById id
-
-    return $ join (updateResult $> updatedWorkflow)
 

@@ -1,8 +1,4 @@
-{-# LANGUAGE AllowAmbiguousTypes   #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude     #-}
-{-# LANGUAGE OverloadedStrings     #-}
-{-# LANGUAGE TypeFamilies          #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 
 module Route.Season.Get.Handler where
 
@@ -10,14 +6,14 @@ import           Import
 
 import qualified Model.Season                       as M
 
-import qualified Repository.Season                  as Repository
-
 import           Route.Common.Response
 import           Route.Season.Get.Presenter.Factory
 
+import qualified Usecase.Season                     as UC
+
 getOneSeasonR :: M.SeasonId -> Handler Value
 getOneSeasonR id = do
-    season <- Repository.getById id
+    season <- UC.getSeasonById id
 
     let presenter = makeGetOneSeasonPresenter <$> season
 

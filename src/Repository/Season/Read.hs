@@ -46,7 +46,7 @@ getFirstBy filters selectOpts = do
                                 (baseFilter ++ filters)
                                 selectOpts
 
-    let seasonModel = M.fromEntity =<< maybeToEither ToBeDefinedError =<< seasonEntity
+    let seasonModel = M.fromEntity =<< maybeToEither RecordNotFound =<< seasonEntity
 
     return seasonModel
 
