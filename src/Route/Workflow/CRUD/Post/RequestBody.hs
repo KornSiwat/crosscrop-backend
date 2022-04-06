@@ -20,7 +20,7 @@ import qualified Model.Workflow  as M
 data PostWorkflowRequestBody = PostWorkflowRequestBody {
     _workflowType :: M.WorkflowType,
     _name         :: M.WorkflowName,
-    _seasonId     :: Maybe M.SeasonId,
+    _seasonId     :: M.SeasonId,
     _germplasmIds :: Maybe [M.GermplasmId]
     } deriving (Show, Generic)
 
@@ -30,7 +30,7 @@ instance FromJSON PostWorkflowRequestBody where
         parsePostWorkflowRequestBody x = do
             workflowType <- x .: "workflow_type"
             name <- x .: "name"
-            seasonId <- x .:? "season_id"
+            seasonId <- x .: "season_id"
             germplasmIds <- x .:? "germplasm_ids"
 
             return $ PostWorkflowRequestBody

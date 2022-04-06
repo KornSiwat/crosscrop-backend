@@ -18,7 +18,7 @@ import qualified Model.Workflow as M
 
 data PutWorkflowRequestBody = PutWorkflowRequestBody {
     _name     :: M.WorkflowName,
-    _seasonId :: Maybe M.SeasonId
+    _seasonId :: M.SeasonId
     } deriving (Show, Generic)
 
 instance FromJSON PutWorkflowRequestBody where
@@ -26,7 +26,7 @@ instance FromJSON PutWorkflowRequestBody where
         where
         parsePutWorkflowRequestBody x = do
             name <- x .: "name"
-            seasonId <- x .:? "season_id"
+            seasonId <- x .: "season_id"
 
             return $ PutWorkflowRequestBody name seasonId
 

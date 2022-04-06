@@ -6,6 +6,7 @@ data Error
     = ToBeDefinedError
     | ToBeDefinedDBError
     | RequestBodyJSONParsingError Text
+    | TypeConversionError Text
     | RecordNotFound
     | InvalidForm
     | Unauthorized

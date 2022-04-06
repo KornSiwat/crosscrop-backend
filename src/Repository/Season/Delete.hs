@@ -1,4 +1,4 @@
-{-# LANGUAGE NoImplicitPrelude     #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 
 module Repository.Season.Delete where
 
@@ -14,7 +14,8 @@ import           Persist.Entity
 
 import           Repository.Common
 
-deleteOne :: M.SeasonId -> Handler (Either Error ())
+deleteOne :: M.SeasonId
+          -> Handler (Either Error ())
 deleteOne id = do
     currentTime <- liftIO getCurrentTime
 

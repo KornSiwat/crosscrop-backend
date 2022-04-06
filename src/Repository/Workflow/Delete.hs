@@ -14,7 +14,8 @@ import           Persist.Entity
 
 import           Repository.Common
 
-deleteOne :: M.WorkflowId -> Handler (Either Error ())
+deleteOne :: M.WorkflowId
+          -> Handler (Either Error ())
 deleteOne id = do
     currentTime <- liftIO getCurrentTime
 

@@ -12,7 +12,7 @@
 /germplasm GermplasmR GET POST
 /germplasm/#GermplasmId OneGermplasmR GET PUT DELETE
 
-/workflow WorkflowR POST 
+/workflow WorkflowR GET POST 
 /workflow/#WorkflowId OneWorkflowR GET PUT DELETE
 /workflow/#WorkflowId/add-germplasm WorkflowAddGermplasmR POST
 

@@ -17,7 +17,8 @@ import           Persist.Field.JsonB
 
 import           Repository.Common
 
-updateOne :: M.Germplasm -> Handler (Either Error ())
+updateOne :: M.Germplasm
+          -> Handler (Either Error ())
 updateOne germplasm = do
     currentTime <- liftIO getCurrentTime
 

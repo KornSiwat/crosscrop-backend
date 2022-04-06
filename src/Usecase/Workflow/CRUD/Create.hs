@@ -13,7 +13,7 @@ import qualified Repository.Workflow as RP
 
 createWorkflow :: M.WF.WorkflowType
                -> M.WF.WorkflowName
-               -> Maybe M.SS.SeasonId
+               -> M.SS.SeasonId
                -> Handler (Either Error M.WF.Workflow)
 createWorkflow workflowType name seasonId =  do
     workflowId <- RP.createWorkflow

@@ -16,7 +16,8 @@ import           Persist.Entity
 
 import           Repository.Common
 
-updateOne :: M.Workflow -> Handler (Either Error ())
+updateOne :: M.Workflow
+          -> Handler (Either Error ())
 updateOne workflow = do
     currentTime <- liftIO getCurrentTime
 

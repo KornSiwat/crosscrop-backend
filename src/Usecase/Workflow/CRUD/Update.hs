@@ -20,16 +20,16 @@ import qualified Usecase.Workflow.CRUD.Read as UC.WF
 
 updateWorkflow :: M.WF.WorkflowId
                -> M.WF.WorkflowName
-               -> Maybe M.SS.SeasonId
+               -> M.SS.SeasonId
                -> Handler (Either Error M.WF.Workflow)
 updateWorkflow id name seasonId =  do
-    season <- sequence <$> sequence (UC.SS.getSeasonById <$> seasonId)
+    season <- UC.SS.getSeasonById seasonId
 
     existingWorkflow <- UC.WF.getWorkflowById id
 
     let updateWorkflowArg = join $ existingWorkflow
-                                <&> M.WF.name .~ name
-                                <&> M.WF.season .~? season
+                                       <&> M.WF.name .~ name
+                                       <&> M.WF.season .~? season
 
     updateResult <- sequence (RP.WF.updateOne <$> updateWorkflowArg)
 

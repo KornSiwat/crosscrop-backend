@@ -17,14 +17,14 @@ import           Repository.Common
 
 createWorkflow :: M.Workflow.WorkflowType
                -> M.Workflow.WorkflowName
-               -> Maybe M.Season.SeasonId
+               -> M.Season.SeasonId
                -> Handler (Either Error M.Workflow.WorkflowId)
 createWorkflow workflowType name seasonId = do
     currentTime <- liftIO getCurrentTime
 
     let workflowType' = tshow workflowType
     let (M.Workflow.WorkflowName name') = name
-    let seasonId' = toKey <$> seasonId
+    let seasonId' = toKey seasonId
     let createdOn = currentTime
     let updatedOn = Nothing
     let deletedOn = Nothing

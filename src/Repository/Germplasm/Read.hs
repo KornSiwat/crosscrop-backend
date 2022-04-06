@@ -19,14 +19,20 @@ import           Repository.Common
 getAll :: Handler (Either Error [M.Germplasm])
 getAll = getManyBy [] []
 
-getById :: M.GermplasmId -> Handler (Either Error M.Germplasm)
-getById id = getFirstBy [GermplasmEntityId ==. toKey id] []
+getById :: M.GermplasmId
+        -> Handler (Either Error M.Germplasm)
+getById id = getFirstBy
+                 [GermplasmEntityId ==. toKey id]
+                 []
 
-getByIds :: [M.GermplasmId] -> Handler (Either Error [M.Germplasm])
+getByIds :: [M.GermplasmId]
+         -> Handler (Either Error [M.Germplasm])
 getByIds ids = do
     let ids' = map toKey ids
 
-    germplasms <- getManyBy [GermplasmEntityId <-. ids'] []
+    germplasms <- getManyBy
+                      [GermplasmEntityId <-. ids']
+                      []
 
     return $ case germplasms of
         Right xs -> if length xs == length ids
@@ -54,7 +60,9 @@ getFirstBy filters selectOpts = do
                                    (baseFilter ++ filters)
                                    selectOpts
 
-    let germplasmModel = M.fromEntity =<< maybeToEither RecordNotFound =<< germplasmEntity
+    let germplasmModel = M.fromEntity
+                             =<< maybeToEither RecordNotFound
+                             =<< germplasmEntity
 
     return germplasmModel
 

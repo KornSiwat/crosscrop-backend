@@ -17,7 +17,8 @@ import           Route.Workflow.CRUD.Put.RequestBody
 
 import qualified Usecase.Workflow                          as UC
 
-putOneWorkflowR :: M.WorkflowId -> Handler Value
+putOneWorkflowR :: M.WorkflowId
+                -> Handler Value
 putOneWorkflowR id = do
     body <- parseJSONBody :: Handler (Either Error PutWorkflowRequestBody)
 

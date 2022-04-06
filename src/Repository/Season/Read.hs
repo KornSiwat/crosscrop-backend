@@ -17,16 +17,24 @@ import           Persist.Entity
 import           Repository.Common
 
 getAll :: Handler (Either Error [M.Season])
-getAll = getManyBy [] []
+getAll = getManyBy
+             []
+             []
 
-getById :: M.SeasonId -> Handler (Either Error M.Season)
-getById id = getFirstBy [SeasonEntityId ==. toKey id] []
+getById :: M.SeasonId
+        -> Handler (Either Error M.Season)
+getById id = getFirstBy
+                 [SeasonEntityId ==. toKey id]
+                 []
 
-getByIds :: [M.SeasonId] -> Handler (Either Error [M.Season])
+getByIds :: [M.SeasonId]
+         -> Handler (Either Error [M.Season])
 getByIds ids = do
     let ids' = map toKey ids
 
-    seasons <- getManyBy [SeasonEntityId <-. ids'] []
+    seasons <- getManyBy
+                   [SeasonEntityId <-. ids']
+                   []
 
     return $ case seasons of
         Right xs -> if length xs == length ids
@@ -54,7 +62,9 @@ getFirstBy filters selectOpts = do
                                 (baseFilter ++ filters)
                                 selectOpts
 
-    let seasonModel = M.fromEntity =<< maybeToEither RecordNotFound =<< seasonEntity
+    let seasonModel = M.fromEntity
+                          =<< maybeToEither RecordNotFound
+                          =<< seasonEntity
 
     return seasonModel
 

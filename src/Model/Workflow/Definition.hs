@@ -22,7 +22,7 @@ data Workflow =
     , _workflowType :: WorkflowType
     , _name         :: WorkflowName
     , _germplasms   :: [GP.Germplasm]
-    , _season       :: Maybe SS.Season
+    , _season       :: SS.Season
     , _createdOn    :: CreatedOn
     , _updatedOn    :: Maybe UpdatedOn
     , _deletedOn    :: Maybe DeletedOn

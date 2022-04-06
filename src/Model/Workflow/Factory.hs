@@ -1,4 +1,5 @@
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module Model.Workflow.Factory where
 
@@ -23,7 +24,7 @@ makeWorkflow :: WorkflowId
              -> WorkflowType
              -> WorkflowName
              -> [GP.Germplasm]
-             -> Maybe Season
+             -> Season
              -> CreatedOn
              -> Maybe UpdatedOn
              -> Maybe DeletedOn
@@ -32,28 +33,30 @@ makeWorkflow a b c d e f g h = Right $ Workflow a b c d e f g h
 
 fromEntity :: Entity WorkflowEntity
            -> [GP.Germplasm]
-           -> Maybe SS.Season
+           -> SS.Season
            -> Either Error Workflow
 fromEntity workflowEntity germplasms' season' = do
     let key = entityKey workflowEntity
     let val = entityVal workflowEntity
 
     let id' = workflowIdFromKey key
-    let workflowType' = (tread . workflowEntityWorkflowType $ val)::WorkflowType
+    let workflowType' = maybeToEither
+                            (TypeConversionError "Parsing Workflow Error")
+                            ((treadMaybe . workflowEntityWorkflowType $ val):: Maybe WorkflowType)
     let name' = WorkflowName . workflowEntityName $ val
     let createdOn' = CreatedOn . workflowEntityCreatedOn $ val
     let updatedOn' = UpdatedOn <$> workflowEntityUpdatedOn val
     let deletedOn' = DeletedOn <$> workflowEntityDeletedOn val
 
-    makeWorkflow
-            id'
-            workflowType'
-            name'
-            germplasms'
-            season'
-            createdOn'
-            updatedOn'
-            deletedOn'
+    join $ makeWorkflow
+                   id'
+               <$> workflowType'
+               <*> pure name'
+               <*> pure germplasms'
+               <*> pure season'
+               <*> pure createdOn'
+               <*> pure updatedOn'
+               <*> pure deletedOn'
 
 -- WorkflowId
 workflowIdFromKey :: Key WorkflowEntity -> WorkflowId

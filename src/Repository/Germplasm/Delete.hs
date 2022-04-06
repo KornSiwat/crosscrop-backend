@@ -14,7 +14,8 @@ import           Persist.Entity
 
 import           Repository.Common
 
-deleteOne :: M.GermplasmId -> Handler (Either Error ())
+deleteOne :: M.GermplasmId
+          -> Handler (Either Error ())
 deleteOne id = do
     currentTime <- liftIO getCurrentTime
 

@@ -38,7 +38,7 @@ share
   WorkflowEntity sql=workflow
     workflowType Text
     name Text
-    seasonId  SeasonEntityId Maybe
+    seasonId  SeasonEntityId
     createdOn UTCTime default=now()
     updatedOn UTCTime Maybe
     deletedOn UTCTime Maybe

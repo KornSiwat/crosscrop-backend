@@ -16,7 +16,8 @@ import           Persist.Entity
 
 import           Repository.Common
 
-updateOne :: M.Season -> Handler (Either Error ())
+updateOne :: M.Season
+          -> Handler (Either Error ())
 updateOne season = do
     currentTime <- liftIO getCurrentTime
 
