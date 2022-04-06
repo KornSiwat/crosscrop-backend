@@ -15,18 +15,26 @@ import           Persist.Entity
 
 import           Repository.Common
 
-createWorkflow :: M.Workflow.WorkflowName
+createWorkflow :: M.Workflow.WorkflowType
+               -> M.Workflow.WorkflowName
                -> Maybe M.Season.SeasonId
                -> Handler (Either Error M.Workflow.WorkflowId)
-createWorkflow name seasonId = do
+createWorkflow workflowType name seasonId = do
     currentTime <- liftIO getCurrentTime
 
+    let workflowType' = tshow workflowType
     let (M.Workflow.WorkflowName name') = name
     let seasonId' = toKey <$> seasonId
     let createdOn = currentTime
     let updatedOn = Nothing
     let deletedOn = Nothing
-    let entity = WorkflowEntity name' seasonId' createdOn updatedOn deletedOn
+    let entity = WorkflowEntity
+                     workflowType'
+                     name'
+                     seasonId'
+                     createdOn
+                     updatedOn
+                     deletedOn
 
     key <- runDB $ insert entity
 

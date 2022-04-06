@@ -13,7 +13,7 @@ import           Route.Common.Response
 import           Route.Workflow.CRUD.Post.Presenter.Factory
 import           Route.Workflow.CRUD.Post.RequestBody
 
-import qualified Usecase.Workflow                      as UC
+import qualified Usecase.Workflow                           as UC
 
 postWorkflowR :: Handler Value
 postWorkflowR = do
@@ -21,7 +21,8 @@ postWorkflowR = do
 
     workflow <- join <$> sequence
                       (UC.createWorkflow
-                          <$> body&^.name
+                          <$> body&^.workflowType
+                          <*> body&^.name
                           <*> body&^.seasonId)
 
     let presenter = makePostWorkflowPresenter <$> workflow

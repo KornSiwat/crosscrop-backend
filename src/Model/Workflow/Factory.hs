@@ -20,6 +20,7 @@ import           Persist.Entity
 
 -- Workflow
 makeWorkflow :: WorkflowId
+             -> WorkflowType
              -> WorkflowName
              -> [GP.Germplasm]
              -> Maybe Season
@@ -27,7 +28,7 @@ makeWorkflow :: WorkflowId
              -> Maybe UpdatedOn
              -> Maybe DeletedOn
              -> Either Error Workflow
-makeWorkflow a b c d e f g = Right $ Workflow a b c d e f g
+makeWorkflow a b c d e f g h = Right $ Workflow a b c d e f g h
 
 fromEntity :: Entity WorkflowEntity
            -> [GP.Germplasm]
@@ -38,6 +39,7 @@ fromEntity workflowEntity germplasms' season' = do
     let val = entityVal workflowEntity
 
     let id' = workflowIdFromKey key
+    let workflowType' = (tread . workflowEntityWorkflowType $ val)::WorkflowType
     let name' = WorkflowName . workflowEntityName $ val
     let createdOn' = CreatedOn . workflowEntityCreatedOn $ val
     let updatedOn' = UpdatedOn <$> workflowEntityUpdatedOn val
@@ -45,6 +47,7 @@ fromEntity workflowEntity germplasms' season' = do
 
     makeWorkflow
             id'
+            workflowType'
             name'
             germplasms'
             season'

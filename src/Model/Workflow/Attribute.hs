@@ -1,3 +1,4 @@
+{-# LANGUAGE DeriveGeneric              #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude          #-}
 
@@ -28,4 +29,13 @@ newtype WorkflowName =
 
 instance ToJSON WorkflowName where
   toJSON (WorkflowName x) = toJSON x
+
+-- Workflow Types
+data WorkflowType = BreedingNursery
+                  | CrossingBlock
+                  | YieldTrial
+                  deriving (Show, Read, Eq, Generic)
+
+instance ToJSON WorkflowType
+instance FromJSON WorkflowType
 

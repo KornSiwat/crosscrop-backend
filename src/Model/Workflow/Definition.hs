@@ -8,23 +8,24 @@ module Model.Workflow.Definition where
 
 import           Import
 
-import           Control.Lens                    (makeFieldsNoPrefix)
+import           Control.Lens             (makeFieldsNoPrefix)
 
 import           Model.Common.Attribute
-import qualified Model.Germplasm                 as GP
-import qualified Model.Season                    as SS
+import qualified Model.Germplasm          as GP
+import qualified Model.Season             as SS
 import           Model.Workflow.Attribute
 
 -- Workflow
 data Workflow =
   Workflow
-    { _id         :: WorkflowId
-    , _name       :: WorkflowName
-    , _germplasms :: [GP.Germplasm]
-    , _season     :: Maybe SS.Season
-    , _createdOn  :: CreatedOn
-    , _updatedOn  :: Maybe UpdatedOn
-    , _deletedOn  :: Maybe DeletedOn
+    { _id           :: WorkflowId
+    , _workflowType :: WorkflowType
+    , _name         :: WorkflowName
+    , _germplasms   :: [GP.Germplasm]
+    , _season       :: Maybe SS.Season
+    , _createdOn    :: CreatedOn
+    , _updatedOn    :: Maybe UpdatedOn
+    , _deletedOn    :: Maybe DeletedOn
     }
   deriving (Show, Eq)
 

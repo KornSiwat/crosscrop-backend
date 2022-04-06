@@ -22,3 +22,6 @@ maybeToEither :: Error -> Maybe a -> Either Error a
 maybeToEither e Nothing  = Left e
 maybeToEither _ (Just x) = Right x
 
+tread :: (Read a) => Text -> a
+tread = read . unpack
+

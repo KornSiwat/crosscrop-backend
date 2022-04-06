@@ -36,6 +36,7 @@ share
     deriving Show
 
   WorkflowEntity sql=workflow
+    workflowType Text
     name Text
     seasonId  SeasonEntityId Maybe
     createdOn UTCTime default=now()

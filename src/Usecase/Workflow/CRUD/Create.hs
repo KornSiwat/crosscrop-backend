@@ -11,11 +11,15 @@ import qualified Model.Workflow      as M.WF
 
 import qualified Repository.Workflow as RP
 
-createWorkflow :: M.WF.WorkflowName
+createWorkflow :: M.WF.WorkflowType
+               -> M.WF.WorkflowName
                -> Maybe M.SS.SeasonId
                -> Handler (Either Error M.WF.Workflow)
-createWorkflow name seasonId =  do
-    workflowId <- RP.createWorkflow name seasonId
+createWorkflow workflowType name seasonId =  do
+    workflowId <- RP.createWorkflow
+                      workflowType
+                      name
+                      seasonId
 
     let workflow = join <$> sequence (RP.getById <$> workflowId)
 
