@@ -1,7 +1,5 @@
-module Route.Workflow.Handler (module Handler) where
+module Route.Workflow.Handler (module Route.Workflow.Handler) where
 
-import           Route.Workflow.Delete.Handler as Handler
-import           Route.Workflow.Get.Handler    as Handler
-import           Route.Workflow.Post.Handler   as Handler
-import           Route.Workflow.Put.Handler    as Handler
+import           Route.Workflow.AddGermplasm.Handler as Route.Workflow.Handler
+import           Route.Workflow.CRUD                 as Route.Workflow.Handler
 

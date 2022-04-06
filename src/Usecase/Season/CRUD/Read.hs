@@ -17,3 +17,7 @@ getSeasonById :: M.SeasonId
                  -> Handler (Either Error M.Season)
 getSeasonById = RP.getById
 
+getSeasonByIds :: [M.SeasonId]
+               -> Handler (Either Error [M.Season])
+getSeasonByIds = RP.getByIds
+

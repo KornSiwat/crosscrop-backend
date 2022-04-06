@@ -13,27 +13,28 @@ import           Helper.Lens
 import qualified Model.Season               as M.SS
 import qualified Model.Workflow             as M.WF
 
-import qualified Repository.Season          as RP.SS
 import qualified Repository.Workflow        as RP.WF
 
-import qualified Usecase.Workflow.CRUD.Read as UC
+import qualified Usecase.Season.CRUD.Read   as UC.SS
+import qualified Usecase.Workflow.CRUD.Read as UC.WF
 
 updateWorkflow :: M.WF.WorkflowId
                -> M.WF.WorkflowName
                -> Maybe M.SS.SeasonId
                -> Handler (Either Error M.WF.Workflow)
 updateWorkflow id name seasonId =  do
-    season <- sequence <$> sequence (RP.SS.getById <$> seasonId)
+    season <- sequence <$> sequence (UC.SS.getSeasonById <$> seasonId)
 
-    existingWorkflow <- UC.getWorkflowById id
+    existingWorkflow <- UC.WF.getWorkflowById id
 
     let updateWorkflowArg = join $ existingWorkflow
-                                       <&> M.WF.name .~ name
-                                       <&> M.WF.season .~? season
+                                <&> M.WF.name .~ name
+                                <&> M.WF.season .~? season
 
     updateResult <- sequence (RP.WF.updateOne <$> updateWorkflowArg)
 
-    updatedWorkflow <- UC.getWorkflowById id
+    updatedWorkflow <- UC.WF.getWorkflowById id
 
-    return $ join (updateResult $> updatedWorkflow)
+    return $ join
+        (updateResult $> updatedWorkflow)
 

@@ -8,24 +8,27 @@ import           Control.Lens
 
 import           Error.Definition
 
-import qualified Model.Season      as M
+import qualified Model.Season             as M
 
-import qualified Repository.Season as RP
+import qualified Repository.Season        as RP
+
+import qualified Usecase.Season.CRUD.Read as UC
 
 updateSeason :: M.SeasonId
              -> M.Year
              -> M.SeasonNo
              -> Handler (Either Error M.Season)
 updateSeason id year seasonNo  =  do
-    existingSeason <- RP.getById id
+    existingSeason <- UC.getSeasonById id
 
     let updateSeasonArg = existingSeason
-                                 <&> M.year .~ year
-                                 <&> M.seasonNo .~ seasonNo
+                              <&> M.year .~ year
+                              <&> M.seasonNo .~ seasonNo
 
     updateResult <- join <$> sequence (RP.updateOne <$> updateSeasonArg)
 
-    updatedSeason <- RP.getById id
+    updatedSeason <- UC.getSeasonById id
 
-    return $ join (updateResult $> updatedSeason)
+    return $ join 
+        (updateResult $> updatedSeason)
 

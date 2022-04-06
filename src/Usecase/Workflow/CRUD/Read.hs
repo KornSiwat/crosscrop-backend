@@ -17,3 +17,7 @@ getWorkflowById :: M.WorkflowId
                 -> Handler (Either Error M.Workflow)
 getWorkflowById = RP.getById
 
+getWorkflowByIds :: [M.WorkflowId]
+                 -> Handler (Either Error [M.Workflow])
+getWorkflowByIds = RP.getByIds
+

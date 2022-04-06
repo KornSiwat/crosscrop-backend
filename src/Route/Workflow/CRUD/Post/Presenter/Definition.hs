@@ -1,6 +1,6 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 
-module Route.Workflow.Post.Presenter.Definition where
+module Route.Workflow.CRUD.Post.Presenter.Definition where
 
 import           Route.Workflow.Common.Presenter
 

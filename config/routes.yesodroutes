@@ -14,6 +14,7 @@
 
 /workflow WorkflowR POST 
 /workflow/#WorkflowId OneWorkflowR GET PUT DELETE
+/workflow/#WorkflowId/add-germplasm WorkflowAddGermplasmR POST
 
 /season SeasonR POST 
 /season/#SeasonId OneSeasonR GET PUT DELETE

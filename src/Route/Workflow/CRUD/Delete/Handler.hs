@@ -1,7 +1,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 
-module Route.Workflow.Delete.Handler where
+module Route.Workflow.CRUD.Delete.Handler where
 
 import           Import
 

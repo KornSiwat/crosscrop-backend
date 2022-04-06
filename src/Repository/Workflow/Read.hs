@@ -26,8 +26,16 @@ getById :: M.WF.WorkflowId -> Handler (Either Error M.WF.Workflow)
 getById id = getFirstBy [WorkflowEntityId ==. toKey id] []
 
 getByIds :: [M.WF.WorkflowId] -> Handler (Either Error [M.WF.Workflow])
-getByIds ids = getManyBy [WorkflowEntityId <-. ids'] []
-    where ids' = map toKey ids
+getByIds ids = do
+    let ids' = map toKey ids
+
+    workflow <- getManyBy [WorkflowEntityId <-. ids'] []
+
+    return $ case workflow of
+        Right xs -> if length xs == length ids
+                    then Right xs
+                    else Left RecordNotFound
+        Left e   -> Left e
 
 getManyBy :: [Filter WorkflowEntity]
           -> [SelectOpt WorkflowEntity]

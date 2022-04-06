@@ -23,8 +23,16 @@ getById :: M.SeasonId -> Handler (Either Error M.Season)
 getById id = getFirstBy [SeasonEntityId ==. toKey id] []
 
 getByIds :: [M.SeasonId] -> Handler (Either Error [M.Season])
-getByIds ids = getManyBy [SeasonEntityId <-. ids'] []
-    where ids' = map toKey ids
+getByIds ids = do
+    let ids' = map toKey ids
+
+    seasons <- getManyBy [SeasonEntityId <-. ids'] []
+
+    return $ case seasons of
+        Right xs -> if length xs == length ids
+                    then Right xs
+                    else Left RecordNotFound
+        Left e   -> Left e
 
 getManyBy :: [Filter SeasonEntity]
           -> [SelectOpt SeasonEntity]

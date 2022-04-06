@@ -1,15 +1,15 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 
-module Route.Workflow.Get.Handler where
+module Route.Workflow.CRUD.Get.Handler where
 
 import           Import
 
-import qualified Model.Workflow                       as M
+import qualified Model.Workflow                            as M
 
 import           Route.Common.Response
-import           Route.Workflow.Get.Presenter.Factory
+import           Route.Workflow.CRUD.Get.Presenter.Factory
 
-import qualified Usecase.Workflow                     as UC
+import qualified Usecase.Workflow                          as UC
 
 getOneWorkflowR :: M.WorkflowId -> Handler Value
 getOneWorkflowR id = do

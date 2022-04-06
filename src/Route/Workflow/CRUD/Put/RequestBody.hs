@@ -5,7 +5,7 @@
 {-# LANGUAGE OverloadedStrings      #-}
 {-# LANGUAGE TemplateHaskell        #-}
 
-module Route.Workflow.Put.RequestBody where
+module Route.Workflow.CRUD.Put.RequestBody where
 
 import           Import
 

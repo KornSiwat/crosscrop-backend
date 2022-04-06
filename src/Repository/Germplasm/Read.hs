@@ -23,8 +23,16 @@ getById :: M.GermplasmId -> Handler (Either Error M.Germplasm)
 getById id = getFirstBy [GermplasmEntityId ==. toKey id] []
 
 getByIds :: [M.GermplasmId] -> Handler (Either Error [M.Germplasm])
-getByIds ids = getManyBy [GermplasmEntityId <-. ids'] []
-    where ids' = map toKey ids
+getByIds ids = do
+    let ids' = map toKey ids
+
+    germplasms <- getManyBy [GermplasmEntityId <-. ids'] []
+
+    return $ case germplasms of
+        Right xs -> if length xs == length ids
+                    then Right xs
+                    else Left RecordNotFound
+        Left e   -> Left e
 
 getManyBy :: [Filter GermplasmEntity]
           -> [SelectOpt GermplasmEntity]

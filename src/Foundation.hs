@@ -24,8 +24,8 @@ import qualified Yesod.Core.Unsafe                as Unsafe
 import           Persist.Entity
 
 import           Model.Germplasm.Common.Attribute (GermplasmId (..))
-import           Model.Workflow.Common.Attribute  (WorkflowId (..))
 import           Model.Season.Attribute           (SeasonId (..))
+import           Model.Workflow.Common.Attribute  (WorkflowId (..))
 
 -- | The foundation datatype for your application. This can be a good place to
 -- keep settings and values requiring initialization before your application
@@ -81,17 +81,18 @@ instance Yesod App where
         -> Bool       -- ^ Whether or not this is a "write" request.
         -> Handler AuthResult
     -- Routes not requiring authentication.
-    isAuthorized (AuthR _) _         = return Authorized
-    isAuthorized HomeR _             = return Authorized
-    isAuthorized FaviconR _          = return Authorized
-    isAuthorized RobotsR _           = return Authorized
-    isAuthorized (StaticR _) _       = return Authorized
-    isAuthorized GermplasmR _        = return Authorized
-    isAuthorized (OneGermplasmR _) _ = return Authorized
-    isAuthorized WorkflowR _         = return Authorized
-    isAuthorized (OneWorkflowR _) _  = return Authorized
-    isAuthorized SeasonR _           = return Authorized
-    isAuthorized (OneSeasonR _) _    = return Authorized
+    isAuthorized (AuthR _) _                 = return Authorized
+    isAuthorized HomeR _                     = return Authorized
+    isAuthorized FaviconR _                  = return Authorized
+    isAuthorized RobotsR _                   = return Authorized
+    isAuthorized (StaticR _) _               = return Authorized
+    isAuthorized GermplasmR _                = return Authorized
+    isAuthorized (OneGermplasmR _) _         = return Authorized
+    isAuthorized WorkflowR _                 = return Authorized
+    isAuthorized (OneWorkflowR _) _          = return Authorized
+    isAuthorized SeasonR _                   = return Authorized
+    isAuthorized (OneSeasonR _) _            = return Authorized
+    isAuthorized (WorkflowAddGermplasmR _) _ = return Authorized
 
     -- the profile route requires that the user is authenticated, so we
     -- delegate to that function

@@ -1,6 +1,6 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 
-module Route.Workflow.Post.Handler where
+module Route.Workflow.CRUD.Post.Handler where
 
 import           Import
 
@@ -10,8 +10,8 @@ import           Helper.Lens
 
 import           Route.Common.Request
 import           Route.Common.Response
-import           Route.Workflow.Post.Presenter.Factory
-import           Route.Workflow.Post.RequestBody
+import           Route.Workflow.CRUD.Post.Presenter.Factory
+import           Route.Workflow.CRUD.Post.RequestBody
 
 import qualified Usecase.Workflow                      as UC
 

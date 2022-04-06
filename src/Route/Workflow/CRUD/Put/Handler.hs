@@ -1,6 +1,6 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 
-module Route.Workflow.Put.Handler where
+module Route.Workflow.CRUD.Put.Handler where
 
 import           Import
 
@@ -8,14 +8,14 @@ import           Error.Definition
 
 import           Helper.Lens
 
-import qualified Model.Workflow                       as M
+import qualified Model.Workflow                            as M
 
 import           Route.Common.Request
 import           Route.Common.Response
-import           Route.Workflow.Put.Presenter.Factory
-import           Route.Workflow.Put.RequestBody
+import           Route.Workflow.CRUD.Put.Presenter.Factory
+import           Route.Workflow.CRUD.Put.RequestBody
 
-import qualified Usecase.Workflow                     as UC
+import qualified Usecase.Workflow                          as UC
 
 putOneWorkflowR :: M.WorkflowId -> Handler Value
 putOneWorkflowR id = do

@@ -5,7 +5,7 @@
 {-# LANGUAGE OverloadedStrings      #-}
 {-# LANGUAGE TemplateHaskell        #-}
 
-module Route.Workflow.Post.RequestBody where
+module Route.Workflow.CRUD.Post.RequestBody where
 
 import           Import
 
@@ -13,9 +13,9 @@ import           Control.Lens
 
 import           Data.Aeson
 
-import qualified Model.Germplasm          as M
-import qualified Model.Season             as M
-import qualified Model.Workflow           as M
+import qualified Model.Germplasm as M
+import qualified Model.Season    as M
+import qualified Model.Workflow  as M
 
 data PostWorkflowRequestBody = PostWorkflowRequestBody {
     _name         :: M.WorkflowName,
@@ -29,7 +29,7 @@ instance FromJSON PostWorkflowRequestBody where
         parsePostWorkflowRequestBody x = do
             name <- x .: "name"
             seasonId <- x .:? "season_id"
-            germplasmIds <- x .:? "germplasmIds"
+            germplasmIds <- x .:? "germplasm_ids"
 
             return $ PostWorkflowRequestBody name seasonId germplasmIds
 
