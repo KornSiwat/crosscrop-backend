@@ -1,7 +1,7 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude          #-}
 
-module Model.Workflow.Common.Attribute where
+module Model.Workflow.Attribute where
 
 import           ClassyPrelude.Yesod
 

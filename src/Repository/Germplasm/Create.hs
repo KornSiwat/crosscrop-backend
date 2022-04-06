@@ -8,8 +8,8 @@ import           Class.ToPersistKey
 
 import           Error.Definition
 
-import qualified Model.Germplasm                 as M
-import qualified Model.Workflow.Common.Attribute as M
+import qualified Model.Germplasm     as M
+import qualified Model.Workflow      as M
 
 import           Persist.Entity
 import           Persist.Field.JsonB

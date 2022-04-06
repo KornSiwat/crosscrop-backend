@@ -1,6 +1,6 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 
-module Model.Workflow.Common.Factory where
+module Model.Workflow.Factory where
 
 import           Import
 
@@ -11,10 +11,10 @@ import           Error.Definition
 import           Helper.TypeConverter
 
 import           Model.Common.Attribute
-import qualified Model.Germplasm                  as GP
-import           Model.Season                     as SS
-import           Model.Workflow.Common.Attribute
-import           Model.Workflow.Common.Definition
+import qualified Model.Germplasm           as GP
+import           Model.Season              as SS
+import           Model.Workflow.Attribute
+import           Model.Workflow.Definition
 
 import           Persist.Entity
 

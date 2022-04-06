@@ -9,23 +9,23 @@
 
 module Foundation where
 
-import           ClassyPrelude.Yesod              (runDB)
-import           Control.Monad.Logger             (LogSource)
-import           Database.Persist.Sql             (ConnectionPool, runSqlPool)
+import           ClassyPrelude.Yesod       (runDB)
+import           Control.Monad.Logger      (LogSource)
+import           Database.Persist.Sql      (ConnectionPool, runSqlPool)
 import           Import.NoFoundation
 
 -- Used only when in "auth-dummy-login" setting is enabled.
 import           Yesod.Auth.Dummy
-import           Yesod.Auth.OpenId                (IdentifierType (Claimed),
-                                                   authOpenId)
-import           Yesod.Core.Types                 (Logger)
-import qualified Yesod.Core.Unsafe                as Unsafe
+import           Yesod.Auth.OpenId         (IdentifierType (Claimed),
+                                            authOpenId)
+import           Yesod.Core.Types          (Logger)
+import qualified Yesod.Core.Unsafe         as Unsafe
 
 import           Persist.Entity
 
-import           Model.Germplasm.Common.Attribute (GermplasmId (..))
-import           Model.Season.Attribute           (SeasonId (..))
-import           Model.Workflow.Common.Attribute  (WorkflowId (..))
+import           Model.Germplasm.Attribute (GermplasmId (..))
+import           Model.Season.Attribute    (SeasonId (..))
+import           Model.Workflow.Attribute  (WorkflowId (..))
 
 -- | The foundation datatype for your application. This can be a good place to
 -- keep settings and values requiring initialization before your application

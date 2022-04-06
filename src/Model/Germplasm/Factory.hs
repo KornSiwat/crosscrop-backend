@@ -1,11 +1,11 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 
-module Model.Germplasm.Common.Factory where
+module Model.Germplasm.Factory where
 
-import           Import                            hiding (map)
+import           Import                     hiding (map)
 
 import           Data.Either.Combinators
-import qualified Data.HashMap.Lazy                 as HM
+import qualified Data.HashMap.Lazy          as HM
 import           Data.Scientific
 
 import           Database.Persist.Sql
@@ -15,8 +15,8 @@ import           Error.Definition
 import           Helper.TypeConverter
 
 import           Model.Common.Attribute
-import           Model.Germplasm.Common.Attribute
-import           Model.Germplasm.Common.Definition
+import           Model.Germplasm.Attribute
+import           Model.Germplasm.Definition
 
 import           Persist.Entity
 import           Persist.Field.JsonB

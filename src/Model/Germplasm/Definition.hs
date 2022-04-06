@@ -4,14 +4,14 @@
 {-# LANGUAGE NoImplicitPrelude      #-}
 {-# LANGUAGE TemplateHaskell        #-}
 
-module Model.Germplasm.Common.Definition where
+module Model.Germplasm.Definition where
 
 import           Import
 
 import           Control.Lens                     (makeFieldsNoPrefix)
 
 import           Model.Common.Attribute
-import           Model.Germplasm.Common.Attribute
+import           Model.Germplasm.Attribute
 
 -- Germplasm
 data Germplasm =

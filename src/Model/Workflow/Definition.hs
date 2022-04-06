@@ -4,7 +4,7 @@
 {-# LANGUAGE NoImplicitPrelude      #-}
 {-# LANGUAGE TemplateHaskell        #-}
 
-module Model.Workflow.Common.Definition where
+module Model.Workflow.Definition where
 
 import           Import
 
@@ -13,7 +13,7 @@ import           Control.Lens                    (makeFieldsNoPrefix)
 import           Model.Common.Attribute
 import qualified Model.Germplasm                 as GP
 import qualified Model.Season                    as SS
-import           Model.Workflow.Common.Attribute
+import           Model.Workflow.Attribute
 
 -- Workflow
 data Workflow =

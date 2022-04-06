@@ -1,7 +1,7 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude          #-}
 
-module Model.Germplasm.Common.Attribute where
+module Model.Germplasm.Attribute where
 
 import           ClassyPrelude.Yesod
 
@@ -66,5 +66,4 @@ instance ToValue AttributeValue where
   toValue (AttributeDateTime x) = A.String . tshow $ x
 
 type Attributes = HashMap AttributeName AttributeValue
-
 

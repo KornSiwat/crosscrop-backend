@@ -10,6 +10,7 @@ import           Error.Definition
 
 import qualified Model.Season       as M.Season
 import qualified Model.Workflow     as M.Workflow
+
 import           Persist.Entity
 
 import           Repository.Common

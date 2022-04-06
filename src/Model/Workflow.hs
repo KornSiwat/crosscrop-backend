@@ -1,6 +1,6 @@
 module Model.Workflow (module Model.Workflow) where
 
-import           Model.Workflow.Common.Attribute  as Model.Workflow
-import           Model.Workflow.Common.Definition as Model.Workflow
-import           Model.Workflow.Common.Factory    as Model.Workflow
+import           Model.Workflow.Attribute  as Model.Workflow
+import           Model.Workflow.Definition as Model.Workflow
+import           Model.Workflow.Factory    as Model.Workflow
 
