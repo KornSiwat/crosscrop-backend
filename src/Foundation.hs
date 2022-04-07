@@ -93,6 +93,8 @@ instance Yesod App where
     isAuthorized SeasonR _                   = return Authorized
     isAuthorized (OneSeasonR _) _            = return Authorized
     isAuthorized (WorkflowAddGermplasmR _) _ = return Authorized
+    isAuthorized ColdroomR _                 = return Authorized
+    isAuthorized ColdroomAddGermplasmR _     = return Authorized
 
     -- the profile route requires that the user is authenticated, so we
     -- delegate to that function

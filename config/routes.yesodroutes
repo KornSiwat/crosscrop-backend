@@ -9,6 +9,9 @@
 
 / HomeR GET
 
+/coldroom ColdroomR GET
+/coldroom/add-germplasm ColdroomAddGermplasmR POST
+
 /germplasm GermplasmR GET POST
 /germplasm/#GermplasmId OneGermplasmR GET PUT DELETE
 
