@@ -13,8 +13,21 @@ import qualified Repository.Season as RP
 getAllSeason :: Handler (Either Error [M.Season])
 getAllSeason = RP.getAll
 
+getSeasonsByYear :: M.Year
+                 -> Handler (Either Error [M.Season])
+getSeasonsByYear = RP.getByYear
+
+getSeasonsBySeasonNo :: M.SeasonNo
+                     -> Handler (Either Error [M.Season])
+getSeasonsBySeasonNo = RP.getBySeasonNo
+
+getSeasonsByYearAndSeasonNo :: M.Year
+                            -> M.SeasonNo
+                            -> Handler (Either Error [M.Season])
+getSeasonsByYearAndSeasonNo = RP.getByYearAndSeasonNo
+
 getSeasonById :: M.SeasonId
-                 -> Handler (Either Error M.Season)
+              -> Handler (Either Error M.Season)
 getSeasonById = RP.getById
 
 getSeasonByIds :: [M.SeasonId]

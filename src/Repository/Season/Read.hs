@@ -21,6 +21,35 @@ getAll = getManyBy
              []
              []
 
+getByYear :: M.Year
+          -> Handler (Either Error [M.Season])
+getByYear (M.Year year) = do
+    let seasons = getManyBy
+                   [SeasonEntityYear ==. year]
+                   []
+
+    seasons
+
+getBySeasonNo :: M.SeasonNo
+              -> Handler (Either Error [M.Season])
+getBySeasonNo (M.SeasonNo seasonNo) = do
+    let seasons = getManyBy
+                   [SeasonEntitySeasonNo ==. seasonNo]
+                   []
+
+    seasons
+
+getByYearAndSeasonNo :: M.Year
+                     -> M.SeasonNo
+                     -> Handler (Either Error [M.Season])
+getByYearAndSeasonNo (M.Year year) (M.SeasonNo seasonNo) = do
+    let seasons = getManyBy
+                   [SeasonEntityYear ==. year
+                   ,SeasonEntitySeasonNo ==. seasonNo]
+                   []
+
+    seasons
+
 getById :: M.SeasonId
         -> Handler (Either Error M.Season)
 getById id = getFirstBy

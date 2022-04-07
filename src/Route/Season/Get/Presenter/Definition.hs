@@ -10,6 +10,13 @@ import           Data.Aeson
 import           Route.Common.JSONOptions
 import           Route.Season.Common.Presenter
 
+newtype GetSeasonPresenter = GetSeasonPresenter {
+    _seasons :: [SeasonPresenter]
+} deriving (Show, Generic)
+
+instance ToJSON GetSeasonPresenter where
+    toJSON = genericToJSON toJSONOptions
+
 newtype GetOneSeasonPresenter = GetOneSeasonPresenter {
     _season :: SeasonPresenter
 } deriving (Show, Generic)
