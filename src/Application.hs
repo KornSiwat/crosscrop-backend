@@ -21,13 +21,18 @@ module Application
     , db
     ) where
 
+import           Import
+
 import           ClassyPrelude.Yesod                  (runDB)
+
 import           Control.Monad.Logger                 (liftLoc, runLoggingT)
+
 import           Database.Persist.Postgresql          (createPostgresqlPool,
                                                        pgConnStr, pgPoolSize,
                                                        runSqlPool)
-import           Import
+
 import           Language.Haskell.TH.Syntax           (qLocation)
+
 import           Network.HTTP.Client.TLS              (getGlobalManager)
 import           Network.Wai                          (Middleware)
 import           Network.Wai.Handler.Warp             (Settings,
@@ -36,12 +41,14 @@ import           Network.Wai.Handler.Warp             (Settings,
                                                        getPort, runSettings,
                                                        setHost, setOnException,
                                                        setPort)
+import           Network.Wai.Middleware.Cors          (simpleCors)
 import           Network.Wai.Middleware.RequestLogger (Destination (Logger),
                                                        IPAddrSource (..),
                                                        OutputFormat (..),
                                                        destination,
                                                        mkRequestLogger,
                                                        outputFormat)
+
 import           System.Log.FastLogger                (defaultBufSize,
                                                        newStdoutLoggerSet,
                                                        toLogStr)
@@ -49,8 +56,6 @@ import           System.Log.FastLogger                (defaultBufSize,
 import           Persist.Entity
 
 -- Import all relevant handler modules here.
--- Don't forget to add new modules to your cabal file!
-
 import           Route.Handler
 
 -- This line actually creates our YesodDispatch instance. It is the second half
@@ -102,7 +107,7 @@ makeApplication foundation = do
     logWare <- makeLogWare foundation
     -- Create the WAI application and apply middlewares
     appPlain <- toWaiAppPlain foundation
-    return $ logWare $ defaultMiddlewaresNoLogging appPlain
+    return $ logWare $ defaultMiddlewaresNoLogging $ simpleCors $ appPlain
 
 makeLogWare :: App
             -> IO Middleware
