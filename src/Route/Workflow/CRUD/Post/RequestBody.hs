@@ -17,12 +17,14 @@ import qualified Model.Germplasm as M
 import qualified Model.Season    as M
 import qualified Model.Workflow  as M
 
-data PostWorkflowRequestBody = PostWorkflowRequestBody {
-    _workflowType :: M.WorkflowType,
-    _name         :: M.WorkflowName,
-    _seasonId     :: M.SeasonId,
-    _germplasmIds :: Maybe [M.GermplasmId]
-    } deriving (Show, Generic)
+data PostWorkflowRequestBody
+    = PostWorkflowRequestBody
+        { _workflowType :: M.WorkflowType
+        , _name         :: M.WorkflowName
+        , _seasonId     :: M.SeasonId
+        , _germplasmIds :: Maybe [M.GermplasmId]
+        }
+    deriving (Show, Generic)
 
 instance FromJSON PostWorkflowRequestBody where
     parseJSON = withObject "PostWorkflowRequestBody" parsePostWorkflowRequestBody

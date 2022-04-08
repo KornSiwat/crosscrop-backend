@@ -28,4 +28,3 @@ postGermplasmR = do
     let presenter = makePostGermplasmPresenter <$> germplasm
 
     sendResponse status201 presenter
-

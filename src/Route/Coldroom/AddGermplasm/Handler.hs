@@ -27,4 +27,3 @@ postColdroomAddGermplasmR = do
     let presenter = makeColdroomAddGermplasmPresenter <$> coldroom
 
     sendResponse status200 presenter
-

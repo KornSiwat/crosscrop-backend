@@ -9,7 +9,6 @@ import qualified Route.Germplasm.Common.Presenter                   as P.GP
 
 fromColdroom :: M.Coldroom
              -> ColdroomPresenter
-fromColdroom x = ColdroomPresenter {
-    _germplasms = map P.GP.fromGermplasm (x^.M.germplasms)
-}
-
+fromColdroom x = ColdroomPresenter
+                    { _germplasms = map P.GP.fromGermplasm (x^.M.germplasms)
+                    }

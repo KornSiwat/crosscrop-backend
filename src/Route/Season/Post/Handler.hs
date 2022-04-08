@@ -27,4 +27,3 @@ postSeasonR = do
     let presenter = makePostSeasonPresenter <$> season
 
     sendResponse status201 presenter
-

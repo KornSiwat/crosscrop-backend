@@ -22,4 +22,3 @@ newtype DeletedOn =
 
 instance ToJSON DeletedOn where
   toJSON (DeletedOn x) = toJSON x
-

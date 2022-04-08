@@ -32,11 +32,11 @@ getSeasonR = do
 
     sendResponse status200 presenter
 
-getOneSeasonR :: M.SeasonId -> Handler Value
+getOneSeasonR :: M.SeasonId
+              -> Handler Value
 getOneSeasonR id = do
     season <- UC.getSeasonById id
 
     let presenter = makeGetOneSeasonPresenter <$> season
 
     sendResponse status200 presenter
-

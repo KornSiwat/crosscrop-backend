@@ -11,4 +11,3 @@ data Error
     | InvalidForm
     | Unauthorized
     deriving (Show, Eq)
-

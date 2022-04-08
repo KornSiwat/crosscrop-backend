@@ -11,10 +11,11 @@ import           Route.Common.JSONOptions
 
 import           Route.Germplasm.Common.Presenter
 
-newtype ColdroomPresenter = ColdroomPresenter {
-    _germplasms :: [GermplasmPresenter]
-} deriving (Show, Generic)
+newtype ColdroomPresenter
+    = ColdroomPresenter
+        { _germplasms :: [GermplasmPresenter]
+        }
+    deriving (Show, Generic)
 
 instance ToJSON ColdroomPresenter where
     toJSON = genericToJSON toJSONOptions
-

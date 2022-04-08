@@ -12,14 +12,15 @@ import           Model.Germplasm
 
 import           Route.Common.JSONOptions
 
-data GermplasmPresenter = GermplasmPresenter
-    { _id         :: GermplasmId
-    , _name       :: GermplasmName
-    , _attributes :: Attributes
-    , _createdOn  :: CreatedOn
-    , _updatedOn  :: Maybe UpdatedOn
-    } deriving (Show, Generic)
+data GermplasmPresenter
+    = GermplasmPresenter
+        { _id         :: GermplasmId
+        , _name       :: GermplasmName
+        , _attributes :: Attributes
+        , _createdOn  :: CreatedOn
+        , _updatedOn  :: Maybe UpdatedOn
+        }
+    deriving (Show, Generic)
 
 instance ToJSON GermplasmPresenter where
     toJSON = genericToJSON toJSONOptions
-

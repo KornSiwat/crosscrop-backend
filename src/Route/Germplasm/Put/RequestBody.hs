@@ -18,11 +18,13 @@ import qualified Model.Workflow                 as M.Workflow
 
 import           Route.Germplasm.Common.Request
 
-data PutGermplasmRequestBody = PutGermplasmRequestBody {
-    _name       :: M.Germplasm.GermplasmName,
-    _workflowId :: Maybe M.Workflow.WorkflowId,
-    _attributes :: M.Germplasm.Attributes
-} deriving (Show)
+data PutGermplasmRequestBody
+    = PutGermplasmRequestBody
+        { _name       :: M.Germplasm.GermplasmName
+        , _workflowId :: Maybe M.Workflow.WorkflowId
+        , _attributes :: M.Germplasm.Attributes
+        }
+    deriving (Show)
 
 instance FromJSON PutGermplasmRequestBody where
     parseJSON = withObject "PutGermplasmRequestBody" parsePutGermplasmRequestBody
@@ -37,4 +39,3 @@ instance FromJSON PutGermplasmRequestBody where
                 Left e -> error $ show e
 
 makeFieldsNoPrefix ''PutGermplasmRequestBody
-

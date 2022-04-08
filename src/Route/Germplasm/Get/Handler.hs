@@ -19,7 +19,8 @@ getGermplasmR = do
 
     sendResponse status200 presenter
 
-getOneGermplasmR :: M.GermplasmId -> Handler Value
+getOneGermplasmR :: M.GermplasmId
+                 -> Handler Value
 getOneGermplasmR id = do
     germplasm <- UC.getGermplasmById id
 

@@ -11,4 +11,3 @@ germplasmMainAttributeNames = ["id"
                               ,"created_on"
                               ,"updated_on"
                               ,"deleted_on"]
-

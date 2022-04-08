@@ -21,4 +21,3 @@ getColdroom = do
     let coldroom = M.makeColdroom =<< germplasms
 
     return coldroom
-

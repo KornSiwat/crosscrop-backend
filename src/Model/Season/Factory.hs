@@ -26,7 +26,8 @@ makeSeason :: SeasonId
            -> Either Error Season
 makeSeason a b c d e f = Right $ Season a b c d e f
 
-fromEntity :: Entity SeasonEntity -> Either Error Season
+fromEntity :: Entity SeasonEntity
+           -> Either Error Season
 fromEntity seasonEntity = do
     let key = entityKey seasonEntity
     let val = entityVal seasonEntity
@@ -47,6 +48,6 @@ fromEntity seasonEntity = do
             deletedOn'
 
 -- SeasonId
-seasonIdFromKey :: Key SeasonEntity -> SeasonId
+seasonIdFromKey :: Key SeasonEntity
+                -> SeasonId
 seasonIdFromKey = SeasonId . int64ToInt . fromSqlKey
-

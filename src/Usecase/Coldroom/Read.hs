@@ -12,4 +12,3 @@ import qualified Repository.Coldroom as RP
 
 getColdroom :: Handler (Either Error Coldroom)
 getColdroom = RP.getColdroom
-

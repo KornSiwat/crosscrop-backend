@@ -18,4 +18,3 @@ deleteGermplasmById id = do
     existingGermplasm <- UC.getGermplasmById id
 
     join <$> sequence (existingGermplasm $> RP.deleteOne id)
-

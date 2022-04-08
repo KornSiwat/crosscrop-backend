@@ -16,18 +16,17 @@ import qualified Model.Season             as SS
 import           Model.Workflow.Attribute
 
 -- Workflow
-data Workflow =
-  Workflow
-    { _id           :: WorkflowId
-    , _workflowType :: WorkflowType
-    , _name         :: WorkflowName
-    , _germplasms   :: [GP.Germplasm]
-    , _season       :: SS.Season
-    , _createdOn    :: CreatedOn
-    , _updatedOn    :: Maybe UpdatedOn
-    , _deletedOn    :: Maybe DeletedOn
-    }
-  deriving (Show, Eq)
+data Workflow
+    = Workflow
+        { _id           :: WorkflowId
+        , _workflowType :: WorkflowType
+        , _name         :: WorkflowName
+        , _germplasms   :: [GP.Germplasm]
+        , _season       :: SS.Season
+        , _createdOn    :: CreatedOn
+        , _updatedOn    :: Maybe UpdatedOn
+        , _deletedOn    :: Maybe DeletedOn
+        }
+    deriving (Show, Eq)
 
 makeFieldsNoPrefix ''Workflow
-

@@ -31,4 +31,3 @@ updateGermplasm id name attributes  =  do
 
     return $ join 
         (updateResult $> updatedGermplasm)
-

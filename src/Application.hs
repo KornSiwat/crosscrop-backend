@@ -60,7 +60,8 @@ mkYesodDispatch "App" resourcesApp
 -- performs initialization and returns a foundation datatype value. This is also
 -- the place to put your migrate statements to have automatic database
 -- migrations handled by Yesod.
-makeFoundation :: AppSettings -> IO App
+makeFoundation :: AppSettings
+               -> IO App
 makeFoundation appSettings = do
     -- Some basic initializations: HTTP connection manager, logger, and static
     -- subsite.
@@ -95,14 +96,16 @@ makeFoundation appSettings = do
 
 -- | Convert our foundation to a WAI Application by calling @toWaiAppPlain@ and
 -- applying some additional middlewares.
-makeApplication :: App -> IO Application
+makeApplication :: App
+                -> IO Application
 makeApplication foundation = do
     logWare <- makeLogWare foundation
     -- Create the WAI application and apply middlewares
     appPlain <- toWaiAppPlain foundation
     return $ logWare $ defaultMiddlewaresNoLogging appPlain
 
-makeLogWare :: App -> IO Middleware
+makeLogWare :: App
+            -> IO Middleware
 makeLogWare foundation =
     mkRequestLogger def
         { outputFormat =
@@ -115,9 +118,9 @@ makeLogWare foundation =
         , destination = Logger $ loggerSet $ appLogger foundation
         }
 
-
 -- | Warp settings for the given foundation value.
-warpSettings :: App -> Settings
+warpSettings :: App
+             -> Settings
 warpSettings foundation =
       setPort (appPort $ appSettings foundation)
     $ setHost (appHost $ appSettings foundation)
@@ -179,7 +182,8 @@ getApplicationRepl = do
     app1 <- makeApplication foundation
     return (getPort wsettings, foundation, app1)
 
-shutdownApp :: App -> IO ()
+shutdownApp :: App
+            -> IO ()
 shutdownApp _ = return ()
 
 ---------------------------------------------
@@ -187,10 +191,11 @@ shutdownApp _ = return ()
 ---------------------------------------------
 
 -- | Run a handler
-handler :: Handler a -> IO a
+handler :: Handler a
+        -> IO a
 handler h = getAppSettings >>= makeFoundation >>= flip unsafeHandler h
 
 -- | Run DB queries
-db :: ReaderT SqlBackend Handler a -> IO a
+db :: ReaderT SqlBackend Handler a
+   -> IO a
 db = handler . runDB
-

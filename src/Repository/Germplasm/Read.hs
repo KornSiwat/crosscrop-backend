@@ -68,4 +68,3 @@ getFirstBy filters selectOpts = do
 
 baseFilter :: [Filter GermplasmEntity]
 baseFilter = [GermplasmEntityDeletedOn ==. Nothing]
-

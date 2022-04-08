@@ -32,4 +32,3 @@ updateOne germplasm = do
                 [GermplasmEntityName =. name
                 ,GermplasmEntityAttributes =. attributes
                 ,GermplasmEntityUpdatedOn =. updatedOn]
-

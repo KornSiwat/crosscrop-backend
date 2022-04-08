@@ -17,22 +17,20 @@ import           Database.Persist.Postgresql         (LiteralType (Escaped),
                                                       PersistValue (PersistByteString, PersistLiteral_),
                                                       SqlType (SqlOther))
 
-
-newtype JsonB =
-  JsonB A.Value
-  deriving (Show, Eq)
+newtype JsonB
+    = JsonB A.Value
+    deriving (Show, Eq)
 
 instance PersistField JsonB where
-  toPersistValue (JsonB t) = PersistLiteral_ Escaped $ toStrict $ A.encode t
-  fromPersistValue (PersistByteString s) =
-    either (Left . T.pack . ("Could not convert Json " ++)) (Right . JsonB) $
-    AP.eitherResult $ AP.parse value s
-  fromPersistValue a =
-    Left $ T.pack ("JsonB conversion failed for value " ++ show a)
+    toPersistValue (JsonB t) = PersistLiteral_ Escaped $ toStrict $ A.encode t
+    fromPersistValue (PersistByteString s) =
+        either (Left . T.pack . ("Could not convert Json " ++)) (Right . JsonB) $
+        AP.eitherResult $ AP.parse value s
+    fromPersistValue a =
+        Left $ T.pack ("JsonB conversion failed for value " ++ show a)
 
 instance PersistFieldSql JsonB where
-  sqlType _ = SqlOther "jsonb"
+    sqlType _ = SqlOther "jsonb"
 
 empty :: JsonB
 empty = JsonB A.Null
-

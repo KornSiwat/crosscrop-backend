@@ -18,7 +18,8 @@ import           Route.Workflow.AddGermplasm.RequestBody
 import qualified Usecase.Germplasm                             as UC.GP
 import qualified Usecase.Workflow                              as UC.WF
 
-postWorkflowAddGermplasmR :: M.WorkflowId -> Handler Value
+postWorkflowAddGermplasmR :: M.WorkflowId 
+                          -> Handler Value
 postWorkflowAddGermplasmR id = do
     body <- parseJSONBody :: Handler (Either Error WorkflowAddGermplasmRequestBody)
 
@@ -32,4 +33,3 @@ postWorkflowAddGermplasmR id = do
     let presenter = makeWorkflowAddGermplasmPresenter <$> workflow'
 
     sendResponse status201 presenter
-

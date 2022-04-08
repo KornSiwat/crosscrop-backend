@@ -28,4 +28,3 @@ postWorkflowR = do
     let presenter = makePostWorkflowPresenter <$> workflow
 
     sendResponse status201 presenter
-

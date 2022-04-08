@@ -15,10 +15,12 @@ import           Data.Aeson
 
 import qualified Model.Season as M
 
-data PutSeasonRequestBody = PutSeasonRequestBody {
-    _year     :: M.Year,
-    _seasonNo :: M.SeasonNo
-    } deriving (Show, Generic)
+data PutSeasonRequestBody
+    = PutSeasonRequestBody
+        { _year     :: M.Year
+        , _seasonNo :: M.SeasonNo
+        }
+    deriving (Show, Generic)
 
 instance FromJSON PutSeasonRequestBody where
     parseJSON = withObject "PutSeasonRequestBody" parsePutSeasonRequestBody
@@ -30,4 +32,3 @@ instance FromJSON PutSeasonRequestBody where
                 return $ PutSeasonRequestBody year seasonNo
 
 makeFieldsNoPrefix ''PutSeasonRequestBody
-

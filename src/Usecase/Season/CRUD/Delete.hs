@@ -19,4 +19,3 @@ deleteSeasonById id = do
 
     join <$> sequence 
         (existingSeason $> RP.deleteOne id)
-

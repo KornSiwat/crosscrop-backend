@@ -17,7 +17,8 @@ import           Route.Germplasm.Put.RequestBody
 
 import qualified Usecase.Germplasm                     as UC
 
-putOneGermplasmR :: M.GermplasmId -> Handler Value
+putOneGermplasmR :: M.GermplasmId
+                 -> Handler Value
 putOneGermplasmR id = do
     body <- parseJSONBody :: Handler (Either Error PutGermplasmRequestBody)
 

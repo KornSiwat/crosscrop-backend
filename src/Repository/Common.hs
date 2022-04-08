@@ -13,4 +13,3 @@ runDB x = do
     catch
         (Right <$> P.runDB x)
         (\(P.SomeException _) -> return $ Left ToBeDefinedError)
-

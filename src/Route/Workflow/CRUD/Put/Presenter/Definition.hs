@@ -10,10 +10,11 @@ import           Data.Aeson
 import           Route.Common.JSONOptions
 import           Route.Workflow.Common.Presenter
 
-newtype PutWorkflowPresenter = PutWorkflowPresenter {
-    _workflow :: WorkflowPresenter
-} deriving (Show, Generic)
+newtype PutWorkflowPresenter
+    = PutWorkflowPresenter
+        { _workflow :: WorkflowPresenter
+        }
+    deriving (Show, Generic)
 
 instance ToJSON PutWorkflowPresenter where
     toJSON = genericToJSON toJSONOptions
-

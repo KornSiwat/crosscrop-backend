@@ -19,4 +19,3 @@ deleteWorkflowById id = do
 
     join <$> sequence
         (existingWorkflow $> RP.deleteOne id)
-

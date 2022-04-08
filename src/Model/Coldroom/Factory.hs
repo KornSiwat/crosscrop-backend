@@ -13,4 +13,3 @@ import qualified Model.Germplasm           as GP
 makeColdroom :: [GP.Germplasm]
              -> Either Error Coldroom
 makeColdroom = Right . Coldroom
-

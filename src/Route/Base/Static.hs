@@ -5,9 +5,9 @@
 {-# LANGUAGE TypeFamilies          #-}
 
 module Route.Base.Static where
+import           Import
 
 import           Data.FileEmbed (embedFile)
-import           Import
 
 getFaviconR :: Handler TypedContent
 getFaviconR = do cacheSeconds $ 60 * 60 * 24 * 30 -- cache for a month
@@ -17,4 +17,3 @@ getFaviconR = do cacheSeconds $ 60 * 60 * 24 * 30 -- cache for a month
 getRobotsR :: Handler TypedContent
 getRobotsR = return $ TypedContent typePlain
                     $ toContent $(embedFile "config/robots.txt")
-

@@ -9,6 +9,6 @@ import           Model.Workflow
 import           Route.Workflow.AddGermplasm.Presenter.Definition
 import           Route.Workflow.Common.Presenter
 
-makeWorkflowAddGermplasmPresenter :: Workflow -> WorkflowAddGermplasmPresenter
+makeWorkflowAddGermplasmPresenter :: Workflow
+                                  -> WorkflowAddGermplasmPresenter
 makeWorkflowAddGermplasmPresenter = WorkflowAddGermplasmPresenter . fromWorkflow
-

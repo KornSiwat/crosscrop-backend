@@ -39,4 +39,3 @@ createWorkflow workflowType name seasonId = do
     key <- runDB $ insert entity
 
     return $ M.Workflow.workflowIdFromKey <$> key
-

@@ -35,4 +35,3 @@ newtype Year =
 
 instance ToJSON Year where
     toJSON (Year x) = toJSON x
-

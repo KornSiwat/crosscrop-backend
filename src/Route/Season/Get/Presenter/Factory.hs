@@ -15,6 +15,6 @@ makeGetSeasonPresenter seasons = GetSeasonPresenter seasonPresenters
     where
         seasonPresenters = map fromSeason seasons
 
-makeGetOneSeasonPresenter :: Season -> GetOneSeasonPresenter
+makeGetOneSeasonPresenter :: Season
+                          -> GetOneSeasonPresenter
 makeGetOneSeasonPresenter = GetOneSeasonPresenter . fromSeason
-

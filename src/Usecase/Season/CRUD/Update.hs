@@ -31,4 +31,3 @@ updateSeason id year seasonNo  =  do
 
     return $ join 
         (updateResult $> updatedSeason)
-

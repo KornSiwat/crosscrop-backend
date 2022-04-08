@@ -25,4 +25,3 @@ deleteOne id = do
     runDB $ update
                 id'
                 [WorkflowEntityDeletedOn =. deletedOn]
-

@@ -9,6 +9,6 @@ import           Model.Germplasm
 import           Route.Germplasm.Common.Presenter
 import           Route.Germplasm.Put.Presenter.Definition
 
-makePutGermplasmPresenter :: Germplasm -> PutGermplasmPresenter
+makePutGermplasmPresenter :: Germplasm
+                          -> PutGermplasmPresenter
 makePutGermplasmPresenter = PutGermplasmPresenter . fromGermplasm
-

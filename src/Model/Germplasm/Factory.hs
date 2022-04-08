@@ -31,7 +31,8 @@ makeGermplasm :: GermplasmId
               -> Either Error Germplasm
 makeGermplasm a b c d e f = Right $ Germplasm a b c d e f
 
-fromEntity :: Entity GermplasmEntity -> Either Error Germplasm
+fromEntity :: Entity GermplasmEntity
+           -> Either Error Germplasm
 fromEntity entity = do
     let key = entityKey entity
     let val = entityVal entity
@@ -52,20 +53,24 @@ fromEntity entity = do
                     <*> pure deletedOn'
 
 -- GermplasmId
-germplasmIdFromKey :: Key GermplasmEntity -> GermplasmId
+germplasmIdFromKey :: Key GermplasmEntity
+                   -> GermplasmId
 germplasmIdFromKey = GermplasmId . int64ToInt . fromSqlKey
 
 -- Attributes
 empty :: Attributes
 empty = HM.empty
 
-fromMapTextValue :: HashMap Text Value -> Either Error Attributes
+fromMapTextValue :: HashMap Text Value
+                 -> Either Error Attributes
 fromMapTextValue = sequence . HM.map valueFromValue . HM.mapKeys nameFromText
 
-nameFromText :: Text -> AttributeName
+nameFromText :: Text
+             -> AttributeName
 nameFromText = AttributeName
 
-valueFromValue :: Value -> Either Error AttributeValue
+valueFromValue :: Value
+               -> Either Error AttributeValue
 valueFromValue (String x) = maybeToRight ToBeDefinedError $ parseDateTime <|> parseString
                         where parseDateTime = AttributeDateTime <$> parseUTCTime x
                               parseString = Just $ AttributeText x
@@ -76,7 +81,7 @@ valueFromValue (Bool x)   = Right $ AttributeBool x
 
 valueFromValue _            = Left ToBeDefinedError
 
-fromJsonB :: JsonB -> Either Error Attributes
+fromJsonB :: JsonB
+          -> Either Error Attributes
 fromJsonB (JsonB (Object x)) = fromMapTextValue x
 fromJsonB _                  = Left ToBeDefinedError
-

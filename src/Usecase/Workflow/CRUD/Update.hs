@@ -37,4 +37,3 @@ updateWorkflow id name seasonId =  do
 
     return $ join
         (updateResult $> updatedWorkflow)
-

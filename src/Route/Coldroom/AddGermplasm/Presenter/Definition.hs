@@ -10,10 +10,11 @@ import           Data.Aeson
 import           Route.Coldroom.Common.ColdroomPresenter.Definition
 import           Route.Common.JSONOptions
 
-newtype ColdroomAddGermplasmPresenter = ColdroomAddGermplasmPresenter {
-    _coldroom :: ColdroomPresenter
-} deriving (Show, Generic)
+newtype ColdroomAddGermplasmPresenter
+    = ColdroomAddGermplasmPresenter
+        { _coldroom :: ColdroomPresenter
+        }
+    deriving (Show, Generic)
 
 instance ToJSON ColdroomAddGermplasmPresenter where
     toJSON = genericToJSON toJSONOptions
-

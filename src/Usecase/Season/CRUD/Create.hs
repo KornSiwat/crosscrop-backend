@@ -19,4 +19,3 @@ createSeason year seasonNo =  do
     let season = join <$> sequence (RP.getById <$> seasonId)
 
     season
-

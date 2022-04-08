@@ -20,4 +20,3 @@ getGermplasmById = RP.getById
 getGermplasmByIds :: [M.GermplasmId]
                   -> Handler (Either Error [M.Germplasm])
 getGermplasmByIds = RP.getByIds
-

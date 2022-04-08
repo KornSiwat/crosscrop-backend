@@ -15,17 +15,19 @@ import           Data.Aeson
 
 import qualified Model.Germplasm as M
 
-newtype ColdroomAddGermplasmRequestBody = ColdroomAddGermplasmRequestBody {
-    _germplasmIds :: [M.GermplasmId]
-} deriving (Show, Generic)
+newtype ColdroomAddGermplasmRequestBody
+    = ColdroomAddGermplasmRequestBody
+        { _germplasmIds :: [M.GermplasmId]
+        }
+    deriving (Show, Generic)
 
 instance FromJSON ColdroomAddGermplasmRequestBody where
-    parseJSON = withObject "ColdroomAddGermplasmRequestBody" parseColdroomAddGermplasmRequestBody
-        where
+    parseJSON = withObject "ColdroomAddGermplasmRequestBody"
+                           parseColdroomAddGermplasmRequestBody
+      where
         parseColdroomAddGermplasmRequestBody x = do
             germplasmIds <- x .: "germplasm_ids"
 
             return $ ColdroomAddGermplasmRequestBody germplasmIds
 
 makeFieldsNoPrefix ''ColdroomAddGermplasmRequestBody
-

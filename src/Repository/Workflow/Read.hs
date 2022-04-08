@@ -128,4 +128,3 @@ entityToModel workflowEntity = do
 
 baseFilter :: [Filter WorkflowEntity]
 baseFilter = [WorkflowEntityDeletedOn ==. Nothing]
-

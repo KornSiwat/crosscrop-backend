@@ -1,4 +1,4 @@
-{-# LANGUAGE NoImplicitPrelude     #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 
 module Route.Season.Put.Handler where
 
@@ -17,7 +17,8 @@ import           Route.Season.Put.RequestBody
 
 import qualified Usecase.Season                     as UC
 
-putOneSeasonR :: M.SeasonId -> Handler Value
+putOneSeasonR :: M.SeasonId
+              -> Handler Value
 putOneSeasonR id = do
     body <- parseJSONBody :: Handler (Either Error PutSeasonRequestBody)
 
@@ -30,4 +31,3 @@ putOneSeasonR id = do
     let presenter = makePutSeasonPresenter <$> season
 
     sendResponse status200 presenter
-

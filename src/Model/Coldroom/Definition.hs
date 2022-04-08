@@ -13,9 +13,10 @@ import           Control.Lens    (makeFieldsNoPrefix)
 import qualified Model.Germplasm as GP
 
 -- Coldroom
-newtype Coldroom = Coldroom {
-    _germplasms :: [GP.Germplasm]
-} deriving (Show, Eq)
+newtype Coldroom
+    = Coldroom
+        { _germplasms :: [GP.Germplasm]
+        }
+    deriving (Show, Eq)
 
 makeFieldsNoPrefix ''Coldroom
-

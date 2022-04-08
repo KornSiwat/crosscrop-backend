@@ -20,4 +20,3 @@ import           Control.Lens
 x &^. y = case x of
     Right x' -> Right $ x'^.y
     Left e   -> Left e
-

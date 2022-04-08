@@ -24,4 +24,3 @@ createWorkflow workflowType name seasonId =  do
     let workflow = join <$> sequence (RP.getById <$> workflowId)
 
     workflow
-

@@ -1,4 +1,4 @@
-{-# LANGUAGE NoImplicitPrelude     #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 
 module Repository.Season.Create where
 
@@ -30,4 +30,3 @@ createSeason year seasonNo = do
     let seasonId = M.seasonIdFromKey <$> key
 
     return seasonId
-

@@ -16,10 +16,12 @@ import           Data.Aeson
 import qualified Model.Season   as M
 import qualified Model.Workflow as M
 
-data PutWorkflowRequestBody = PutWorkflowRequestBody {
-    _name     :: M.WorkflowName,
-    _seasonId :: M.SeasonId
-    } deriving (Show, Generic)
+data PutWorkflowRequestBody
+    = PutWorkflowRequestBody
+        { _name     :: M.WorkflowName
+        , _seasonId :: M.SeasonId
+        }
+    deriving (Show, Generic)
 
 instance FromJSON PutWorkflowRequestBody where
     parseJSON = withObject "PutWorkflowRequestBody" parsePutWorkflowRequestBody
@@ -31,4 +33,3 @@ instance FromJSON PutWorkflowRequestBody where
             return $ PutWorkflowRequestBody name seasonId
 
 makeFieldsNoPrefix ''PutWorkflowRequestBody
-

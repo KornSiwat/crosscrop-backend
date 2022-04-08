@@ -31,4 +31,3 @@ putOneWorkflowR id = do
     let presenter = makePutWorkflowPresenter <$> workflow
 
     sendResponse status200 presenter
-

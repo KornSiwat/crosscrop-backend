@@ -28,4 +28,3 @@ addGermplasms germplasms = do
 
     join <$> sequence
         (germplasms' $> UC.CR.getColdroom)
-

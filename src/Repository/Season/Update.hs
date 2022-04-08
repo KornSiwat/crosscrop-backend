@@ -32,4 +32,3 @@ updateOne season = do
                 ,SeasonEntitySeasonNo =. seasonNo
                 ,SeasonEntityUpdatedOn =. updatedOn
                 ]
-

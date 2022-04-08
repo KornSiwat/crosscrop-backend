@@ -21,4 +21,3 @@ createGermplasm name workflowId attributes =  do
     let germplasm = join <$> sequence (RP.getById <$> germplasmId)
 
     germplasm
-

@@ -22,48 +22,47 @@ newtype GermplasmId =
     deriving (Show, Read, Eq, PathPiece, FromJSON)
 
 instance ToPersistKey GermplasmId where
-  toKey (GermplasmId x) =  toSqlKey . intToInt64 $ x
+    toKey (GermplasmId x) =  toSqlKey . intToInt64 $ x
 
 instance ToJSON GermplasmId where
-  toJSON (GermplasmId x) = toJSON x
+    toJSON (GermplasmId x) = toJSON x
 
-newtype GermplasmName =
-    GermplasmName Text
+newtype GermplasmName
+    = GermplasmName Text
     deriving (Show, Eq, FromJSON)
 
 instance ToJSON GermplasmName where
-  toJSON (GermplasmName x) = toJSON x
+    toJSON (GermplasmName x) = toJSON x
 
 -- Optional Attributes
 newtype AttributeName
-  = AttributeName Text
-  deriving (Show, Eq, Read, Ord, A.ToJSONKey)
+    = AttributeName Text
+    deriving (Show, Eq, Read, Ord, A.ToJSONKey)
 
 instance ToJSONKeyText AttributeName where
-  toJSONKeyText (AttributeName x) = x
+    toJSONKeyText (AttributeName x) = x
 
 instance Hashable AttributeName where
-  hashWithSalt salt (AttributeName x) = hashWithSalt salt x
-  hash (AttributeName x) = hash x
+    hashWithSalt salt (AttributeName x) = hashWithSalt salt x
+    hash (AttributeName x) = hash x
 
 data AttributeValue
-  = AttributeText Text
-  | AttributeNumber Double
-  | AttributeBool Bool
-  | AttributeDateTime UTCTime
-  deriving (Show, Read, Eq)
+    = AttributeText Text
+    | AttributeNumber Double
+    | AttributeBool Bool
+    | AttributeDateTime UTCTime
+    deriving (Show, Read, Eq)
 
 instance A.ToJSON AttributeValue where
-  toJSON (AttributeText x)     = A.toJSON x
-  toJSON (AttributeNumber x)   = A.toJSON x
-  toJSON (AttributeBool x)     = A.toJSON x
-  toJSON (AttributeDateTime x) = A.toJSON x
+    toJSON (AttributeText x)     = A.toJSON x
+    toJSON (AttributeNumber x)   = A.toJSON x
+    toJSON (AttributeBool x)     = A.toJSON x
+    toJSON (AttributeDateTime x) = A.toJSON x
 
 instance ToValue AttributeValue where
-  toValue (AttributeText x)     = A.String x
-  toValue (AttributeNumber x)   = A.Number . fromFloatDigits $ x
-  toValue (AttributeBool x)     = A.Bool x
-  toValue (AttributeDateTime x) = A.String . tshow $ x
+    toValue (AttributeText x)     = A.String x
+    toValue (AttributeNumber x)   = A.Number . fromFloatDigits $ x
+    toValue (AttributeBool x)     = A.Bool x
+    toValue (AttributeDateTime x) = A.String . tshow $ x
 
 type Attributes = HashMap AttributeName AttributeValue
-

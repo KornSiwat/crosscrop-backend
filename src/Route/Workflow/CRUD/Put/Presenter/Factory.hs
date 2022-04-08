@@ -9,6 +9,6 @@ import           Model.Workflow
 import           Route.Workflow.CRUD.Put.Presenter.Definition
 import           Route.Workflow.Common.Presenter
 
-makePutWorkflowPresenter :: Workflow -> PutWorkflowPresenter
+makePutWorkflowPresenter :: Workflow
+                         -> PutWorkflowPresenter
 makePutWorkflowPresenter = PutWorkflowPresenter . fromWorkflow
-

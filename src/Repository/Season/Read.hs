@@ -99,4 +99,3 @@ getFirstBy filters selectOpts = do
 
 baseFilter :: [Filter SeasonEntity]
 baseFilter = [SeasonEntityDeletedOn ==. Nothing]
-

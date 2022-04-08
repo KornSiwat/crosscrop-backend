@@ -59,6 +59,6 @@ fromEntity workflowEntity germplasms' season' = do
                <*> pure deletedOn'
 
 -- WorkflowId
-workflowIdFromKey :: Key WorkflowEntity -> WorkflowId
+workflowIdFromKey :: Key WorkflowEntity 
+                  -> WorkflowId
 workflowIdFromKey = WorkflowId . int64ToInt . fromSqlKey
-

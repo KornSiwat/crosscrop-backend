@@ -36,4 +36,3 @@ createGermplasm name workflowId attributes = do
     let germplasmId = M.germplasmIdFromKey <$> key
 
     return germplasmId
-

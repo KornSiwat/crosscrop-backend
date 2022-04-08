@@ -9,11 +9,12 @@ import           Model.Germplasm
 import           Route.Germplasm.Common.Presenter
 import           Route.Germplasm.Get.Presenter.Definition
 
-makeGetGermplasmPresenter :: [Germplasm] -> GetGermplasmPresenter
+makeGetGermplasmPresenter :: [Germplasm]
+                          -> GetGermplasmPresenter
 makeGetGermplasmPresenter xs = GetGermplasmPresenter germplasmPresenters
     where
         germplasmPresenters = map fromGermplasm xs
 
-makeGetOneGermplasmPresenter :: Germplasm -> GetOneGermplasmPresenter
+makeGetOneGermplasmPresenter :: Germplasm
+                             -> GetOneGermplasmPresenter
 makeGetOneGermplasmPresenter = GetOneGermplasmPresenter . fromGermplasm
-

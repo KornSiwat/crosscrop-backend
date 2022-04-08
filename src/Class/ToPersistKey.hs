@@ -6,4 +6,3 @@ import           Database.Persist.Sql
 
 class ToPersistKey a where
     toKey :: ToBackendKey SqlBackend record => a -> Key record
-

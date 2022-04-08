@@ -13,29 +13,29 @@ import           Database.Persist.Sql
 import           Helper.TypeConverter
 
 -- Basic Attributes
-newtype WorkflowId =
-    WorkflowId Int
+newtype WorkflowId
+    = WorkflowId Int
     deriving (Show, Read, Eq, PathPiece, FromJSON)
 
 instance ToPersistKey WorkflowId where
-  toKey (WorkflowId x) =  toSqlKey . intToInt64 $ x
+    toKey (WorkflowId x) =  toSqlKey . intToInt64 $ x
 
 instance ToJSON WorkflowId where
-  toJSON (WorkflowId x) = toJSON x
+    toJSON (WorkflowId x) = toJSON x
 
-newtype WorkflowName =
-    WorkflowName Text
+newtype WorkflowName
+    = WorkflowName Text
     deriving (Show, Eq, FromJSON)
 
 instance ToJSON WorkflowName where
-  toJSON (WorkflowName x) = toJSON x
+    toJSON (WorkflowName x) = toJSON x
 
 -- Workflow Types
-data WorkflowType = BreedingNursery
-                  | CrossingBlock
-                  | YieldTrial
-                  deriving (Show, Read, Eq, Generic)
+data WorkflowType
+    = BreedingNursery
+    | CrossingBlock
+    | YieldTrial
+    deriving (Show, Read, Eq, Generic)
 
 instance ToJSON WorkflowType
 instance FromJSON WorkflowType
-

@@ -33,11 +33,11 @@ getWorkflowR = do
 
     sendResponse status200 presenter
 
-getOneWorkflowR :: M.WF.WorkflowId -> Handler Value
+getOneWorkflowR :: M.WF.WorkflowId
+                -> Handler Value
 getOneWorkflowR id = do
     workflow <- UC.getWorkflowById id
 
     let presenter = makeGetOneWorkflowPresenter <$> workflow
 
     sendResponse status200 presenter
-

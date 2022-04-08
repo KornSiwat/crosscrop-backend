@@ -9,6 +9,6 @@ import           Model.Coldroom
 import           Route.Coldroom.AddGermplasm.Presenter.Definition
 import           Route.Coldroom.Common.Presenter
 
-makeColdroomAddGermplasmPresenter :: Coldroom -> ColdroomAddGermplasmPresenter
+makeColdroomAddGermplasmPresenter :: Coldroom
+                                  -> ColdroomAddGermplasmPresenter
 makeColdroomAddGermplasmPresenter = ColdroomAddGermplasmPresenter . fromColdroom
-

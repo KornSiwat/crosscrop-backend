@@ -82,15 +82,15 @@ executables:
         buildable: false
 
 # Test suite
-tests:
-  crosscrop-backend-test:
-    main: Spec.hs
-    source-dirs: test
-    ghc-options: -Wall
-    dependencies:
-      - crosscrop-backend
-      - hspec >=2.0.0
-      - yesod-test
+# tests:
+#   crosscrop-backend-test:
+#     main: Spec.hs
+#     source-dirs: test
+#     ghc-options: -Wall
+#     dependencies:
+#       - crosscrop-backend
+#       - hspec >=2.0.0
+#       - yesod-test
 
 # Define flags used by "yesod devel" to make compilation faster
 flags:

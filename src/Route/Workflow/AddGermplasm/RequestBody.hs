@@ -15,9 +15,11 @@ import           Data.Aeson
 
 import qualified Model.Germplasm as M
 
-newtype WorkflowAddGermplasmRequestBody = WorkflowAddGermplasmRequestBody {
-    _germplasmIds :: [M.GermplasmId]
-    } deriving (Show, Generic)
+newtype WorkflowAddGermplasmRequestBody
+    = WorkflowAddGermplasmRequestBody
+        { _germplasmIds :: [M.GermplasmId]
+        }
+    deriving (Show, Generic)
 
 instance FromJSON WorkflowAddGermplasmRequestBody where
     parseJSON = withObject "WorkflowAddGermplasmRequestBody" parseWorkflowAddGermplasmRequestBody
@@ -28,4 +30,3 @@ instance FromJSON WorkflowAddGermplasmRequestBody where
             return $ WorkflowAddGermplasmRequestBody germplasmIds
 
 makeFieldsNoPrefix ''WorkflowAddGermplasmRequestBody
-

@@ -11,11 +11,11 @@ import           Route.Common.Response
 
 import qualified Usecase.Germplasm     as UC
 
-deleteOneGermplasmR :: M.GermplasmId -> Handler Value
+deleteOneGermplasmR :: M.GermplasmId
+                    -> Handler Value
 deleteOneGermplasmR id = do
     deleteResult <- UC.deleteGermplasmById id
 
     let deleteSuccessMessage = tshow id ++ " deleted"
 
     sendResponse status200 (deleteResult $> deleteSuccessMessage)
-
