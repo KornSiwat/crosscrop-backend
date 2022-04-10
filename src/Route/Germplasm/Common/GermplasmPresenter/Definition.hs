@@ -16,7 +16,7 @@ data GermplasmPresenter
     = GermplasmPresenter
         { _id         :: GermplasmId
         , _name       :: GermplasmName
-        , _attributes :: Attributes
+        , _attributes :: [GermplasmAttribute]
         , _createdOn  :: CreatedOn
         , _updatedOn  :: Maybe UpdatedOn
         }

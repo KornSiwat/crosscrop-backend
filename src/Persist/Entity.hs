@@ -14,8 +14,6 @@ module Persist.Entity where
 
 import           ClassyPrelude.Yesod
 
-import           Persist.Field.JsonB
-
 share
     [mkPersist sqlSettings, mkMigrate "migrateAll"]
     [persistLowerCase|
@@ -28,7 +26,7 @@ share
 
     GermplasmEntity sql=germplasm
         name Text
-        attributes JsonB
+        attributes [Text]
         workflowId WorkflowEntityId Maybe
         createdOn UTCTime default=now()
         updatedOn UTCTime Maybe

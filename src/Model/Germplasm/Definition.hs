@@ -8,17 +8,18 @@ module Model.Germplasm.Definition where
 
 import           Import
 
-import           Control.Lens              (makeFieldsNoPrefix)
+import           Control.Lens                       (makeFieldsNoPrefix)
 
 import           Model.Common.Attribute
 import           Model.Germplasm.Attribute
+import           Model.Germplasm.GermplasmAttribute
 
 -- Germplasm
 data Germplasm
     = Germplasm
         { _id         :: GermplasmId
         , _name       :: GermplasmName
-        , _attributes :: Attributes
+        , _attributes :: [GermplasmAttribute]
         , _createdOn  :: CreatedOn
         , _updatedOn  :: Maybe UpdatedOn
         , _deletedOn  :: Maybe DeletedOn

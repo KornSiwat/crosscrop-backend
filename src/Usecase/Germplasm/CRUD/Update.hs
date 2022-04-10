@@ -16,7 +16,7 @@ import qualified Usecase.Germplasm.CRUD.Read as UC
 
 updateGermplasm :: M.GermplasmId
                 -> M.GermplasmName
-                -> M.Attributes
+                -> [M.GermplasmAttribute]
                 -> Handler (Either Error M.Germplasm)
 updateGermplasm id name attributes  =  do
     existingGermplasm <- UC.getGermplasmById id
@@ -29,5 +29,5 @@ updateGermplasm id name attributes  =  do
 
     updatedGermplasm <- UC.getGermplasmById id
 
-    return $ join 
+    return $ join
         (updateResult $> updatedGermplasm)

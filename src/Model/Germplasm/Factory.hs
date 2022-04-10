@@ -1,11 +1,12 @@
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module Model.Germplasm.Factory where
 
-import           Import                     hiding (map)
+import           Import
 
+import qualified Data.Aeson                         as A
 import           Data.Either.Combinators
-import qualified Data.HashMap.Lazy          as HM
 import           Data.Scientific
 
 import           Database.Persist.Sql
@@ -17,14 +18,14 @@ import           Helper.TypeConverter
 import           Model.Common.Attribute
 import           Model.Germplasm.Attribute
 import           Model.Germplasm.Definition
+import           Model.Germplasm.GermplasmAttribute
 
 import           Persist.Entity
-import           Persist.Field.JsonB
 
 -- Germplasm
 makeGermplasm :: GermplasmId
               -> GermplasmName
-              -> Attributes
+              -> [GermplasmAttribute]
               -> CreatedOn
               -> Maybe UpdatedOn
               -> Maybe DeletedOn
@@ -39,7 +40,12 @@ fromEntity entity = do
 
     let id' = germplasmIdFromKey key
     let name' = GermplasmName . germplasmEntityName $ val
-    let attributes' = fromJsonB . germplasmEntityAttributes $ val
+    let attributes' = maybeToEither
+                          (ParsingError "Parsing GermplasmAttribute from Text Error")
+                          (mapM
+                              (\x ->
+                                  treadMaybe x:: Maybe GermplasmAttribute)
+                              (germplasmEntityAttributes val))
     let createdOn' = CreatedOn . germplasmEntityCreatedOn $ val
     let updatedOn' = UpdatedOn <$> germplasmEntityUpdatedOn val
     let deletedOn' = DeletedOn <$> germplasmEntityDeletedOn val
@@ -57,31 +63,14 @@ germplasmIdFromKey :: Key GermplasmEntity
                    -> GermplasmId
 germplasmIdFromKey = GermplasmId . int64ToInt . fromSqlKey
 
--- Attributes
-empty :: Attributes
-empty = HM.empty
+germplasmAttributeValueFromValue :: A.Value
+                                 -> Either Error GermplasmAttributeValue
+germplasmAttributeValueFromValue (A.String x) = maybeToRight ToBeDefinedError $ parseDateTime <|> parseString
+                        where parseDateTime = GermplasmAttributeDateTime <$> parseUTCTime x
+                              parseString = Just $ GermplasmAttributeString x
 
-fromMapTextValue :: HashMap Text Value
-                 -> Either Error Attributes
-fromMapTextValue = sequence . HM.map valueFromValue . HM.mapKeys nameFromText
+germplasmAttributeValueFromValue (A.Number x) = Right $ GermplasmAttributeNumber (toRealFloat x::Double)
 
-nameFromText :: Text
-             -> AttributeName
-nameFromText = AttributeName
+germplasmAttributeValueFromValue (A.Bool x)   = Right $ GermplasmAttributeBool x
 
-valueFromValue :: Value
-               -> Either Error AttributeValue
-valueFromValue (String x) = maybeToRight ToBeDefinedError $ parseDateTime <|> parseString
-                        where parseDateTime = AttributeDateTime <$> parseUTCTime x
-                              parseString = Just $ AttributeText x
-
-valueFromValue (Number x) = Right $ AttributeNumber (toRealFloat x::Double)
-
-valueFromValue (Bool x)   = Right $ AttributeBool x
-
-valueFromValue _            = Left ToBeDefinedError
-
-fromJsonB :: JsonB
-          -> Either Error Attributes
-fromJsonB (JsonB (Object x)) = fromMapTextValue x
-fromJsonB _                  = Left ToBeDefinedError
+germplasmAttributeValueFromValue _            = Left ToBeDefinedError

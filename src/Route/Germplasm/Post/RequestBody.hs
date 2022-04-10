@@ -11,18 +11,15 @@ import           Import
 import           Control.Lens
 
 import           Data.Aeson
-import qualified Data.HashMap.Lazy              as HM
 
-import qualified Model.Germplasm                as M.Germplasm
-import qualified Model.Workflow                 as M.Workflow
-
-import           Route.Germplasm.Common.Request
+import qualified Model.Germplasm as M.GP
+import qualified Model.Workflow  as M.WF
 
 data PostGermplasmRequestBody
     = PostGermplasmRequestBody
-        { _name       :: M.Germplasm.GermplasmName
-        , _workflowId :: Maybe M.Workflow.WorkflowId
-        , _attributes :: M.Germplasm.Attributes
+        { _name       :: M.GP.GermplasmName
+        , _workflowId :: Maybe M.WF.WorkflowId
+        , _attributes :: [M.GP.GermplasmAttribute]
         }
     deriving (Show)
 
@@ -32,10 +29,11 @@ instance FromJSON PostGermplasmRequestBody where
         parsePostGermplasmRequestBody x = do
             name <- x .: "name"
             workflowId <- x .:? "workflow_id"
-            let attributes = M.Germplasm.fromMapTextValue $ foldr HM.delete x germplasmMainAttributeNames
+            attributes <- x .: "attributes"
 
-            case attributes of
-                Right attributes' -> return $ PostGermplasmRequestBody name workflowId attributes'
-                Left e -> error $ show e
+            return $ PostGermplasmRequestBody
+                         name
+                         workflowId
+                         attributes
 
 makeFieldsNoPrefix ''PostGermplasmRequestBody
