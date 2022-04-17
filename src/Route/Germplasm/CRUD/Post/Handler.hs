@@ -1,6 +1,6 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 
-module Route.Germplasm.Post.Handler where
+module Route.Germplasm.CRUD.Post.Handler where
 
 import           Import
 
@@ -10,10 +10,10 @@ import           Helper.Lens
 
 import           Route.Common.Request
 import           Route.Common.Response
-import           Route.Germplasm.Post.Presenter.Factory
-import           Route.Germplasm.Post.RequestBody
+import           Route.Germplasm.CRUD.Post.Presenter.Factory
+import           Route.Germplasm.CRUD.Post.RequestBody
 
-import qualified Usecase.Germplasm                      as UC
+import qualified Usecase.Germplasm                           as UC
 
 postGermplasmR :: Handler Value
 postGermplasmR = do

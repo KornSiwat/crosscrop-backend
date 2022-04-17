@@ -1,6 +1,6 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 
-module Route.Germplasm.Put.Handler where
+module Route.Germplasm.CRUD.Put.Handler where
 
 import           Import
 
@@ -8,14 +8,14 @@ import           Error.Definition
 
 import           Helper.Lens
 
-import qualified Model.Germplasm                       as M
+import qualified Model.Germplasm                            as M
 
 import           Route.Common.Request
 import           Route.Common.Response
-import           Route.Germplasm.Put.Presenter.Factory
-import           Route.Germplasm.Put.RequestBody
+import           Route.Germplasm.CRUD.Put.Presenter.Factory
+import           Route.Germplasm.CRUD.Put.RequestBody
 
-import qualified Usecase.Germplasm                     as UC
+import qualified Usecase.Germplasm                          as UC
 
 putOneGermplasmR :: M.GermplasmId
                  -> Handler Value

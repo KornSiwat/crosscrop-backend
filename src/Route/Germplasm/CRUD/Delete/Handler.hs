@@ -1,7 +1,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 
-module Route.Germplasm.Delete.Handler where
+module Route.Germplasm.CRUD.Delete.Handler where
 
 import           Import
 

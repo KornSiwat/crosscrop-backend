@@ -1,7 +1,7 @@
 {-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 
-module Route.Germplasm.Get.Presenter.Definition where
+module Route.Germplasm.CRUD.Get.Presenter.Definition where
 
 import           Import
 

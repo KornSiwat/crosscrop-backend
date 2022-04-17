@@ -1,13 +1,13 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 
-module Route.Germplasm.Get.Presenter.Factory where
+module Route.Germplasm.CRUD.Get.Presenter.Factory where
 
 import           Import
 
 import           Model.Germplasm
 
+import           Route.Germplasm.CRUD.Get.Presenter.Definition
 import           Route.Germplasm.Common.Presenter
-import           Route.Germplasm.Get.Presenter.Definition
 
 makeGetGermplasmPresenter :: [Germplasm]
                           -> GetGermplasmPresenter

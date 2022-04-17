@@ -4,7 +4,7 @@
 {-# LANGUAGE OverloadedStrings      #-}
 {-# LANGUAGE TemplateHaskell        #-}
 
-module Route.Germplasm.Post.RequestBody where
+module Route.Germplasm.CRUD.Put.RequestBody where
 
 import           Import
 
@@ -15,25 +15,25 @@ import           Data.Aeson
 import qualified Model.Germplasm as M.GP
 import qualified Model.Workflow  as M.WF
 
-data PostGermplasmRequestBody
-    = PostGermplasmRequestBody
+data PutGermplasmRequestBody
+    = PutGermplasmRequestBody
         { _name       :: M.GP.GermplasmName
         , _workflowId :: Maybe M.WF.WorkflowId
         , _attributes :: [M.GP.GermplasmAttribute]
         }
     deriving (Show)
 
-instance FromJSON PostGermplasmRequestBody where
-    parseJSON = withObject "PostGermplasmRequestBody" parsePostGermplasmRequestBody
+instance FromJSON PutGermplasmRequestBody where
+    parseJSON = withObject "PutGermplasmRequestBody" parsePutGermplasmRequestBody
         where
-        parsePostGermplasmRequestBody x = do
+        parsePutGermplasmRequestBody x = do
             name <- x .: "name"
             workflowId <- x .:? "workflow_id"
             attributes <- x .: "attributes"
 
-            return $ PostGermplasmRequestBody
+            return $ PutGermplasmRequestBody
                          name
                          workflowId
                          attributes
 
-makeFieldsNoPrefix ''PostGermplasmRequestBody
+makeFieldsNoPrefix ''PutGermplasmRequestBody
