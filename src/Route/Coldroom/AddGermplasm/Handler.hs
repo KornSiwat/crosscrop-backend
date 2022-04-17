@@ -16,8 +16,8 @@ import           Route.Common.Response
 import qualified Usecase.Coldroom                              as UC.CR
 import qualified Usecase.Germplasm                             as UC.GP
 
-postColdroomAddGermplasmR :: Handler Value
-postColdroomAddGermplasmR = do
+postColdroomGermplasmR :: Handler Value
+postColdroomGermplasmR = do
     body <- parseJSONBody :: Handler (Either Error ColdroomAddGermplasmRequestBody)
 
     germplasms <- join <$> sequence (UC.GP.getGermplasmByIds <$> body&^.germplasmIds)

@@ -5,7 +5,6 @@
 {-# LANGUAGE TemplateHaskell        #-}
 
 module Model.Germplasm.GermplasmAttribute.Definition where
-
 import           Import
 
 import           Control.Lens                                 (makeFieldsNoPrefix)
@@ -22,7 +21,6 @@ data GermplasmAttribute
         , _germplasmAttributeValue :: GermplasmAttributeValue
         }
     deriving (Show, Read, Eq, Generic)
-
 
 instance ToJSON GermplasmAttribute where
     toJSON (GermplasmAttribute

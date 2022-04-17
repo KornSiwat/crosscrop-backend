@@ -83,20 +83,22 @@ instance Yesod App where
                  -> Bool       -- ^ Whether or not this is a "write" request.
                  -> Handler AuthResult
     -- Routes not requiring authentication.
-    isAuthorized (AuthR _) _                 = return Authorized
-    isAuthorized HomeR _                     = return Authorized
-    isAuthorized FaviconR _                  = return Authorized
-    isAuthorized RobotsR _                   = return Authorized
-    isAuthorized (StaticR _) _               = return Authorized
-    isAuthorized GermplasmR _                = return Authorized
-    isAuthorized (OneGermplasmR _) _         = return Authorized
-    isAuthorized WorkflowR _                 = return Authorized
-    isAuthorized (OneWorkflowR _) _          = return Authorized
-    isAuthorized SeasonR _                   = return Authorized
-    isAuthorized (OneSeasonR _) _            = return Authorized
-    isAuthorized (WorkflowAddGermplasmR _) _ = return Authorized
-    isAuthorized ColdroomR _                 = return Authorized
-    isAuthorized ColdroomAddGermplasmR _     = return Authorized
+    isAuthorized (AuthR _) _                       = return Authorized
+    isAuthorized HomeR _                           = return Authorized
+    isAuthorized FaviconR _                        = return Authorized
+    isAuthorized RobotsR _                         = return Authorized
+    isAuthorized (StaticR _) _                     = return Authorized
+    isAuthorized GermplasmR _                      = return Authorized
+    isAuthorized (OneGermplasmR _) _               = return Authorized
+    isAuthorized WorkflowR _                       = return Authorized
+    isAuthorized (OneWorkflowR _) _                = return Authorized
+    isAuthorized SeasonR _                         = return Authorized
+    isAuthorized (OneSeasonR _) _                  = return Authorized
+    isAuthorized (WorkflowGermplasmR _) _          = return Authorized
+    isAuthorized (WorkflowGermplasmAttributeR _) _ = return Authorized
+    isAuthorized ColdroomR _                       = return Authorized
+    isAuthorized ColdroomGermplasmR _              = return Authorized
+    isAuthorized ColdroomGermplasmAttributeR _     = return Authorized
 
     -- the profile route requires that the user is authenticated, so we
     -- delegate to that function

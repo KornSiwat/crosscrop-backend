@@ -4,9 +4,7 @@
 
 module Model.Germplasm.GermplasmAttribute.Attribute where
 
-import           ClassyPrelude.Yesod  hiding (Number, String)
-
-import           Class.ToValue
+import           ClassyPrelude.Yesod  hiding (Null, Number, String)
 
 import qualified Data.Aeson           as A
 
@@ -52,6 +50,7 @@ data GermplasmAttributeValue
     | GermplasmAttributeNumber Double
     | GermplasmAttributeBool Bool
     | GermplasmAttributeDateTime UTCTime
+    | GermplasmAttributeNull
     deriving (Show, Read, Eq)
 
 instance A.ToJSON GermplasmAttributeValue where
@@ -59,6 +58,7 @@ instance A.ToJSON GermplasmAttributeValue where
     toJSON (GermplasmAttributeNumber x)   = A.toJSON x
     toJSON (GermplasmAttributeBool x)     = A.toJSON x
     toJSON (GermplasmAttributeDateTime x) = A.toJSON x
+    toJSON GermplasmAttributeNull         = A.Null
 
 instance FromJSON GermplasmAttributeValue  where
   parseJSON (A.String x) = case parseDateTime <|> parseString of
@@ -68,10 +68,5 @@ instance FromJSON GermplasmAttributeValue  where
                               parseString = Just $ GermplasmAttributeString x
   parseJSON (A.Number x) = return $ GermplasmAttributeNumber (toRealFloat x::Double)
   parseJSON (A.Bool x) = return $ GermplasmAttributeBool x
+  parseJSON A.Null =  return GermplasmAttributeNull
   parseJSON x =  error $ "Json format not expected. Got: " ++ show x
-
-instance ToValue GermplasmAttributeValue where
-    toValue (GermplasmAttributeString x)   = A.String x
-    toValue (GermplasmAttributeNumber x)   = A.Number . fromFloatDigits $ x
-    toValue (GermplasmAttributeBool x)     = A.Bool x
-    toValue (GermplasmAttributeDateTime x) = A.String . tshow $ x

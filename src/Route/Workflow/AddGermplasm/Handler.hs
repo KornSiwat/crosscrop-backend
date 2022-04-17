@@ -18,9 +18,9 @@ import           Route.Workflow.AddGermplasm.RequestBody
 import qualified Usecase.Germplasm                             as UC.GP
 import qualified Usecase.Workflow                              as UC.WF
 
-postWorkflowAddGermplasmR :: M.WorkflowId 
+postWorkflowGermplasmR :: M.WorkflowId
                           -> Handler Value
-postWorkflowAddGermplasmR id = do
+postWorkflowGermplasmR id = do
     body <- parseJSONBody :: Handler (Either Error WorkflowAddGermplasmRequestBody)
 
     workflow <- UC.WF.getWorkflowById id
