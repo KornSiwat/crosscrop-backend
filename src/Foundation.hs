@@ -9,23 +9,24 @@
 
 module Foundation where
 
-import           ClassyPrelude.Yesod       (runDB)
-import           Control.Monad.Logger      (LogSource)
-import           Database.Persist.Sql      (ConnectionPool, runSqlPool)
+import           ClassyPrelude.Yesod                (runDB)
+import           Control.Monad.Logger               (LogSource)
+import           Database.Persist.Sql               (ConnectionPool, runSqlPool)
 import           Import.NoFoundation
 
 -- Used only when in "auth-dummy-login" setting is enabled.
 import           Yesod.Auth.Dummy
-import           Yesod.Auth.OpenId         (IdentifierType (Claimed),
-                                            authOpenId)
-import           Yesod.Core.Types          (Logger)
-import qualified Yesod.Core.Unsafe         as Unsafe
+import           Yesod.Auth.OpenId                  (IdentifierType (Claimed),
+                                                     authOpenId)
+import           Yesod.Core.Types                   (Logger)
+import qualified Yesod.Core.Unsafe                  as Unsafe
 
 import           Persist.Entity
 
-import           Model.Germplasm.Attribute (GermplasmId (..))
-import           Model.Season.Attribute    (SeasonId (..))
-import           Model.Workflow.Attribute  (WorkflowId (..))
+import           Model.Germplasm.Attribute          (GermplasmId (..))
+import           Model.Germplasm.GermplasmAttribute (GermplasmAttributeName (..))
+import           Model.Season.Attribute             (SeasonId (..))
+import           Model.Workflow.Attribute           (WorkflowId (..))
 
 -- | The foundation datatype for your application. This can be a good place to
 -- keep settings and values requiring initialization before your application
@@ -83,22 +84,24 @@ instance Yesod App where
                  -> Bool       -- ^ Whether or not this is a "write" request.
                  -> Handler AuthResult
     -- Routes not requiring authentication.
-    isAuthorized (AuthR _) _                       = return Authorized
-    isAuthorized HomeR _                           = return Authorized
-    isAuthorized FaviconR _                        = return Authorized
-    isAuthorized RobotsR _                         = return Authorized
-    isAuthorized (StaticR _) _                     = return Authorized
-    isAuthorized GermplasmR _                      = return Authorized
-    isAuthorized (OneGermplasmR _) _               = return Authorized
-    isAuthorized WorkflowR _                       = return Authorized
-    isAuthorized (OneWorkflowR _) _                = return Authorized
-    isAuthorized SeasonR _                         = return Authorized
-    isAuthorized (OneSeasonR _) _                  = return Authorized
-    isAuthorized (WorkflowGermplasmR _) _          = return Authorized
-    isAuthorized (WorkflowGermplasmAttributeR _) _ = return Authorized
-    isAuthorized ColdroomR _                       = return Authorized
-    isAuthorized ColdroomGermplasmR _              = return Authorized
-    isAuthorized ColdroomGermplasmAttributeR _     = return Authorized
+    isAuthorized (AuthR _) _                            = return Authorized
+    isAuthorized HomeR _                                = return Authorized
+    isAuthorized FaviconR _                             = return Authorized
+    isAuthorized RobotsR _                              = return Authorized
+    isAuthorized (StaticR _) _                          = return Authorized
+    isAuthorized GermplasmR _                           = return Authorized
+    isAuthorized (OneGermplasmR _) _                    = return Authorized
+    isAuthorized WorkflowR _                            = return Authorized
+    isAuthorized (OneWorkflowR _) _                     = return Authorized
+    isAuthorized SeasonR _                              = return Authorized
+    isAuthorized (OneSeasonR _) _                       = return Authorized
+    isAuthorized (WorkflowGermplasmR _) _               = return Authorized
+    isAuthorized (WorkflowGermplasmAttributeR _) _      = return Authorized
+    isAuthorized (OneWorkflowGermplasmAttributeR _ _) _ = return Authorized
+    isAuthorized ColdroomR _                            = return Authorized
+    isAuthorized ColdroomGermplasmR _                   = return Authorized
+    isAuthorized ColdroomGermplasmAttributeR _          = return Authorized
+    isAuthorized (OneColdroomGermplasmAttributeR _) _   = return Authorized
 
     -- the profile route requires that the user is authenticated, so we
     -- delegate to that function

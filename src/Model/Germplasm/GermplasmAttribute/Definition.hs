@@ -5,7 +5,8 @@
 {-# LANGUAGE TemplateHaskell        #-}
 
 module Model.Germplasm.GermplasmAttribute.Definition where
-import           Import
+
+import           ClassyPrelude.Yesod
 
 import           Control.Lens                                 (makeFieldsNoPrefix)
 

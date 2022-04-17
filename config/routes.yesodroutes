@@ -11,7 +11,8 @@
 
 /coldroom ColdroomR GET
 /coldroom/germplasm ColdroomGermplasmR POST
-/coldroom/germplasm/attribute ColdroomGermplasmAttributeR POST DELETE
+/coldroom/germplasm/attribute ColdroomGermplasmAttributeR POST
+/coldroom/germplasm/attribute/#GermplasmAttributeName OneColdroomGermplasmAttributeR DELETE
 
 /germplasm GermplasmR GET POST
 /germplasm/#GermplasmId OneGermplasmR GET PUT DELETE
@@ -19,7 +20,8 @@
 /workflow WorkflowR GET POST 
 /workflow/#WorkflowId OneWorkflowR GET PUT DELETE
 /workflow/#WorkflowId/germplasm WorkflowGermplasmR POST
-/workflow/#WorkflowId/germplasm/attribute WorkflowGermplasmAttributeR POST DELETE
+/workflow/#WorkflowId/germplasm/attribute WorkflowGermplasmAttributeR POST
+/workflow/#WorkflowId/germplasm/attribute/#GermplasmAttributeName OneWorkflowGermplasmAttributeR DELETE
 
 /season SeasonR GET POST 
 /season/#SeasonId OneSeasonR GET PUT DELETE

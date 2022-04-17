@@ -15,7 +15,7 @@ import           Helper.TypeConverter
 -- Basic Attributes
 newtype GermplasmAttributeName
     = GermplasmAttributeName Text
-    deriving (Show, Read, Eq, FromJSON)
+    deriving (Show, Read, Eq, FromJSON, PathPiece)
 
 instance ToJSON GermplasmAttributeName where
     toJSON (GermplasmAttributeName x) = toJSON x

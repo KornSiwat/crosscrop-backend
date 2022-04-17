@@ -8,25 +8,25 @@ import           Error.Definition
 
 import           Helper.Lens
 
+import qualified Model.Germplasm                                           as M.GP
 import qualified Model.Workflow                                            as M.WF
+
 import           Route.Common.Request
 import           Route.Common.Response
 import           Route.Workflow.RemoveGermplasmAttribute.Presenter.Factory
-import           Route.Workflow.RemoveGermplasmAttribute.RequestBody
 
 import qualified Usecase.Workflow                                          as UC.WF
 
-deleteWorkflowGermplasmAttributeR :: M.WF.WorkflowId
-                                  -> Handler Value
-deleteWorkflowGermplasmAttributeR id = do
-    body <- parseJSONBody :: Handler (Either Error WorkflowRemoveGermplasmAttributeRequestBody)
-
+deleteOneWorkflowGermplasmAttributeR :: M.WF.WorkflowId
+                                     -> M.GP.GermplasmAttributeName
+                                     -> Handler Value
+deleteOneWorkflowGermplasmAttributeR id germplasmAttributeName = do
     workflow <- UC.WF.getWorkflowById id
 
     workflow' <- join <$> sequence
                      (UC.WF.removeGermplasmAttribute
                          <$> workflow
-                         <*> body&^.name)
+                         <*> pure germplasmAttributeName)
 
     let presenter = makeWorkflowRemoveGermplasmAttributePresenter <$> workflow'
 
