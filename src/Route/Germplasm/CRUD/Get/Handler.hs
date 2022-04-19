@@ -1,8 +1,11 @@
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module Route.Germplasm.CRUD.Get.Handler where
 
 import           Import
+
+import           Helper.TypeConverter
 
 import qualified Model.Germplasm                            as M
 
@@ -13,7 +16,11 @@ import qualified Usecase.Germplasm                          as UC
 
 getGermplasmR :: Handler Value
 getGermplasmR = do
-    germplasms <- UC.getAllGermplasm
+    germplasmIds <- lookupGetParam "ids"
+
+    let germplasmIds' = map M.GermplasmId <$> (treadMaybe =<< germplasmIds:: Maybe [Int])
+
+    germplasms <- maybe UC.getAllGermplasm UC.getGermplasmByIds germplasmIds'
 
     let presenter = makeGetGermplasmPresenter <$> germplasms
 
@@ -27,4 +34,3 @@ getOneGermplasmR id = do
     let presenter = makeGetOneGermplasmPresenter <$> germplasm
 
     sendResponse status200 presenter
-
